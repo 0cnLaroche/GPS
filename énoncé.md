@@ -1,4 +1,4 @@
-###Objectifs relativement au cours
+### Objectifs relativement au cours
 
 L’objectif principal du devoir 2 est de maitriser la programmation par événements via un
 système à base d’objets intégrant les concepts du cours. Les concepts objets doivent être
@@ -7,7 +7,7 @@ Un sous objectif se rajoute à l’objectif principal : évaluer la qualité du 
 produit en mettant en application les connaissances du cours relativement a la qualité de
 la programmation objet.
 
-##II. Contexte du devoir
+## II. Contexte du devoir
 
 Nous considérons le contexte des systèmes des transports intelligents relativement aux
 systèmes de guidage. (Voir des informations sur Moodle pour plus de détails).
@@ -41,9 +41,9 @@ calculs précédents. Les nouvelles directions doivent être basées sur les mei
 calculés. 
 3
 
-##III. Travail à faire dans un environnement objet
+## III. Travail à faire dans un environnement objet
 
-#Phase 1 : Analyse et Spécifications: 20 pts
+# Phase 1 : Analyse et Spécifications: 20 pts
 
 On demande de faire une analyse du système à développer en spécifiant son fonctionnement.
 Rédiger en quelques lignes le fonctionnement du système à développer. On peut
@@ -55,7 +55,7 @@ interactions (affichages et entrées au besoin) à concevoir concernent le rése
 GPS ainsi que toute autre composante nécessaire pour l’initialisation et le fonctionnement de
 votre système.
 
-#Phase 2 : Conception de la solution globale : 25 pts
+# Phase 2 : Conception de la solution globale : 25 pts
 
 Une fois que le quoi, (ce qui est demandé de faire) est clair, il faut procéder par les étapes
 de conception : 1) Décomposition du problème : une solution pour le fonctionnement de
@@ -86,7 +86,7 @@ une réutilisation, il faut fournir la source et procéder à une révision du c
 l’intégrer à votre travail et de faire les modifications nécessaires. Pour ce cas, il faut
 ajouter le travail de révision à la phase 4.
 
-#Phase 4 : Révision de votre travail et qualité du travail d’équipe : 25 pts
+# Phase 4 : Révision de votre travail et qualité du travail d’équipe : 25 pts
 
 1) Fonctionnement du code : Faire plusieurs jeux de tests pour faire varier les
 évènements de la route (congestion de tronçons et accidents). Montrer pour chaque jeu
