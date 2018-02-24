@@ -1,11 +1,14 @@
 ###Objectifs relativement au cours
+
 L’objectif principal du devoir 2 est de maitriser la programmation par événements via un
 système à base d’objets intégrant les concepts du cours. Les concepts objets doivent être
 considérés et appliqués pour développer le système considéré dans ce devoir.
 Un sous objectif se rajoute à l’objectif principal : évaluer la qualité du travail qui sera
 produit en mettant en application les connaissances du cours relativement a la qualité de
 la programmation objet.
-II. Contexte du devoir
+
+##II. Contexte du devoir
+
 Nous considérons le contexte des systèmes des transports intelligents relativement aux
 systèmes de guidage. (Voir des informations sur Moodle pour plus de détails).
 Parmi les fonctionnalités des systèmes de guidage, nous considérons la recherche du
@@ -22,6 +25,7 @@ Figure 1 : Exemple d’une image GPS indiquant une direction
 Fonctionnement du système à développer dans ce devoir
 Les concepts objets doivent être considérés et appliqués pour développer le système de
 guidage décrit précédemment.
+
 Le fonctionnement de ce système se décrit comme suit : Un réseau routier est fixé et les
 véhicules se déplacent à l’intérieur de ce réseau. Le réseau routier emprunté par le
 conducteur est défini par un ensemble d’artères et d’intersections. Les événements qui
@@ -36,8 +40,11 @@ réactivé à chaque fois que les nouvelles informations du GPS affectent les r�
 calculs précédents. Les nouvelles directions doivent être basées sur les meilleurs chemins
 calculés. 
 3
-III. Travail à faire dans un environnement objet
-Phase 1 : Analyse et Spécifications: 20 pts
+
+##III. Travail à faire dans un environnement objet
+
+#Phase 1 : Analyse et Spécifications: 20 pts
+
 On demande de faire une analyse du système à développer en spécifiant son fonctionnement.
 Rédiger en quelques lignes le fonctionnement du système à développer. On peut
 considérer à ce niveau des composantes potentielles de la librairie jdk qui permettent de répondre
@@ -47,7 +54,9 @@ différents types d’interfaces que vous avez identifiées. Les interfaces qui 
 interactions (affichages et entrées au besoin) à concevoir concernent le réseau routier et l’écran du
 GPS ainsi que toute autre composante nécessaire pour l’initialisation et le fonctionnement de
 votre système.
-Phase 2 : Conception de la solution globale : 25 pts
+
+#Phase 2 : Conception de la solution globale : 25 pts
+
 Une fois que le quoi, (ce qui est demandé de faire) est clair, il faut procéder par les étapes
 de conception : 1) Décomposition du problème : une solution pour le fonctionnement de
 tout le système (routes, écran GPS, … etc). Justifier les choix de votre conception. 2)
@@ -76,7 +85,9 @@ les particularités de l’énoncé relativement aux meilleurs chemins. Si vous 
 une réutilisation, il faut fournir la source et procéder à une révision du code avant de
 l’intégrer à votre travail et de faire les modifications nécessaires. Pour ce cas, il faut
 ajouter le travail de révision à la phase 4.
-Phase 4 : Révision de votre travail et qualité du travail d’équipe : 25 pts
+
+#Phase 4 : Révision de votre travail et qualité du travail d’équipe : 25 pts
+
 1) Fonctionnement du code : Faire plusieurs jeux de tests pour faire varier les
 évènements de la route (congestion de tronçons et accidents). Montrer pour chaque jeu
 d’essai les interfaces associées (le réseau routier et la visualisation de l’interface du GPS).
