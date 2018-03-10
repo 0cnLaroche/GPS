@@ -125,5 +125,16 @@ public class Liens {
 			
 			this.poidArc.add(poid);
 		} 
+		
+	}
+	public void distance(Point a, Point b){
+		double poid, xa, xb, ya, yb;
+		//Voir la méthode distance de java.awt.geometry.point2d
+		
+		//poid = Math.sqrt(Math.pow(xb - xa, 2) + Math.pow(yb - ya, 2));
+		
+		/*
+		 * 
+		 */
 	}
 }
