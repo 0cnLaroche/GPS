@@ -1,5 +1,9 @@
 package modele;
-
+/*Les liens devront être stockés par couples de points. Nous allons les déterminer à l'avance dans le format suivant :
+ * si Point a: x = 0 ; y = 0
+ * 
+ * lien = (a,b)
+ */
 import java.awt.Point;
 import java.util.ArrayList;
 
