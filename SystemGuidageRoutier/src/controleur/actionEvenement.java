@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-import modele.Evennements;
+import modele.Evenements;
 import modele.PointGraphe;
 import vue.FrmPanelSimulation;
 import vue.PanelUtilisateur;
@@ -24,7 +24,7 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 
 	private FrmPanelSimulation panelSimulation;
 	
-	private Evennements Event;
+	private Evenements Event;
 
 	/**
 	 * liste qui contient les coordonnes des points (intersections des routes) du
@@ -165,14 +165,14 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 		 * etre generer et et le nom du button cliquer pour savoir le type d'evennement
 		 * a generer (accident ou traffic)
 		 */
-		if(nomButtonClique.equals("Générer un accident")) {
-			System.out.println("Click sur Générer un accident");
+		if(nomButtonClique.equals("Gï¿½nï¿½rer un accident")) {
+			System.out.println("Click sur Gï¿½nï¿½rer un accident");
 			String nomRouteEvenement = panelSimulation.getRouteAccident().getText();//on recupere le nom de la route ou l'evennement sera generer
-			Event = new Evennements(nomRouteEvenement, nomButtonClique);
+			Event = new Evenements(nomRouteEvenement, nomButtonClique);
 		}else {
-			System.out.println("Click sur Générer un traffic");
+			System.out.println("Click sur Gï¿½nï¿½rer un traffic");
 			String nomRouteEvenement = panelSimulation.getRouteTraffic().getText();//on recupere le nom de la route ou l'evennement sera generer
-			Event = new Evennements(nomRouteEvenement, nomButtonClique);
+			Event = new Evenements(nomRouteEvenement, nomButtonClique);
 		}
 		
 		/**
@@ -194,12 +194,12 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 		 */
 
 		/*
-		 * if(e.getActionCommand().equals("Générer un accident")) {
-		 * System.out.println("Click sur Générer un accident"); String bouttonAccident =
+		 * if(e.getActionCommand().equals("Gï¿½nï¿½rer un accident")) {
+		 * System.out.println("Click sur Gï¿½nï¿½rer un accident"); String bouttonAccident =
 		 * panelSimulation.getRouteAccident().getText(); new Accident(bouttonAccident);
 		 * //la classe Accident recoit ce qui est saisi dans le Jtextfield
 		 * "Localisation de l'accident" }else {
-		 * System.out.println("Click sur Générer un traffic"); String bouttonTraffic =
+		 * System.out.println("Click sur Gï¿½nï¿½rer un traffic"); String bouttonTraffic =
 		 * panelSimulation.getRouteTraffic().getText(); new Traffic(bouttonTraffic);//la
 		 * classe Traffic recoit ce qui est saisi dans le Jtextfield
 		 * "Localisation du traffic" }

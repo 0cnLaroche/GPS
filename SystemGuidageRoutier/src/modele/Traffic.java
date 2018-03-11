@@ -1,6 +1,6 @@
 package modele;
 
-public class Traffic extends Evennements{
+public class Traffic extends Evenements{
 	
 	private String nomRouteTraffic;
 	

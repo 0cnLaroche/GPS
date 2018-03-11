@@ -1,6 +1,6 @@
 package modele;
 
-public class Accident extends Evennements{
+public class Accident extends Evenements{
 	
 	private String nomRouteAccident;
 	
