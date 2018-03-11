@@ -2,6 +2,7 @@ package controleur;
 
 import java.awt.Point;
 import modele.*;
+import outils.CSV;
 
 /**
  * Cette classe n'a aucune utilités dans l'application, seulement créé pour tester 

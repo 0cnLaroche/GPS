@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import outils.CSV;
+
 public class Graph  {
 	
 	private HashMap<String,Noeud> noeuds; // indexé par lettres de l'alphabet
