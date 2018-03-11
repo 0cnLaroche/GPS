@@ -61,6 +61,21 @@ public class PointGraphe {
 		}
 		fichier.close();
 	}
+	public void ecrireCSV(Point coordonne) {
+		File x = new File("Coordonees.csv");
+		FileWriter y;
+		BufferedWriter z;
+		PrintWriter fichier = null;
+		try {
+			y = new FileWriter(x, true);
+			z = new BufferedWriter(y);
+			fichier = new PrintWriter(z);
+			fichier.println(String.valueOf(coordonne.getX()) + "," + String.valueOf(coordonne.getY()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		fichier.close();
+	}
 	
 	/**
 	 * Fonction qui permet de deplacer un point sur une droite (route) en utilisant

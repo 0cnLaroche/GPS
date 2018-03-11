@@ -77,7 +77,10 @@ public class CSV extends ArrayList<ArrayList>{
 			String line = "";
 			ArrayList row = this.get(i);
 			for (int j=0;j<row.size();j++){
-				line += row.get(j)+",";
+				line += row.get(j);
+				if (j<row.size()-1){
+					line += ",";
+				}
 			}
 			System.out.println(line);
 		}

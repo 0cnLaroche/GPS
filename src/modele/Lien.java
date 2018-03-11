@@ -6,16 +6,25 @@ public class Lien {
 	public double poid; //distance
 	public Integer nom;
 	
-	public Lien(Noeud a, Noeud b, Double poid){
+	public Lien(Noeud a, Noeud b){
+		/**Créer un lien et calcule automatiquement la distance (ou poid) selon l'hypotenuse des coordonnées déclarer dans 
+		 * la variable coordonnees de type Point de Noeud.
+		 * @author Samuel
+		 */
 		this.a = a;
-		this.b = b;
-		this.poid = poid;
+		this.b = b;	
+		this.poid = Math.hypot(b.getX()-a.getX(), b.getY()-a.getY());
 	}
 	
 	public Integer getNom(){
 		return this.nom;
 	}
-	
+	public void setPoid(Double poid){
+		this.poid = poid;
+	}
+	public Double getPoid(){
+		return this.poid;
+	}
 	public Noeud getVoisin(Noeud courant) throws Exception {
 
 		if(courant.getNom() == a.getNom()){
