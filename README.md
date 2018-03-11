@@ -1,5 +1,10 @@
 # Système de guidage routier
 
+## Instructions pour importer dans eclipse
+1. cloner dans le workspace d'eclipse (meme place que vos autres projets)
+2. Dans eclipse, creer un nouveau projet nomme exactement "SystemGuidageRoutier"
+3. Le projet devrait s'importer automatiquement
+
 ## Fonctionnement
 
 Le système sera composé de deux interfaces: l'interface utilisateur et l'interface simulation.
