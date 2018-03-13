@@ -12,13 +12,11 @@ import outils.CSV;
 public class Testing {
 
 	public static void main(String[] args) {
-		Graph g = new Graph();
-		CSV c = new CSV("res/liens.csv");
-		c.print();
+
 		
 		//test pour comparer la signature d'un lien. 
 		//Est-ce que (a,b) devrait etre equivalent a (b,a)??
-		Lien un,deux;
+		/*Lien un,deux;
 		Noeud a,b,k,l;
 		a = new Noeud("a", new Point(10,23));
 		b = new Noeud("b",new Point(0,33));
@@ -29,7 +27,13 @@ public class Testing {
 		deux = new Lien(k,l);
 		
 		System.out.println(un.getHash());
-		System.out.println(deux.getHash());
+		System.out.println(deux.getHash());*/
+		
+		Graph g = new Graph();
+		g.setNoeuds(new CSV("res/Coordonnees.csv"));
+		g.setLiens(new CSV("res/liens.csv"));
+		
+		
 	}
 
 }
