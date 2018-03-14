@@ -56,8 +56,10 @@ public class Graph  {
 				continue;
 			
 			String nom = champs.get(0);
-			Integer x = Integer.parseInt(champs.get(1));
-			Integer y = Integer.parseInt(champs.get(2));
+			
+			Integer x = (int) Double.parseDouble(champs.get(1)); //La methode getX() de Point retourne un Double
+			Integer y = (int) Double.parseDouble(champs.get(2)); //Mais les variables x et y sont des int
+																 //Il faut donc faire la conversion de Double à int
 			Noeud n = new Noeud(nom, new Point(x,y));
 			this.addNoeud(n);
 		}
