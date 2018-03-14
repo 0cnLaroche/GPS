@@ -15,6 +15,14 @@ public class Graph  {
 		noeuds = new HashMap<String,Noeud>();
 		liens = new HashMap<Integer,Lien>();
 	}
+	
+	public Noeud getNoeud(String nom){
+		return this.noeuds.get(nom);
+	}
+	
+	public Lien getLien(int index){
+		return this.liens.get(index);
+	}
 
 	public void addLien(Noeud un, Noeud deux){
 		Lien l = new Lien(un,deux);

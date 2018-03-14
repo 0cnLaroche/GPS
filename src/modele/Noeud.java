@@ -1,17 +1,18 @@
 package modele;
 
 import java.awt.Point;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Noeud {
 	
-	public String nom;
+	private String nom;
 	private Point coordonnees;
-	public List<Lien> voisins;
+	private ArrayList<Lien> voisins;
 	
 	public Noeud(String nom, Point coordonnees){
 		this.nom = nom;
 		this.coordonnees = coordonnees;
+		this.voisins = new ArrayList<Lien>();
 	}
 	
 	public String getNom(){
@@ -29,13 +30,23 @@ public class Noeud {
 	public Double getY(){
 		return coordonnees.getY();
 	}
+	public ArrayList<Lien> getVoisinage(){
+		return this.voisins;
+	}
+	public Lien getVoisin(int index){
+		return this.voisins.get(index);
+	}
 	public void addVoisin(Lien e){
 		this.voisins.add(e);
 	}
 	public void removeVoisin(Lien e){
-		this.voisins.remove(e.getNom());
+		this.voisins.remove(e.getIndex());
 	}
-	public List<Lien> getVoisins(){
+	public ArrayList<Lien> getVoisins(){
 		return this.voisins;
+	}
+	public String toString(){
+		String str = "[nom: " + this.nom + ", coordonnees:{x: " + this.getX() + ", y: " + this.getY() + "}]";
+		return str;
 	}
 }

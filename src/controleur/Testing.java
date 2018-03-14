@@ -14,26 +14,17 @@ public class Testing {
 	public static void main(String[] args) {
 
 		
-		//test pour comparer la signature d'un lien. 
-		//Est-ce que (a,b) devrait etre equivalent a (b,a)??
-		/*Lien un,deux;
-		Noeud a,b,k,l;
-		a = new Noeud("a", new Point(10,23));
-		b = new Noeud("b",new Point(0,33));
-		un = new Lien(a,b);
-		
-		k = new Noeud("b",new Point(100,43));
-		l = new Noeud("a",new Point(8,10));
-		deux = new Lien(k,l);
-		
-		System.out.println(un.getHash());
-		System.out.println(deux.getHash());*/
-		
 		Graph g = new Graph();
 		g.setNoeuds(new CSV("res/Coordonnees.csv"));
 		g.setLiens(new CSV("res/liens.csv"));
 		
+		Noeud un = g.getNoeud("g");
 		
+		for (Lien l:un.getVoisinage()){
+			System.out.println(l.toString());
+			System.out.println(l.getNoeudUn().toString());
+			System.out.println(l.getNoeudDeux().toString());
+		}
 	}
 
 }
