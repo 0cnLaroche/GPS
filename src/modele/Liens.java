@@ -1,9 +1,5 @@
 package modele;
-/*Les liens devront être stockés par couples de points. Nous allons les déterminer à l'avance dans le format suivant :
- * si Point a: x = 0 ; y = 0
- * 
- * lien = (a,b)
- */
+
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -28,6 +24,8 @@ public class Liens {
 	 *List qui va contenir les suites des point sur le graphe
 	 */
 	private ArrayList<String> nomPoint = new ArrayList<String>();
+	
+	
 	
 	/**
 	 * Constructeur
@@ -129,16 +127,5 @@ public class Liens {
 			
 			this.poidArc.add(poid);
 		} 
-		
-	}
-	public void distance(Point a, Point b){
-		double poid, xa, xb, ya, yb;
-		//Voir la méthode distance de java.awt.geometry.point2d
-		
-		//poid = Math.sqrt(Math.pow(xb - xa, 2) + Math.pow(yb - ya, 2));
-		
-		/*
-		 * 
-		 */
 	}
 }

@@ -18,7 +18,7 @@ public class Testing {
 		g.setNoeuds(new CSV("res/Coordonnees.csv"));
 		g.setLiens(new CSV("res/liens.csv"));
 		
-		Noeud un = g.getNoeud("g");
+		Noeud un = g.getNoeud("a");
 		
 		for (Lien l:un.getVoisinage()){
 			System.out.println(l.toString());

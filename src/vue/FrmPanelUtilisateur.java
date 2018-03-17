@@ -44,7 +44,7 @@ public class FrmPanelUtilisateur extends JFrame {
 		this.setAlwaysOnTop(false);
 
 		/**
-		 * Ajout du JPanel qui contient le dessin du reseau routier sur le JFrame
+		 * Creation et ajout du JPanel qui contient le dessin du reseau routier sur le JFrame
 		 */
 		panelUtilisateur = new PanelUtilisateur();
 		this.add(panelUtilisateur);

@@ -6,14 +6,11 @@ import java.io.*;
 
 import vue.PanelUtilisateur;
 
-public class PointGraphe {
-	
-	/**
-	 * attribut qui sert a ecrire dans un fichier
-	 */
-	private Formatter ecrire; 
+public class PointGraphe { 
 	
 	private PanelUtilisateur panelUtilisateur;
+	
+	private Point pointGraphe;
 	
 	/**
 	 * Attribut qui permet de dessiner sur le panelUtilisateur, tout ce qu'on fait
@@ -35,8 +32,32 @@ public class PointGraphe {
 	
 	int cpt = 0; // temporaire pour le test
 	
+	
+
+	/**
+	 * @return the coordonnnePoint
+	 */
+	public ArrayList<Point> getCoordonnnePoint() {
+		return coordonnnePoint;
+	}
+
+	/**
+	 * @param coordonnnePoint the coordonnnePoint to set
+	 */
+	public void setCoordonnnePoint(ArrayList<Point> coordonnnePoint) {
+		this.coordonnnePoint = coordonnnePoint;
+	}
+
+	/**
+	 * constructeur sans parametres
+	 */
 	public PointGraphe() {super();}
 	
+	/**
+	 * constructeur avec parametre
+	 * @param panelUtilisateur
+	 * @param coodroneePoint
+	 */
 	public PointGraphe(PanelUtilisateur panelUtilisateur, ArrayList<Point> coodroneePoint) {
 		this.panelUtilisateur = panelUtilisateur;
 		this.coordonnnePoint = coodroneePoint;
@@ -75,6 +96,33 @@ public class PointGraphe {
 			e.printStackTrace();
 		}
 		fichier.close();
+	}
+	
+	/**
+	 * Fonction qui lit dans un fichier les coordonnees d'un point du graphe
+	 */
+	public void lireFichier(String nomFichier) {
+		String a, b, c, d;
+		int x = 0, y = 0, i = 0;
+		Scanner lecture = null;
+		try {
+			lecture = new Scanner(new File(nomFichier));
+		       while(lecture.hasNext()){
+	                a = lecture.next();
+	                c = lecture.next();
+	                x = (int) Double.parseDouble(lecture.next());
+	                b = lecture.next();
+	                d = lecture.next();
+	                y = (int) Double.parseDouble(lecture.next());
+	                pointGraphe = new Point(x,y); 
+	                coordonnnePoint.add(pointGraphe);
+	                System.out.println("X : " + coordonnnePoint.get(cpt).getX() + "  Y : " + coordonnnePoint.get(cpt).getY() );
+	                cpt++;
+		       }
+		       lecture.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

@@ -14,16 +14,19 @@ import java.util.ArrayList;
 import modele.Evenements;
 import modele.PointGraphe;
 import vue.FrmPanelSimulation;
+import vue.FrmPanelUtilisateur;
 import vue.PanelUtilisateur;
 
 public class actionEvenement implements ActionListener, MouseListener, WindowListener {
+
+	private FrmPanelUtilisateur frmPanelUtilisateur;
 
 	private PanelUtilisateur panelUtilisateur;
 
 	private PointGraphe pointGraphe = new PointGraphe();
 
 	private FrmPanelSimulation panelSimulation;
-	
+
 	private Evenements Event;
 
 	/**
@@ -50,6 +53,7 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 	 * constructeur sans parametres
 	 */
 	public actionEvenement() {
+		super();
 	}
 
 	/**
@@ -110,9 +114,9 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 		// Graphics2D g2 = (Graphics2D) g;
 		debut = e.getPoint();
 		coordonnnePoint.add(debut);
-		pointGraphe.ecrireFichier(debut); //ecriture des coordonnes du point dans le fichier
+		pointGraphe.ecrireFichier(debut); // ecriture des coordonnes du point dans le fichier
 		g.setColor(Color.RED);
-		g.fillOval(debut.x, debut.y, 15, 15);
+		g.fillOval(debut.x, debut.y, 10, 10);
 		System.out.println("Element a la " + (cpt - 1) + " position");
 		System.out
 				.println("X : " + coordonnnePoint.get(cpt - 1).getX() + "  Y : " + coordonnnePoint.get(cpt - 1).getY());
@@ -155,55 +159,30 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 		 * recuprer le contenue du getTextfield correspondant et le nom du button
 		 * cliquer pour le passer au constructeur de cette instance }
 		 */
-
 		panelSimulation = new FrmPanelSimulation();
-		String nomButtonClique = e.getActionCommand(); //on recupere le nom du button cliquer
-		
+		String nomButtonClique = e.getActionCommand(); // on recupere le nom du button cliquer
 		/**
 		 * la classe Evennements recoit ce qui est saisi dans le Jtextfield
 		 * "Localisation de l'accident" donc le nom de la route ou l'evennement doit
 		 * etre generer et et le nom du button cliquer pour savoir le type d'evennement
 		 * a generer (accident ou traffic)
 		 */
-		if(nomButtonClique.equals("G�n�rer un accident")) {
+		if (nomButtonClique.equals("G�n�rer un accident")) {
 			System.out.println("Click sur G�n�rer un accident");
-			String nomRouteEvenement = panelSimulation.getRouteAccident().getText();//on recupere le nom de la route ou l'evennement sera generer
+			String nomRouteEvenement = panelSimulation.getRouteAccident().getText();// on recupere le nom de la route ou
+																					// l'evennement sera generer
 			Event = new Evenements(nomRouteEvenement, nomButtonClique);
-		}else {
+
+		} else if (nomButtonClique.equals("G�n�rer un traffic")) {
 			System.out.println("Click sur G�n�rer un traffic");
-			String nomRouteEvenement = panelSimulation.getRouteTraffic().getText();//on recupere le nom de la route ou l'evennement sera generer
+			String nomRouteEvenement = panelSimulation.getRouteTraffic().getText();// on recupere le nom de la route ou
+																					// l'evennement sera generer
 			Event = new Evenements(nomRouteEvenement, nomButtonClique);
+
+		} else if (nomButtonClique.equals("Demarrer")) {
+			frmPanelUtilisateur = new FrmPanelUtilisateur();
+			frmPanelUtilisateur.setVisible(true);
+			System.out.println("Click sur Demarrer");
 		}
-		
-		/**
-		 * le controlleur connait l'endroit ou l'evennement a lieu et peut 
-		 * transmettre l'information a la vue. ne pas oublier de stocker la valeur 
-		 * retourner par la methode placerEvenement
-		 */
-		//Event.placerEvenement(mettre le nom de la route ou on creer l'evennement);
-
-		/**
-		 * "ceci est a revoir pour decider si on utilise deux classes (Accident et
-		 * Traffic) pour gerer les Evenement" ou si on utilise juste une seule classe
-		 * (Evennements) si click sur boutton "genererAccident" { creer une instance de
-		 * la classe Accident et recuprer le contenue du getTextfield correspondant pour
-		 * le passer au constructeur de cette instance }
-		 * 
-		 * sinon (donc click sur boutton genereTraffic) {creer une instance de la classe
-		 * Traffic}
-		 */
-
-		/*
-		 * if(e.getActionCommand().equals("G�n�rer un accident")) {
-		 * System.out.println("Click sur G�n�rer un accident"); String bouttonAccident =
-		 * panelSimulation.getRouteAccident().getText(); new Accident(bouttonAccident);
-		 * //la classe Accident recoit ce qui est saisi dans le Jtextfield
-		 * "Localisation de l'accident" }else {
-		 * System.out.println("Click sur G�n�rer un traffic"); String bouttonTraffic =
-		 * panelSimulation.getRouteTraffic().getText(); new Traffic(bouttonTraffic);//la
-		 * classe Traffic recoit ce qui est saisi dans le Jtextfield
-		 * "Localisation du traffic" }
-		 */
-
 	}
 }
