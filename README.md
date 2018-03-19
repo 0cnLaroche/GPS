@@ -21,3 +21,5 @@ a,60.9,100.3,
 b,12.4,34.0,
 ...
 
+### Diagramme de classe
+https://www.lucidchart.com/invitations/accept/f996a9e6-5bc5-445d-ba18-fdbdc164e514
