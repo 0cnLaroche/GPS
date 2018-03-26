@@ -28,15 +28,18 @@ public class FrmPanelSimulation extends JFrame {
 	private JButton genereAccident;
 	private JButton genereTraffic;
 	private JButton demarrerSimulation;
-	private JButton lancerNavigation;
-	private JButton arreteSimulation;
-	private JButton reprendreSimulation;
 
 	/**
 	 * Champs de saisi pour entre l'endroit ou on veut generer un evenement
 	 */
-	private JLabel routeAccident;
-	private JTextField routeTraffic;
+	private JLabel routeArriver;
+	private JLabel routeDepart;
+	private JLabel infoRouteDepart;
+	private JLabel infoRouteArriver;
+	
+	private JTextField routeArrSaisi;
+	private JTextField routeDepSaisi;
+	
 
 	private actionEvenement actionEvenement;
 
@@ -68,51 +71,6 @@ public class FrmPanelSimulation extends JFrame {
 	 */
 	public void setDemarrerSimulation(JButton demarrerSimulation) {
 		this.demarrerSimulation = demarrerSimulation;
-	}
-
-	/**
-	 * @return the lancerNavigation
-	 */
-	public JButton getLancerNavigation() {
-		return lancerNavigation;
-	}
-
-	/**
-	 * @param lancerNavigation
-	 *            the lancerNavigation to set
-	 */
-	public void setLancerNavigation(JButton lancerNavigation) {
-		this.lancerNavigation = lancerNavigation;
-	}
-
-	/**
-	 * @return the arreteSimulation
-	 */
-	public JButton getArreteSimulation() {
-		return arreteSimulation;
-	}
-
-	/**
-	 * @param arreteSimulation
-	 *            the arreteSimulation to set
-	 */
-	public void setArreteSimulation(JButton arreteSimulation) {
-		this.arreteSimulation = arreteSimulation;
-	}
-
-	/**
-	 * @return the reprendreSimulation
-	 */
-	public JButton getReprendreSimulation() {
-		return reprendreSimulation;
-	}
-
-	/**
-	 * @param reprendreSimulation
-	 *            the reprendreSimulation to set
-	 */
-	public void setReprendreSimulation(JButton reprendreSimulation) {
-		this.reprendreSimulation = reprendreSimulation;
 	}
 
 	/**
@@ -163,31 +121,31 @@ public class FrmPanelSimulation extends JFrame {
 	/**
 	 * @return the routeAccident
 	 */
-	public JLabel getRouteAccident() {
-		return routeAccident;
+	public JLabel getRouteArriver() {
+		return routeArriver;
 	}
 
 	/**
 	 * @param routeAccident
 	 *            the routeAccident to set
 	 */
-	public void setRouteAccident(JLabel routeAccident) {
-		this.routeAccident = routeAccident;
+	public void setRouteArriver(JLabel routeArriver) {
+		this.routeArriver = routeArriver;
 	}
 
 	/**
 	 * @return the routeTraffic
 	 */
-	public JTextField getRouteTraffic() {
-		return routeTraffic;
+	public JLabel getRouteDepart() {
+		return routeDepart;
 	}
 
 	/**
 	 * @param routeTraffic
 	 *            the routeTraffic to set
 	 */
-	public void setRouteTraffic(JTextField routeTraffic) {
-		this.routeTraffic = routeTraffic;
+	public void setRouteDepart(JLabel routeDepart) {
+		this.routeDepart = routeDepart;
 	}
 
 	/**
@@ -203,6 +161,64 @@ public class FrmPanelSimulation extends JFrame {
 	 */
 	public void setActionEvenement(actionEvenement actionEvenement) {
 		this.actionEvenement = actionEvenement;
+	}
+	
+	
+
+	/**
+	 * @return the infoRouteDepart
+	 */
+	public JLabel getInfoRouteDepart() {
+		return infoRouteDepart;
+	}
+
+	/**
+	 * @param infoRouteDepart the infoRouteDepart to set
+	 */
+	public void setInfoRouteDepart(JLabel infoRouteDepart) {
+		this.infoRouteDepart = infoRouteDepart;
+	}
+
+	/**
+	 * @return the infoRouteArriver
+	 */
+	public JLabel getInfoRouteArriver() {
+		return infoRouteArriver;
+	}
+
+	/**
+	 * @param infoRouteArriver the infoRouteArriver to set
+	 */
+	public void setInfoRouteArriver(JLabel infoRouteArriver) {
+		this.infoRouteArriver = infoRouteArriver;
+	}
+
+	/**
+	 * @return the routeArrSaisi
+	 */
+	public JTextField getRouteArrSaisi() {
+		return routeArrSaisi;
+	}
+
+	/**
+	 * @param routeArrSaisi the routeArrSaisi to set
+	 */
+	public void setRouteArrSaisi(JTextField routeArrSaisi) {
+		this.routeArrSaisi = routeArrSaisi;
+	}
+
+	/**
+	 * @return the routeDepSaisi
+	 */
+	public JTextField getRouteDepSaisi() {
+		return routeDepSaisi;
+	}
+
+	/**
+	 * @param routeDepSaisi the routeDepSaisi to set
+	 */
+	public void setRouteDepSaisi(JTextField routeDepSaisi) {
+		this.routeDepSaisi = routeDepSaisi;
 	}
 
 	public FrmPanelSimulation() {
@@ -240,8 +256,9 @@ public class FrmPanelSimulation extends JFrame {
 		/**
 		 * Composantes de la premiere colonne du GridBagLayout
 		 */
-		contrainte.anchor = GridBagConstraints.LINE_START;
+		//contrainte.anchor = GridBagConstraints.LINE_START;
 		demarrerSimulation = new JButton("Demarrer");
+		demarrerSimulation.setFont(new Font("Serif", Font.BOLD, 19));
 		demarrerSimulation.setToolTipText("Cliquer pour affiche le reseau routier");
 		demarrerSimulation.addActionListener(new actionEvenement());// ajout d'un ecouteur sur le boutton
 		contrainte.fill = GridBagConstraints.HORIZONTAL;
@@ -250,23 +267,47 @@ public class FrmPanelSimulation extends JFrame {
 		contrainte.gridx = 0;
 		contrainte.gridy = 0;
 		panelSimulation.add(demarrerSimulation, contrainte);
+		
+		routeDepart = new JLabel("Route depart ", JLabel.CENTER);
+		routeDepart.setFont(new Font("Serif", Font.BOLD, 19));
+		routeDepart.setForeground(Color.GREEN);
+		contrainte.anchor = GridBagConstraints.LINE_END;
+		contrainte.fill = GridBagConstraints.HORIZONTAL;
+		contrainte.fill = GridBagConstraints.VERTICAL;
+		contrainte.gridx = 0;
+		contrainte.gridy = 1;
+		panelSimulation.add(routeDepart, contrainte);
 
 		/**
 		 * Composantes de la deuxieme colonne du GridBagLayout
 		 */
-		lancerNavigation = new JButton("Lancer la navigation");
-		lancerNavigation.setToolTipText("Cliquer pour lancer la navigation");
-		lancerNavigation.addActionListener(new actionEvenement());// ajout d'un ecouteur sur le boutton
-		contrainte.anchor = GridBagConstraints.CENTER;
+		infoRouteDepart = new JLabel("Depart ", JLabel.CENTER);
+		infoRouteDepart.setFont(new Font("Serif", Font.BOLD, 19));
+		infoRouteDepart.setForeground(Color.GREEN);
+		infoRouteDepart.setToolTipText("Point de depart");
+		contrainte.anchor = GridBagConstraints.LINE_START;
+		contrainte.anchor = GridBagConstraints.LINE_END;
 		contrainte.fill = GridBagConstraints.HORIZONTAL;
 		contrainte.fill = GridBagConstraints.VERTICAL;
 		contrainte.gridx = 1;
 		contrainte.gridy = 0;
-		panelSimulation.add(lancerNavigation, contrainte);
-
-		genereAccident = new JButton("Générer un accident");
+		panelSimulation.add(infoRouteDepart, contrainte);
+		
+		/**
+		 * ajouter une fonction qui genere aleatoirement le accident
+		 */
+		routeDepSaisi = new JTextField("Entre votre point de depart");
+		routeDepSaisi.addActionListener(new actionEvenement());// ajout d'un ecouteur
+		contrainte.anchor = GridBagConstraints.LINE_START;
+		contrainte.fill = GridBagConstraints.HORIZONTAL;
+		contrainte.fill = GridBagConstraints.VERTICAL;
+		contrainte.gridx = 1;
+		contrainte.gridy = 1;
+		panelSimulation.add(routeDepSaisi, contrainte);
+		
+		genereAccident = new JButton("Generer un accident");
 		genereAccident.setFont(new Font("Serif", Font.BOLD, 19));
-		genereAccident.setToolTipText("cliquer pour générer un accident");
+		genereAccident.setToolTipText("cliquer pour generer un accident");
 		genereAccident.addActionListener(new actionEvenement());// ajout d'un ecouteur sur le boutton
 		contrainte.fill = GridBagConstraints.HORIZONTAL;
 		contrainte.fill = GridBagConstraints.VERTICAL;
@@ -274,31 +315,16 @@ public class FrmPanelSimulation extends JFrame {
 		contrainte.gridy = 2;
 		panelSimulation.add(genereAccident, contrainte);
 
-		routeAccident = new JLabel("Entre le nom de la route : ", JLabel.CENTER);
-		routeAccident.setFont(new Font("Serif", Font.BOLD, 19));
-		routeAccident.setForeground(Color.GREEN);
-		contrainte.fill = GridBagConstraints.HORIZONTAL;
-		contrainte.fill = GridBagConstraints.VERTICAL;
-		contrainte.gridx = 1;
-		contrainte.gridy = 1;
-		panelSimulation.add(routeAccident, contrainte);
-
 		/**
 		 * Composantes de la troisieme colonne du GridBagLayout
 		 */
-		arreteSimulation = new JButton("Arreter");
-		arreteSimulation.setToolTipText("Cliquer pour interompre la simulation");
-		arreteSimulation.addActionListener(new actionEvenement());// ajout d'un ecouteur sur le boutton
-		contrainte.anchor = GridBagConstraints.CENTER;
-		contrainte.fill = GridBagConstraints.HORIZONTAL;
-		contrainte.fill = GridBagConstraints.VERTICAL;
-		contrainte.gridx = 2;
-		contrainte.gridy = 0;
-		panelSimulation.add(arreteSimulation, contrainte);
-
-		genereTraffic = new JButton("Générer un traffic");
+		
+		/**
+		 * ajouter une fonction qui genere aleatoirement le traffic
+		 */
+		genereTraffic = new JButton("Generer un traffic");
 		genereTraffic.setFont(new Font("Serif", Font.BOLD, 19));
-		genereTraffic.setToolTipText("cliquer pour générer un traffic");
+		genereTraffic.setToolTipText("cliquer pour generer un traffic");
 		genereTraffic.addActionListener(new actionEvenement());// ajout d'un ecouteur sur le boutton
 		contrainte.anchor = GridBagConstraints.CENTER;
 		contrainte.fill = GridBagConstraints.HORIZONTAL;
@@ -306,29 +332,44 @@ public class FrmPanelSimulation extends JFrame {
 		contrainte.gridx = 2;
 		contrainte.gridy = 2;
 		panelSimulation.add(genereTraffic, contrainte);
-
-		routeTraffic = new JTextField("Nom de la route", 15);
-		routeTraffic.setToolTipText("Entrez le nom de la route");
-		contrainte.anchor = GridBagConstraints.LINE_START;
+		
+		/**
+		 * Remplace le jtextfield par deux jlabel, un pour affiche le noeud de depart 
+		 * et un autre pour le point d'arriver
+		 */
+		routeArriver = new JLabel("Route de arriver", JLabel.CENTER);
+		routeArriver.setFont(new Font("Serif", Font.BOLD, 19));
+		routeArriver.setForeground(Color.GREEN);
+		contrainte.anchor = GridBagConstraints.LINE_END;
 		contrainte.fill = GridBagConstraints.HORIZONTAL;
 		contrainte.fill = GridBagConstraints.VERTICAL;
 		contrainte.ipadx = 40;
 		contrainte.gridx = 2;
 		contrainte.gridy = 1;
-		panelSimulation.add(routeTraffic, contrainte);
+		panelSimulation.add(routeArriver, contrainte);
+		
+		infoRouteArriver = new JLabel("Destination ", JLabel.CENTER);
+		infoRouteArriver.setFont(new Font("Serif", Font.BOLD, 19));
+		infoRouteArriver.setForeground(Color.GREEN);
+		infoRouteArriver.setToolTipText("Point d'arrive");
+		contrainte.anchor = GridBagConstraints.LINE_START;
+		contrainte.anchor = GridBagConstraints.LINE_END;
+		contrainte.fill = GridBagConstraints.HORIZONTAL;
+		contrainte.fill = GridBagConstraints.VERTICAL;
+		contrainte.gridx = 2;
+		contrainte.gridy = 0;
+		panelSimulation.add(infoRouteArriver, contrainte);
 
 		/**
 		 * Composantes de la quatrieme colonne du GridBagLayout
 		 */
-		reprendreSimulation = new JButton("Reprendre");
-		reprendreSimulation.setToolTipText("Cliquer pour reprendre la simulation");
-		reprendreSimulation.addActionListener(new actionEvenement());// ajout d'un ecouteur sur le boutton
-		contrainte.anchor = GridBagConstraints.CENTER;
+		routeArrSaisi = new JTextField("Entre votre destination");
+		routeArrSaisi.addActionListener(new actionEvenement());// ajout d'un ecouteur
+		contrainte.anchor = GridBagConstraints.LINE_START;
 		contrainte.fill = GridBagConstraints.HORIZONTAL;
 		contrainte.fill = GridBagConstraints.VERTICAL;
 		contrainte.gridx = 3;
-		contrainte.gridy = 0;
-		panelSimulation.add(reprendreSimulation, contrainte);
-
+		contrainte.gridy = 1;
+		panelSimulation.add(routeArrSaisi, contrainte);
 	}
 }

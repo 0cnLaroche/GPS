@@ -10,9 +10,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import modele.Evenements;
+import modele.Graph;
+import modele.Lien;
+import modele.Noeud;
 import modele.PointGraphe;
+import outils.CSV;
 import vue.FrmPanelSimulation;
 import vue.FrmPanelUtilisateur;
 import vue.PanelUtilisateur;
@@ -23,11 +30,13 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 
 	private PanelUtilisateur panelUtilisateur;
 
-	private PointGraphe pointGraphe = new PointGraphe();
+	private PointGraphe pointGraphe ;
 
 	private FrmPanelSimulation panelSimulation;
 
 	private Evenements Event;
+	
+	private Graph graphe;
 
 	/**
 	 * liste qui contient les coordonnes des points (intersections des routes) du
@@ -48,6 +57,8 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 	private Graphics g;
 
 	int cpt = 0; // temporaire pour le test
+
+	private boolean nbrClick = false;//sert a eviter l'effets d'un second appuis sur les bouttons
 
 	/**
 	 * constructeur sans parametres
@@ -153,7 +164,7 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+				
 		/**
 		 * si click sur un boutton { creer une instance de la classe Evenement et
 		 * recuprer le contenue du getTextfield correspondant et le nom du button
@@ -167,22 +178,75 @@ public class actionEvenement implements ActionListener, MouseListener, WindowLis
 		 * etre generer et et le nom du button cliquer pour savoir le type d'evennement
 		 * a generer (accident ou traffic)
 		 */
-		if (nomButtonClique.equals("G�n�rer un accident")) {
-			System.out.println("Click sur G�n�rer un accident");
-			String nomRouteEvenement = panelSimulation.getRouteAccident().getText();// on recupere le nom de la route ou
+		if (nomButtonClique.equals("Generer un accident")) {
+			System.out.println("Click sur Generer un accident");
+			/**
+			 * generer de maniere aleatoire la route de l'evenement
+			 */
+			//String nomRouteEvenement = panelSimulation.getRouteAccident().getText();// on recupere le nom de la route ou
 																					// l'evennement sera generer
-			Event = new Evenements(nomRouteEvenement, nomButtonClique);
+			//Event = new Evenements(nomRouteEvenement, nomButtonClique);
 
-		} else if (nomButtonClique.equals("G�n�rer un traffic")) {
-			System.out.println("Click sur G�n�rer un traffic");
-			String nomRouteEvenement = panelSimulation.getRouteTraffic().getText();// on recupere le nom de la route ou
+		} else if (nomButtonClique.equals("Generer un traffic")) {
+			System.out.println("Click sur Generer un traffic");
+			/**
+			 * generer de maniere aleatoire la route de l'evenement
+			 */
+			//String nomRouteEvenement = panelSimulation.getRouteTraffic().getText();// on recupere le nom de la route ou
 																					// l'evennement sera generer
-			Event = new Evenements(nomRouteEvenement, nomButtonClique);
+			//Event = new Evenements(nomRouteEvenement, nomButtonClique);
 
-		} else if (nomButtonClique.equals("Demarrer")) {
+		}else if (nomButtonClique.equals("Demarrer") && !nbrClick) {
 			frmPanelUtilisateur = new FrmPanelUtilisateur();
 			frmPanelUtilisateur.setVisible(true);
 			System.out.println("Click sur Demarrer");
+			nbrClick = true;//on empeche le reaffichage du panel en cas d'un second appuis
+			
+		}else{
+			String saisi = e.getActionCommand();
+			System.out.println(saisi);
 		}
 	}
+
+	/**
+	 * Fonction qui permet de recuperer les noeuds et les liens a partir d'u fichier
+	 * CSV et dessiner un graphe representant le reseau routier a partir de ces
+	 * donnees
+	 */
+/*	public void dessinerGraphe() {
+		int x, y;
+		Graph graphe = new Graph();
+		graphe.setNoeuds(new CSV("SystemGuidageRoutier/res/Coordonnees.csv"));
+		graphe.setLiens(new CSV("SystemGuidageRoutier/res/liens.csv"));
+
+		Noeud un = graphe.getNoeud("f");
+
+		for (Entry<String, Noeud> entry : graphe.getNoeuds().entrySet()) {
+			String cle = entry.getKey();
+			Noeud valeur = entry.getValue();
+			System.out.println(cle);
+			System.out.println(valeur);
+
+			x = valeur.getCoordonnees().x;
+			y = valeur.getCoordonnees().y;
+		}
+		
+		Map<String, Noeud> trier = new TreeMap<>(graphe.getNoeuds());
+		
+		for (Entry<String, Noeud> entry : trier.entrySet()) {
+			String cle = entry.getKey();
+			Noeud valeur = entry.getValue();
+			System.out.println(cle);
+			System.out.println(valeur);
+
+			x = valeur.getCoordonnees().x;
+			y = valeur.getCoordonnees().y;
+		}
+
+		
+		 * for (Lien l:un.getVoisinage()){ System.out.println(l.toString());
+		 * System.out.println(l.getNoeudUn().toString());
+		 * System.out.println(l.getNoeudDeux().toString()); }
+		 
+	}*/
 }

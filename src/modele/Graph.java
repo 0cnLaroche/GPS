@@ -10,7 +10,59 @@ public class Graph  {
 	
 	private HashMap<String,Noeud> noeuds; // indexé par lettres de l'alphabet
 	private HashMap<Integer,Lien> liens;
+	private Point coordonnnePointAjour;
 	
+	/**
+	 * Methodes accesseurs
+	 */
+	
+	
+	/**
+	 * @return the noeuds
+	 */
+	public HashMap<String, Noeud> getNoeuds() {
+		return noeuds;
+	}
+
+	/**
+	 * @return the coordonnnePointAjour
+	 */
+	public Point getCoordonnnePointAjour() {
+		return coordonnnePointAjour;
+	}
+
+	/**
+	 * @param coordonnnePointAjour the coordonnnePointAjour to set
+	 */
+	public void setCoordonnnePointAjour(Point coordonnnePointAjour) {
+		this.coordonnnePointAjour = coordonnnePointAjour;
+	}
+
+	/**
+	 * @param noeuds the noeuds to set
+	 */
+	public void setNoeuds(HashMap<String, Noeud> noeuds) {
+		this.noeuds = noeuds;
+	}
+
+	/**
+	 * @return the liens
+	 */
+	public HashMap<Integer, Lien> getLiens() {
+		return liens;
+	}
+
+	/**
+	 * @param liens the liens to set
+	 */
+	public void setLiens(HashMap<Integer, Lien> liens) {
+		this.liens = liens;
+	}
+
+	
+	/**
+	 * constructeur de class
+	 */
 	public Graph(){
 		noeuds = new HashMap<String,Noeud>();
 		liens = new HashMap<Integer,Lien>();
@@ -64,7 +116,4 @@ public class Graph  {
 			this.addNoeud(n);
 		}
 	}
-
-
-
 }

@@ -58,8 +58,7 @@ public class CSV extends ArrayList<ArrayList>{
 	public CSV(String filePath){
 		super();
 		//list = new ArrayList();
-		load(filePath);
-		
+		load(filePath);	
 	}
 	public String getFieldName(int index){
 		/**Obtenir le nom d'un champ

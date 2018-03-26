@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import modele.Graph;
+
 public class FrmPanelUtilisateur extends JFrame {
 
 	private PanelUtilisateur panelUtilisateur;
@@ -23,30 +25,31 @@ public class FrmPanelUtilisateur extends JFrame {
 
 	private JLabel tempParcours;
 
+	private Graph graphe = new Graph();
+
 	/**
 	 * constructeur de la classe
 	 */
 	public FrmPanelUtilisateur() {
-		super("Systèmes de transports intelligents");
+		super("Systemes de transports intelligents");
 		fenetreUtilisateur();
 	}
-	
-	
 
 	/**
 	 * Methode qui contient les proprietes du JFrame (fenetre) FrmPanelUtilisateur
 	 */
 	public void fenetreUtilisateur() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000, 800);
+		this.setSize(1000, 1000);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(false);
 
 		/**
-		 * Creation et ajout du JPanel qui contient le dessin du reseau routier sur le JFrame
+		 * Creation et ajout du JPanel qui contient le dessin du reseau routier sur le
+		 * JFrame
 		 */
-		panelUtilisateur = new PanelUtilisateur();
+		panelUtilisateur = new PanelUtilisateur(graphe);
 		this.add(panelUtilisateur);
 
 		/**
