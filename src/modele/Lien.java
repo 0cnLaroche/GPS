@@ -3,7 +3,7 @@ package modele;
 public class Lien {
 	
 	private Noeud a,b;
-	private double poid; //distance
+	private double poid; //distance......deffinir la distance comme un int
 	private Integer index;
 	
 	public Lien(Noeud a, Noeud b){
@@ -13,7 +13,7 @@ public class Lien {
 		 */
 		this.a = a;
 		this.b = b;	
-		this.poid = Math.hypot(b.getX()-a.getX(), b.getY()-a.getY());
+		this.poid = Math.hypot(b.getX()-a.getX(), b.getY()-a.getY()); // calculer le poid en precision int donc b.getCoordonnees().x
 		this.index = (a.getNom() + b.getNom()).hashCode();
 	}
 	

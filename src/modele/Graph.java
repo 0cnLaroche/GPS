@@ -3,20 +3,58 @@ package modele;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import outils.CSV;
 
-public class Graph  {
-	
-	private HashMap<String,Noeud> noeuds; // indexé par lettres de l'alphabet
-	private HashMap<Integer,Lien> liens;
+public class Graph {
+
+	private HashMap<String, Noeud> noeuds; // indexé par lettres de l'alphabet
+	private HashMap<Integer, Lien> liens;
 	private Point coordonnnePointAjour;
-	
+
+	private ArrayList<Noeud> plusCourtChemin; // contient les noeuds se trouvant dans le chemin
+												// le plus court
+
+	private Noeud tempoPlusPetit; // contient le noeud qui a le plus petit chemin dans le graphe
+
+	private ArrayList<Noeud> noeudCheminPlusCourt; // tableau qui contient les noeuds du chemin le plus court
+
 	/**
 	 * Methodes accesseurs
 	 */
 	
 	
+
+	/**
+	 * @return the plusCourtChemin
+	 */
+	public ArrayList<Noeud> getPlusCourtChemin() {
+		return plusCourtChemin;
+	}
+
+	/**
+	 * @return the noeudCheminPlusCourt
+	 */
+	public ArrayList<Noeud> getNoeudCheminPlusCourt() {
+		return noeudCheminPlusCourt;
+	}
+
+	/**
+	 * @param noeudCheminPlusCourt the noeudCheminPlusCourt to set
+	 */
+	public void setNoeudCheminPlusCourt(ArrayList<Noeud> noeudCheminPlusCourt) {
+		this.noeudCheminPlusCourt = noeudCheminPlusCourt;
+	}
+
+	/**
+	 * @param plusCourtChemin
+	 *            the plusCourtChemin to set
+	 */
+	public void setPlusCourtChemin(ArrayList<Noeud> plusCourtChemin) {
+		this.plusCourtChemin = plusCourtChemin;
+	}
+
 	/**
 	 * @return the noeuds
 	 */
@@ -32,14 +70,16 @@ public class Graph  {
 	}
 
 	/**
-	 * @param coordonnnePointAjour the coordonnnePointAjour to set
+	 * @param coordonnnePointAjour
+	 *            the coordonnnePointAjour to set
 	 */
 	public void setCoordonnnePointAjour(Point coordonnnePointAjour) {
 		this.coordonnnePointAjour = coordonnnePointAjour;
 	}
 
 	/**
-	 * @param noeuds the noeuds to set
+	 * @param noeuds
+	 *            the noeuds to set
 	 */
 	public void setNoeuds(HashMap<String, Noeud> noeuds) {
 		this.noeuds = noeuds;
@@ -53,67 +93,233 @@ public class Graph  {
 	}
 
 	/**
-	 * @param liens the liens to set
+	 * @param liens
+	 *            the liens to set
 	 */
 	public void setLiens(HashMap<Integer, Lien> liens) {
 		this.liens = liens;
 	}
 
-	
 	/**
 	 * constructeur de class
 	 */
-	public Graph(){
-		noeuds = new HashMap<String,Noeud>();
-		liens = new HashMap<Integer,Lien>();
+	public Graph() {
+		this.noeuds = new HashMap<String, Noeud>();
+		this.liens = new HashMap<Integer, Lien>();
+		this.plusCourtChemin = new ArrayList<Noeud>();
+		this.noeudCheminPlusCourt = new ArrayList<Noeud>();
+		this.setNoeuds(new CSV("SystemGuidageRoutier/res/Coordonnees.csv"));
+		this.setLiens(new CSV("SystemGuidageRoutier/res/liens.csv"));
 	}
-	
-	public Noeud getNoeud(String nom){
+
+	public Noeud getNoeud(String nom) {
 		return this.noeuds.get(nom);
 	}
-	
-	public Lien getLien(int index){
+
+	public Lien getLien(int index) {
 		return this.liens.get(index);
 	}
 
-	public void addLien(Noeud un, Noeud deux){
-		Lien l = new Lien(un,deux);
+	public void addLien(Noeud un, Noeud deux) {
+		Lien l = new Lien(un, deux);
 		liens.put(l.hashCode(), l);
 		un.addVoisin(l);
-		deux.addVoisin(l);	
+		deux.addVoisin(l);
 	}
-	
-	public void addNoeud(Noeud noeud){
+
+	public void addNoeud(Noeud noeud) {
 		this.noeuds.put(noeud.getNom(), noeud);
 	}
-	
-	public void setLiens(CSV source){
-		for (ArrayList<String> champs:source){
-			
+
+	public void setLiens(CSV source) {
+		for (ArrayList<String> champs : source) {
+
 			if (source.get(0).equals(champs)) // La premiere rangee contiens les titres. On ignore
 				continue;
-			
-			String[] split = champs.get(1).split(";"); //Sépare la colonne de gauche
-			for (String s:split){
-				this.addLien(noeuds.get(champs.get(0)), noeuds.get(s));	//Appelle la methode de classe
-																		//Les noeuds seront charges de leurs voisins
-			}	
+
+			String[] split = champs.get(1).split(";"); // Sépare la colonne de gauche
+			for (String s : split) {
+				this.addLien(noeuds.get(champs.get(0)), noeuds.get(s)); // Appelle la methode de classe
+																		// Les noeuds seront charges de leurs voisins
+			}
 		}
 	}
-	
-	public void setNoeuds(CSV source){
-		for (ArrayList<String> champs:source){
-			
+
+	public void setNoeuds(CSV source) {
+		for (ArrayList<String> champs : source) {
+
 			if (source.get(0).equals(champs)) // La premiere rangee contiens les titres. On ignore
 				continue;
-			
+
 			String nom = champs.get(0);
-			
-			Integer x = (int) Double.parseDouble(champs.get(1)); //La methode getX() de Point retourne un Double
-			Integer y = (int) Double.parseDouble(champs.get(2)); //Mais les variables x et y sont des int
-																 //Il faut donc faire la conversion de Double à int
-			Noeud n = new Noeud(nom, new Point(x,y));
+
+			Integer x = (int) Double.parseDouble(champs.get(1)); // La methode getX() de Point retourne un Double
+			Integer y = (int) Double.parseDouble(champs.get(2)); // Mais les variables x et y sont des int
+																	// Il faut donc faire la conversion de Double à int
+			Noeud n = new Noeud(nom, new Point(x, y));
 			this.addNoeud(n);
 		}
 	}
+
+	/**
+	 * Methode qui permet de calculer le chemin le plus court en utilisant
+	 * l'algorithme de Dijkstra. Cette methode stocke les noeuds correspondant au chemin le plus court
+	 * dans l'attribut NoeudCheminPlusCourt (ArrayList) de sa classe
+	 * 
+	 * @param depart le point de depart
+	 * @param destination le point d'arriver
+	 */
+	public void calculCheminCourt(Noeud depart, Noeud destination) {
+		Noeud courantTempo = depart;
+		Noeud tempoVisite = null;
+
+		depart.setLongueurChemin(0); // la distance du noeud de depart = 0
+		depart.setStatu(true); // son statu est permanent
+
+		/**
+		 * On arrete l'algorithme si tout les noeuds du graphe sont a permanent ou si
+		 * tout les noeuds temporaires restant on un chemin infini
+		 */
+		while (true) {
+			/**
+			 * 
+			 */
+			if(arretAlgo1() || arretAlgo2())
+				break;
+			
+			/**
+			 * Visiter tout les noeud adjacent au noeud courant et change leur labels s'il
+			 * le faut
+			 */
+			for (Lien lien : courantTempo.getVoisins()) {
+				try {
+
+					if (lien.getNoeudUn().getNom().equals(courantTempo.getNom())) {
+						if (!lien.getNoeudDeux().isStatu()) {
+							tempoVisite = lien.getNoeudDeux(); // si le 1er noeud de lien = noeud courant on recupere le
+																// 2eme noeud si celui ci a un statu temporaire
+							//System.out.println(tempoVisite.toString());
+						}
+
+					} else {
+						if (!lien.getNoeudUn().isStatu())
+							tempoVisite = lien.getNoeudUn(); // sinon on recupere le 1er noeud si celui ci a un statu
+																// temporaire
+						//System.out.println(tempoVisite.toString());
+					}
+
+					/**
+					 * le premier noeud voisin au noeud courant sera le noeud de reference pour la
+					 * recherche du noeud ayant le plus petit chemin et sera dans l'attribut
+					 * tempoPlusPetit
+					 */
+					tempoPlusPetit = tempoVisite;
+
+					/**
+					 * determiner si le noeud adjacent a une distance plus grand que celle du noeud
+					 * courant + le poid du lien et si il est temporaire. Si oui, change les labels
+					 * du noeud adjacent.
+					 */
+					if (courantTempo.getLongueurChemin() + lien.getPoid() < tempoVisite.getLongueurChemin()
+							&& !tempoVisite.isStatu()) {
+						tempoVisite.setLongueurChemin(courantTempo.getLongueurChemin() + lien.getPoid());
+						tempoVisite.setPredecesseur(courantTempo.getNom());
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			} // ------------------fin du for------------------------------
+			
+			//System.out.println(courantTempo.toString());
+			
+			/**
+			 * chercher le noeud qui a le plus petit chemin parmi tout les noeuds du graphe
+			 * c'est lui qui devient le noeud courant
+			 */
+			this.noeudCheminCourt();
+			courantTempo = tempoPlusPetit;
+			courantTempo.setStatu(true);
+
+		} // -------------------------fin du while---------------------------
+
+		/**
+		 * On extrait les noeuds appartenant au chemin le plus court et on les stocke
+		 * dans l'attribut noeudCheminPlusCourt
+		 */
+		cheminPlusCourt(depart, destination);
+
+	}
+
+	/**
+	 * Methode qui cherche le noeud qui a le plus petit chemin parmis tout les noeud
+	 * du graphe et le stocke dans l'attribut tempoPlusPetit
+	 */
+	private void noeudCheminCourt() { // faire la recherche du plus petit parmi tout les noeuds du graphe
+		for (Entry<String, Noeud> noeud : noeuds.entrySet()) {
+			if (noeud.getValue().getLongueurChemin() < tempoPlusPetit.getLongueurChemin()
+					&& !noeud.getValue().isStatu()) {
+				tempoPlusPetit = noeud.getValue();
+			}
+		}
+	}
+
+	/**
+	 * Methode qui parcour tout le talbeau contenant les noueds du graphe et verifie
+	 * si tout les noeuds sont permanent i.e on arrete l'algo
+	 * 
+	 * @return true si tout les noeuds sont permanent 
+	 */
+	private boolean arretAlgo1() {
+		boolean res = false;
+		int nbrElement = 0;
+		for (Entry<String, Noeud> noeud : noeuds.entrySet()) {
+			if (noeud.getValue().isStatu())
+				nbrElement++;
+			//System.out.println(noeud.getValue().isStatu());
+		}
+		if (nbrElement == noeuds.size())
+			res = true;
+		//System.out.println("finaly : " + res);
+		return res;
+	}
+
+	/**
+	 * Methode qui parcour tout le talbeau contenant les noueds du graphe et verifie
+	 * si tout les noeuds temporaire qui reste ont une distance infinie i.e on
+	 * arrete l'algo
+	 * 
+	 * @return true si tout les noeuds temporaire qui reste ont une distance infinie
+	 */
+	private boolean arretAlgo2() {
+		boolean res = false;
+		int nbrElement = 0;
+		for (Entry<String, Noeud> noeud : noeuds.entrySet()) {
+			if (noeud.getValue().getLongueurChemin() == Double.MAX_VALUE && !noeud.getValue().isStatu())
+				nbrElement++;
+		}
+		if (nbrElement == noeuds.size())
+			res = true;
+		return res;
+	}
+
+	/**
+	 * Methode qui permet d'extraire les noeuds appartenant au chemin le plus court
+	 * 
+	 * @param depart point de depart
+	 * @param destination point d'arriver
+	 */
+	private void cheminPlusCourt(Noeud depart, Noeud destination) {
+		Noeud destinationTempo = destination;
+		if (destinationTempo.getPredecesseur().equals(depart.getNom())) {
+			noeudCheminPlusCourt.add(destinationTempo);
+			noeudCheminPlusCourt.add(this.getNoeud(depart.getNom()));
+		} else {
+			noeudCheminPlusCourt.add(destinationTempo);
+			destinationTempo = this.getNoeud(destination.getPredecesseur());
+			cheminPlusCourt(depart, destinationTempo);// appel recursive
+		}
+	}
+
 }

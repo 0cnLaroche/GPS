@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controleur.ActionEvenement;
 import modele.Graph;
 
 public class FrmPanelUtilisateur extends JFrame {
@@ -25,13 +26,17 @@ public class FrmPanelUtilisateur extends JFrame {
 
 	private JLabel tempParcours;
 
-	private Graph graphe = new Graph();
+	private Graph graphe;
+	
+	//private ActionEvenement controleur;
 
 	/**
 	 * constructeur de la classe
 	 */
 	public FrmPanelUtilisateur() {
 		super("Systemes de transports intelligents");
+		//controleur = new ActionEvenement();//ajouter pour le test
+		graphe = new Graph();
 		fenetreUtilisateur();
 	}
 
@@ -46,7 +51,7 @@ public class FrmPanelUtilisateur extends JFrame {
 		this.setAlwaysOnTop(false);
 
 		/**
-		 * Creation et ajout du JPanel qui contient le dessin du reseau routier sur le
+		 * Creation et ajout du JPanel qui contient le dessin (graphe) du reseau routier sur le
 		 * JFrame
 		 */
 		panelUtilisateur = new PanelUtilisateur(graphe);
