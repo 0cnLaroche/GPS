@@ -145,9 +145,9 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 			stepx = dx / frames;
 			stepy = dy / frames;
 		}*/
-		//g.fillOval((int) x, (int) y, 15, 15);
-		System.out.println("Le delais du timer vaut : " + t.getDelay());
+		
 		g.fillOval(ActionEvenement.getPointCheminVoiture().get(i).x, ActionEvenement.getPointCheminVoiture().get(i).y, 15, 15);
+		
 	}
 
 	/**

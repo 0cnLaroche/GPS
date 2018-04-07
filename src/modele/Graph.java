@@ -23,8 +23,6 @@ public class Graph {
 	/**
 	 * Methodes accesseurs
 	 */
-	
-	
 
 	/**
 	 * @return the plusCourtChemin
@@ -41,7 +39,8 @@ public class Graph {
 	}
 
 	/**
-	 * @param noeudCheminPlusCourt the noeudCheminPlusCourt to set
+	 * @param noeudCheminPlusCourt
+	 *            the noeudCheminPlusCourt to set
 	 */
 	public void setNoeudCheminPlusCourt(ArrayList<Noeud> noeudCheminPlusCourt) {
 		this.noeudCheminPlusCourt = noeudCheminPlusCourt;
@@ -163,11 +162,14 @@ public class Graph {
 
 	/**
 	 * Methode qui permet de calculer le chemin le plus court en utilisant
-	 * l'algorithme de Dijkstra. Cette methode stocke les noeuds correspondant au chemin le plus court
-	 * dans l'attribut NoeudCheminPlusCourt (ArrayList) de sa classe
+	 * l'algorithme de Dijkstra. Cette methode stocke les noeuds correspondant au
+	 * chemin le plus court dans l'attribut NoeudCheminPlusCourt (ArrayList) de sa
+	 * classe
 	 * 
-	 * @param depart le point de depart
-	 * @param destination le point d'arriver
+	 * @param depart
+	 *            le point de depart
+	 * @param destination
+	 *            le point d'arriver
 	 */
 	public void calculCheminCourt(Noeud depart, Noeud destination) {
 		Noeud courantTempo = depart;
@@ -184,9 +186,9 @@ public class Graph {
 			/**
 			 * 
 			 */
-			if(arretAlgo1() || arretAlgo2())
+			if (arretAlgo1() || arretAlgo2())
 				break;
-			
+
 			/**
 			 * Visiter tout les noeud adjacent au noeud courant et change leur labels s'il
 			 * le faut
@@ -198,14 +200,12 @@ public class Graph {
 						if (!lien.getNoeudDeux().isStatu()) {
 							tempoVisite = lien.getNoeudDeux(); // si le 1er noeud de lien = noeud courant on recupere le
 																// 2eme noeud si celui ci a un statu temporaire
-							//System.out.println(tempoVisite.toString());
 						}
 
 					} else {
 						if (!lien.getNoeudUn().isStatu())
 							tempoVisite = lien.getNoeudUn(); // sinon on recupere le 1er noeud si celui ci a un statu
 																// temporaire
-						//System.out.println(tempoVisite.toString());
 					}
 
 					/**
@@ -231,9 +231,9 @@ public class Graph {
 				}
 
 			} // ------------------fin du for------------------------------
-			
-			//System.out.println(courantTempo.toString());
-			
+
+			// System.out.println(courantTempo.toString());
+
 			/**
 			 * chercher le noeud qui a le plus petit chemin parmi tout les noeuds du graphe
 			 * c'est lui qui devient le noeud courant
@@ -269,7 +269,7 @@ public class Graph {
 	 * Methode qui parcour tout le talbeau contenant les noueds du graphe et verifie
 	 * si tout les noeuds sont permanent i.e on arrete l'algo
 	 * 
-	 * @return true si tout les noeuds sont permanent 
+	 * @return true si tout les noeuds sont permanent
 	 */
 	private boolean arretAlgo1() {
 		boolean res = false;
@@ -277,11 +277,11 @@ public class Graph {
 		for (Entry<String, Noeud> noeud : noeuds.entrySet()) {
 			if (noeud.getValue().isStatu())
 				nbrElement++;
-			//System.out.println(noeud.getValue().isStatu());
+			// System.out.println(noeud.getValue().isStatu());
 		}
 		if (nbrElement == noeuds.size())
 			res = true;
-		//System.out.println("finaly : " + res);
+		// System.out.println("finaly : " + res);
 		return res;
 	}
 
@@ -307,8 +307,10 @@ public class Graph {
 	/**
 	 * Methode qui permet d'extraire les noeuds appartenant au chemin le plus court
 	 * 
-	 * @param depart point de depart
-	 * @param destination point d'arriver
+	 * @param depart
+	 *            point de depart
+	 * @param destination
+	 *            point d'arriver
 	 */
 	private void cheminPlusCourt(Noeud depart, Noeud destination) {
 		Noeud destinationTempo = destination;

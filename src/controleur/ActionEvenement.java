@@ -23,19 +23,19 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	private FrmPanelUtilisateur frmPanelUtilisateur;
 
 	private PanelUtilisateur panelUtilisateur;
-	
+
 	private FrmPanelSimulation panelSimulation;
 
 	private Voiture voiture;
-	
+
 	private static ArrayList<Point> pointCheminVoiture;
 
-	//private Evenements Event;
+	// private Evenements Event;
 
 	private Graph graphe;
-	
-	private static String pointDepart; //contient le nom du noeud de depart
-	
+
+	private static String pointDepart; // contient le nom du noeud de depart
+
 	private static String pointArriver;// contient le nom du noeud d'arriver
 
 	/**
@@ -67,7 +67,7 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		super();
 		this.voiture = new Voiture();
 		this.graphe = new Graph();
-		//ActionEvenement.pointCheminVoiture = new ArrayList<Point>();
+		// ActionEvenement.pointCheminVoiture = new ArrayList<Point>();
 	}
 
 	/**
@@ -78,11 +78,11 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	public ActionEvenement(PanelUtilisateur panelUtilisateur) {
 		this.panelUtilisateur = panelUtilisateur;
 	}
-	
+
 	/**
 	 * Methodes accesseurs et modificateurs
 	 */
-	
+
 	/**
 	 * @return the pointCheminVoiture
 	 */
@@ -91,12 +91,12 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	}
 
 	/**
-	 * @param pointCheminVoiture the pointCheminVoiture to set
+	 * @param pointCheminVoiture
+	 *            the pointCheminVoiture to set
 	 */
 	public static void setPointCheminVoiture(ArrayList<Point> pointCheminVoiture) {
 		ActionEvenement.pointCheminVoiture = pointCheminVoiture;
 	}
-	
 
 	@Override
 	public void windowActivated(WindowEvent e) {
@@ -147,7 +147,8 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		// Graphics2D g2 = (Graphics2D) g;
 		debut = e.getPoint();
 		coordonnnePoint.add(debut);
-		//voiture.ecrireFichier(debut); // ecriture des coordonnes du point dans le fichier
+		// voiture.ecrireFichier(debut); // ecriture des coordonnes du point dans le
+		// fichier
 		g.setColor(Color.RED);
 		g.fillOval(debut.x, debut.y, 10, 10);
 		System.out.println("Element a la " + (cpt - 1) + " position");
@@ -184,31 +185,24 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 
 	}
 
-	//@SuppressWarnings("unlikely-arg-type")
+	// @SuppressWarnings("unlikely-arg-type")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object src = e.getSource();
 		
-		if(src == FrmPanelSimulation.getRouteDepSaisi()) {
+		/**
+		 * Recupere les routes de depart et d'arriver saisi et les afficher dans les Label correspondant
+		 */
+		Object src = e.getSource();
+		if (src == FrmPanelSimulation.getRouteDepSaisi()) {
 			pointDepart = FrmPanelSimulation.getRouteDepSaisi().getText();
 			System.out.println(pointDepart);
 			FrmPanelSimulation.getInfoRouteDepart().setText("Depart : " + pointDepart);
-		}
-		else if(src == FrmPanelSimulation.getRouteArrSaisi()) {
+		} else if (src == FrmPanelSimulation.getRouteArrSaisi()) {
 			pointArriver = FrmPanelSimulation.getRouteArrSaisi().getText();
 			System.out.println(pointArriver);
 			FrmPanelSimulation.getInfoRouteArriver().setText("Destination : " + pointArriver);
 		}
 
-		/**
-		 * si click sur un boutton { creer une instance de la classe Evenement et
-		 * recuprer le contenue du getTextfield correspondant et le nom du button
-		 * cliquer pour le passer au constructeur de cette instance }
-		 */
-		voiture = new Voiture();
-		
-		//panelUtilisateur = new PanelUtilisateur(graphe);
-		//panelSimulation = new FrmPanelSimulation();
 		String nomButtonClique = e.getActionCommand(); // on recupere le nom du button cliquer
 		/**
 		 * la classe Evennements recoit ce qui est saisi dans le Jtextfield
@@ -239,62 +233,62 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		} else if (nomButtonClique.equals("Demarrer") && !nbrClick) {
 			System.out.println("le point d'arriver est : " + pointArriver);
 			System.out.println("Click sur Demarrer");
-			frmPanelUtilisateur = new FrmPanelUtilisateur();
-			frmPanelUtilisateur.setVisible(true);
-			/**
-			 * On calcule le chemin le plus court entre le noeud de depart et le noeud d'errive
-			 * grace a la methode calculCheminCourt de la classe graphe qui utilise l'algorithme 
-			 * de Dijkstra. Cette methode stocke les noeuds correspondant au chemin le plus court
-			 * dans l'attribut NoeudCheminPlusCourt (ArrayList) de sa classe 
-			 */
-			graphe.calculCheminCourt(graphe.getNoeud(pointDepart), graphe.getNoeud(pointArriver));//calcul du chemin le plus court
-			
-			//voiture.deplacerPoint(graphe.getNoeudCheminPlusCourt());
-			//pointCheminVoiture = voiture.getCheminVoiture();
-			
-			/**
-			 * On stocke les points correspondant au chemin le plus court calculer dans la classe voiture
-			 * dans l'ArrayList pointCheminVoiture
-			 */
-			ActionEvenement.pointCheminVoiture = voiture.deplacerPoint(graphe.getNoeudCheminPlusCourt());//deplacement sur le chemin le plus court
-			System.out.println("La taille du tableau pointCheminVoiture de la classe ActionEvennement vaut : " + ActionEvenement.pointCheminVoiture.size());
 			
 			nbrClick = true;// on empeche le reaffichage du panel en cas d'un second appuis
 			
 			/**
-			 * Methode qui sert a recuperer les point de depart et destination entrer par l'utilisateur
+			 * Instance de la class Voiture, rpresente la voiture qui va se deplacer
 			 */
+			voiture = new Voiture();
 			
 			/**
-			 * Calcul du chemin le plus court
+			 * Creer un Panel utilisateur a l'appuis sur demarrer
 			 */
+			frmPanelUtilisateur = new FrmPanelUtilisateur();
+			frmPanelUtilisateur.setVisible(true);
+			
+			/**
+			 * Calculer le chemin le plus court entre le noeud de depart et le noeud
+			 * d'arrive grace a la methode calculCheminCourt de la classe graphe qui utilise
+			 * l'algorithme de Dijkstra. Cette methode stocke les noeuds correspondant au
+			 * chemin le plus court dans l'attribut NoeudCheminPlusCourt (ArrayList) de sa
+			 * classe
+			 */
+			graphe.calculCheminCourt(graphe.getNoeud(pointDepart), graphe.getNoeud(pointArriver));// calcul du chemin le
+																									// plus court
+
+			/**
+			 * Stocker les points correspondant au chemin le plus court calculer dans la
+			 * classe voiture dans l'ArrayList pointCheminVoiture
+			 */
+			ActionEvenement.pointCheminVoiture = voiture.deplacerPoint(graphe.getNoeudCheminPlusCourt());// deplacement
+																											// sur le
+																											// chemin le
+																											// plus
+																											// court
+			
+			/**
+			 * Affichage pour le test, code a enlever a la fin
+			 */
+			System.out.println("La taille du tableau pointCheminVoiture de la classe ActionEvennement vaut : "
+					+ ActionEvenement.pointCheminVoiture.size());
+
 			for (int i = graphe.getNoeudCheminPlusCourt().size() - 1; i >= 0; i--) {
 				System.out.print(graphe.getNoeudCheminPlusCourt().get(i).getNom() + " ---> ");
 			}
-			
-			/**
-			 * Deplacement sur le chemin le plus court
-			 */
 
-			for (int i = 0; i < ActionEvenement.pointCheminVoiture.size(); i++) { 
-				System.out.println("1Position X de la voiture : " +  ActionEvenement.pointCheminVoiture.get(i).x + ";  Position Y de la voiture : " +  ActionEvenement.pointCheminVoiture.get(i).y);
+			for (int i = 0; i < ActionEvenement.pointCheminVoiture.size(); i++) {
+				System.out.println("Position X de la voiture : " + ActionEvenement.pointCheminVoiture.get(i).x
+						+ ";  Position Y de la voiture : " + ActionEvenement.pointCheminVoiture.get(i).y);
 			}
 			System.out.println("done");
-			System.out.println(voiture.getPositionVoiture());
-			System.out.println(voiture.getArriver());
-			System.out.println("Et apres La taille du tableau pointCheminVoiture vaut : " + ActionEvenement.pointCheminVoiture.size());
-			/**
-			 * Ajouter le code qui permet de recuperer un lien dans le graphe (Dijkstra)
-			 */
-			//pointAJour = voiture.deplacerPoint(pointA, pointB);
-			
-		} /*else{
-			*//**
-			 * Code qui gere la saisi dans les Jtextfield
-			 *//*
-			String saisi = e.getActionCommand();
-			System.out.println(saisi);
-		}*/
+			System.out.println("Depart : " + ActionEvenement.pointCheminVoiture.get(0).toString());
+			System.out.println("Arriver : "
+					+ ActionEvenement.pointCheminVoiture.get(ActionEvenement.pointCheminVoiture.size() - 1).toString());
+			System.out.println("Et apres La taille du tableau pointCheminVoiture vaut : "
+					+ ActionEvenement.pointCheminVoiture.size());
+
+		} 
 	}
 
 }
