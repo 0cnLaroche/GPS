@@ -4,6 +4,16 @@
 
 Je met une section comprennant diverses notes à partager avec l'équipe. Ajouter vos initiales après vos ajouts
 
+#TODO:
+- Changement dynamique du temps: HIGH
+- Implémenter les évènements : HIGH
+	- Traffic
+	- Accidents
+- Affichage Direction MEDIUM
+- Affichage temps trajet LOW
+- Affichage des évènements MEDIUM
+
+
 ### Instructions pour importer dans eclipse
 
 1. cloner dans le workspace d'eclipse (meme place que vos autres projets)
