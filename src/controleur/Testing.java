@@ -16,6 +16,12 @@ public class Testing {
 
 	public static void main(String[] args) {
 		
+		String a = "blah";
+		String b = "toto";
+		
+		System.out.println(a.hashCode() + b.hashCode());
+		System.out.println(b.hashCode() + a.hashCode());
+		
 		Graph g = new Graph();
 		g.setNoeuds(new CSV("SystemGuidageRoutier/res/Coordonnees.csv"));
 		g.setLiens(new CSV("SystemGuidageRoutier/res/liens.csv"));

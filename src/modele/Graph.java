@@ -121,9 +121,12 @@ public class Graph {
 
 	public void addLien(Noeud un, Noeud deux) {
 		Lien l = new Lien(un, deux);
-		liens.put(l.hashCode(), l);
-		un.addVoisin(l);
-		deux.addVoisin(l);
+		if (!liens.containsKey(l.hashCode())){
+			liens.put(l.hashCode(), l);
+			un.addVoisin(l);
+			deux.addVoisin(l);
+		}
+
 	}
 
 	public void addNoeud(Noeud noeud) {

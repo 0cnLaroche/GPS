@@ -45,7 +45,8 @@ public class Lien {
 	public Noeud getNoeudDeux(){
 		return this.b;
 	}
-	public int getHash(){
+	//override
+	public int hashCode(){
 		int hash = a.getNom().hashCode() + b.getNom().hashCode();
 		return hash;
 	}

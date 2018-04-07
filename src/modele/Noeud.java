@@ -108,7 +108,7 @@ public class Noeud {
 		return coordonnees.getY();
 	}
 
-	public ArrayList<Noeud> getVoisins() {
+	/*public ArrayList<Noeud> getVoisins() {
 		ArrayList<Noeud> list = new ArrayList();
 		for (Lien l : voisins){
 			try {
@@ -119,9 +119,9 @@ public class Noeud {
 			}	
 		}
 		return list;
-	}
+	}*/
 
-	public ArrayList<Lien> getLiens(){
+	public ArrayList<Lien> getVoisins(){
 		return this.voisins;
 	}
 	

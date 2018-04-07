@@ -4,7 +4,7 @@
 
 Je met une section comprennant diverses notes à partager avec l'équipe. Ajouter vos initiales après vos ajouts
 
-#TODO:
+# TODO:
 - Changement dynamique du temps: HIGH
 - Implémenter les évènements : HIGH
 	- Traffic
