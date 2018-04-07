@@ -108,10 +108,23 @@ public class Noeud {
 		return coordonnees.getY();
 	}
 
-	public ArrayList<Lien> getVoisinage() {
-		return this.voisins;
+	public ArrayList<Noeud> getVoisins() {
+		ArrayList<Noeud> list = new ArrayList();
+		for (Lien l : voisins){
+			try {
+				list.add(l.getVoisin(this));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+		return list;
 	}
 
+	public ArrayList<Lien> getLiens(){
+		return this.voisins;
+	}
+	
 	public Lien getVoisin(int index) {
 		return this.voisins.get(index);
 	}
@@ -122,10 +135,6 @@ public class Noeud {
 
 	public void removeVoisin(Lien e) {
 		this.voisins.remove(e.getIndex());
-	}
-
-	public ArrayList<Lien> getVoisins() {
-		return this.voisins;
 	}
 
 	public String toString() {
