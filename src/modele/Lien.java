@@ -1,5 +1,8 @@
 package modele;
 
+import java.time.*;
+import java.lang.Math;
+
 public class Lien {
 	
 	private Noeud a,b;
@@ -14,7 +17,7 @@ public class Lien {
 		this.a = a;
 		this.b = b;	
 		this.poid = Math.hypot(b.getX()-a.getX(), b.getY()-a.getY()); // calculer le poid en precision int donc b.getCoordonnees().x
-		this.index = (a.getNom() + b.getNom()).hashCode();
+		this.index = (a.getNom().hashCode() + b.getNom().hashCode());
 	}
 	
 	public Integer getIndex(){
@@ -24,6 +27,18 @@ public class Lien {
 		this.poid = poid;
 	}
 	public Double getPoid(){
+		/** La méthode ajuste le poid en fonction des heures de traffic. Les heures de haute densité sont 8h et 17h.
+		 * La densité suit un fonction cosinus entre 4h et 21h, la densité est constante à l'exterieur de ces heures.
+		 * Plus on s'approche de 8h et 17h, plus le poid (temps) retourné est élevé.
+		 * Lors des pointes, le facteur maximum est 3x le poid normal.
+		 * @author Samuel
+		 */
+		double poid;
+		double time = (double) LocalTime.now().getHour() + (double) LocalTime.now().getMinute() / 60;;
+		if (3.94 < time && time < 20.905){
+			poid = this.poid * (Math.cos(time / 1.35 + 0.7 / Math.PI ) + 2);
+			return poid;
+		} else
 		return this.poid;
 	}
 	public Double comparePoid(Lien autre){
@@ -52,7 +67,7 @@ public class Lien {
 	}
 	public String toString(){
 		String str = "[index: " + this.index + ", Noeuds:{" + a.getNom() + "," + b.getNom() + "}, poid: ";
-		str += this.poid + "]";
+		str += this.poid + "]\n";
 		return str;
 	}
 
