@@ -27,7 +27,8 @@ public class Lien {
 		this.poid = poid;
 	}
 	public Double getPoid(){
-		/** La méthode ajuste le poid en fonction des heures de traffic. Les heures de haute densité sont 8h et 17h.
+		/** La méthode ajuste le poid à la hausse si l'heure courante s'approche des heures de pointes. 
+		 * Les heures de haute densité sont 8h et 17h.
 		 * La densité suit un fonction cosinus entre 4h et 21h, la densité est constante à l'exterieur de ces heures.
 		 * Plus on s'approche de 8h et 17h, plus le poid (temps) retourné est élevé.
 		 * Lors des pointes, le facteur maximum est 3x le poid normal.
