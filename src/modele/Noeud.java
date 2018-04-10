@@ -108,39 +108,30 @@ public class Noeud {
 		return coordonnees.getY();
 	}
 
-	/*public ArrayList<Noeud> getVoisins() {
-		ArrayList<Noeud> list = new ArrayList();
-		for (Lien l : voisins){
-			try {
-				list.add(l.getVoisin(this));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-		}
-		return list;
-	}*/
-
-	public ArrayList<Lien> getVoisins(){
+	public ArrayList<Lien> getVoisinage() {
 		return this.voisins;
 	}
-	
+
 	public Lien getVoisin(int index) {
 		return this.voisins.get(index);
 	}
 
-	public void addVoisin(Lien l) {
-		this.voisins.add(l);
+	public void addVoisin(Lien e) {
+		this.voisins.add(e);
 	}
 
 	public void removeVoisin(Lien e) {
 		this.voisins.remove(e.getIndex());
 	}
 
+	public ArrayList<Lien> getVoisins() {
+		return this.voisins;
+	}
+
 	public String toString() {
 		String str = "[nom: " + this.nom + ", coordonnees:{x: " + this.getX() + ", y: " + this.getY() + "}]"
 				+ " Labels:{Longueur du chemin : " + this.getLongueurChemin() + ", Predecesseur : "
-				+ this.getPredecesseur() + " Statu: " + this.statu + "\n";
+				+ this.getPredecesseur() + ", statu : "+ this.isStatu() + "]";
 		return str;
 	}
 }

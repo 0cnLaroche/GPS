@@ -129,7 +129,7 @@ public class Voiture {
 			dx = arriver.getX() - depart.getX();
 			dy = arriver.getY() - depart.getY();
 
-			frames = (temps * 100) / PanelUtilisateur.getDelaisTimer(); //utilisation d'une variable static pour avoir le delay du timer de la 
+			frames = (temps * 50) / PanelUtilisateur.getDelaisTimer(); //utilisation d'une variable static pour avoir le delay du timer de la 
 																		// classe PanelUtilisateur
 			stepx = dx / frames;
 			stepy = dy / frames;
@@ -138,10 +138,10 @@ public class Voiture {
 				
 				cheminVoiture.add(positionVoiture.getLocation());
 				
-				//System.out.println("La position de la voiture est : " + positionVoiture.x);
+			/*	System.out.println("La position de la voiture est : " + positionVoiture.x);
 				System.out.println("Le prochain point d'arriver est : " + arriver.x);
-				//System.out.println("le poid vaut : " + temps);
-				//System.out.println("Le delais du timer vaut : " + PanelUtilisateur.getDelaisTimer());
+				System.out.println("le poid vaut : " + temps);
+				System.out.println("Le delais du timer vaut : " + PanelUtilisateur.getDelaisTimer());*/
 				/**
 				 * code Sam
 				 */
@@ -163,7 +163,7 @@ public class Voiture {
 					}
 				}//-------------------fin code Sam-----------------------------
 				
-				System.out.println("La position de la voiture est : " + positionVoiture.toString());//a enlever a la fin
+				//System.out.println("La position de la voiture est : " + positionVoiture.toString());//a enlever a la fin
 
 				positionVoiture.setLocation(x, y);//point representant la position
 				}

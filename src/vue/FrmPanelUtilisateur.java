@@ -22,13 +22,46 @@ public class FrmPanelUtilisateur extends JFrame {
 
 	private JLabel avertissementEvenement;
 
-	private JLabel directionAPrendre;
+	private static JLabel directionAPrendre;
 
 	private JLabel tempParcours;
 
 	private Graph graphe;
+
 	
-	//private ActionEvenement controleur;
+	
+
+	public JLabel getTempParcours() {
+		return tempParcours;
+	}
+
+	public void setTempParcours(JLabel tempParcours) {
+		this.tempParcours = tempParcours;
+	}
+
+	public JPanel getInformationUtilisateur() {
+		return informationUtilisateur;
+	}
+
+	public void setInformationUtilisateur(JPanel informationUtilisateur) {
+		this.informationUtilisateur = informationUtilisateur;
+	}
+
+	public JLabel getAvertissementEvenement() {
+		return avertissementEvenement;
+	}
+
+	public void setAvertissementEvenement(JLabel avertissementEvenement) {
+		this.avertissementEvenement = avertissementEvenement;
+	}
+
+	public static JLabel getDirectionAPrendre() {
+		return directionAPrendre;
+	}
+
+	public static void setDirectionAPrendre(JLabel directionAPrendre) {
+		FrmPanelUtilisateur.directionAPrendre = directionAPrendre;
+	}
 
 	/**
 	 * constructeur de la classe
@@ -49,6 +82,14 @@ public class FrmPanelUtilisateur extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(false);
+		
+		/**
+		 * Ajout du panel qui contient les labels d'affichage des messages utilisateurs
+		 * sur le JFrame
+		 */
+		informationUtilisateur = new JPanel(new GridBagLayout());
+		informationUtilisateur.setBackground(Color.BLACK);
+		this.add(informationUtilisateur, BorderLayout.NORTH);
 
 		/**
 		 * Creation et ajout du JPanel qui contient le dessin (graphe) du reseau routier sur le
@@ -56,14 +97,6 @@ public class FrmPanelUtilisateur extends JFrame {
 		 */
 		panelUtilisateur = new PanelUtilisateur(graphe);
 		this.add(panelUtilisateur);
-
-		/**
-		 * Ajout du panel qui contient les labels d'affichage des messages utilisateurs
-		 * sur le JFrame
-		 */
-		informationUtilisateur = new JPanel(new GridBagLayout());
-		informationUtilisateur.setBackground(Color.BLACK);
-		this.add(informationUtilisateur, BorderLayout.SOUTH);
 
 		avertissementEvenement = new JLabel("Messages d'avertissements des evenements");
 		avertissementEvenement.setFont(new Font("Serif", Font.BOLD, 19));
