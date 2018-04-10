@@ -195,11 +195,11 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		Object src = e.getSource();
 		if (src == FrmPanelSimulation.getRouteDepSaisi()) {
 			pointDepart = FrmPanelSimulation.getRouteDepSaisi().getText();
-			System.out.println(pointDepart);
+			System.out.println("Depart : " + pointDepart);
 			FrmPanelSimulation.getInfoRouteDepart().setText("Depart : " + pointDepart);
 		} else if (src == FrmPanelSimulation.getRouteArrSaisi()) {
 			pointArriver = FrmPanelSimulation.getRouteArrSaisi().getText();
-			System.out.println(pointArriver);
+			System.out.println("Destination : " + pointArriver);
 			FrmPanelSimulation.getInfoRouteArriver().setText("Destination : " + pointArriver);
 		}
 
@@ -231,7 +231,7 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 			// Event = new Evenements(nomRouteEvenement, nomButtonClique);
 
 		} else if (nomButtonClique.equals("Demarrer") && !nbrClick) {
-			System.out.println("le point d'arriver est : " + pointArriver);
+			//System.out.println("le point d'arriver est : " + pointArriver);
 			System.out.println("Click sur Demarrer");
 			
 			nbrClick = true;// on empeche le reaffichage du panel en cas d'un second appuis
@@ -267,10 +267,14 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 																											// plus
 																											// court
 			
+			for (Point point : pointCheminVoiture) {
+				//System.out.println(point.toString());
+			}
+			
 			/**
 			 * Affichage pour le test, code a enlever a la fin
 			 */
-			System.out.println("La taille du tableau pointCheminVoiture de la classe ActionEvennement vaut : "
+/*			System.out.println("La taille du tableau pointCheminVoiture de la classe ActionEvennement vaut : "
 					+ ActionEvenement.pointCheminVoiture.size());
 
 			for (int i = graphe.getNoeudCheminPlusCourt().size() - 1; i >= 0; i--) {
@@ -286,7 +290,7 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 			System.out.println("Arriver : "
 					+ ActionEvenement.pointCheminVoiture.get(ActionEvenement.pointCheminVoiture.size() - 1).toString());
 			System.out.println("Et apres La taille du tableau pointCheminVoiture vaut : "
-					+ ActionEvenement.pointCheminVoiture.size());
+					+ ActionEvenement.pointCheminVoiture.size());*/
 
 		} 
 	}

@@ -16,9 +16,11 @@ public class Graph {
 	private ArrayList<Noeud> plusCourtChemin; // contient les noeuds se trouvant dans le chemin
 												// le plus court
 
-	private Noeud tempoPlusPetit; // contient le noeud qui a le plus petit chemin dans le graphe
+	//private Noeud tempoPlusPetit; // contient le noeud qui a le plus petit chemin dans le graphe
 
 	private ArrayList<Noeud> noeudCheminPlusCourt; // tableau qui contient les noeuds du chemin le plus court
+	
+	private int cpt = 1;
 
 	/**
 	 * Methodes accesseurs
@@ -107,8 +109,8 @@ public class Graph {
 		this.liens = new HashMap<Integer, Lien>();
 		this.plusCourtChemin = new ArrayList<Noeud>();
 		this.noeudCheminPlusCourt = new ArrayList<Noeud>();
-		this.setNoeuds(new CSV("SystemGuidageRoutier/res/Coordonnees.csv"));
-		this.setLiens(new CSV("SystemGuidageRoutier/res/liens.csv"));
+		this.setNoeuds(new CSV("res/Coordonnees.csv"));
+		this.setLiens(new CSV("res/liensCorrecte.csv"));
 	}
 
 	public Noeud getNoeud(String nom) {
@@ -121,12 +123,9 @@ public class Graph {
 
 	public void addLien(Noeud un, Noeud deux) {
 		Lien l = new Lien(un, deux);
-		if (!liens.containsKey(l.hashCode())){
-			liens.put(l.hashCode(), l);
-			un.addVoisin(l);
-			deux.addVoisin(l);
-		}
-
+		liens.put(l.hashCode(), l);
+		un.addVoisin(l);
+		deux.addVoisin(l);
 	}
 
 	public void addNoeud(Noeud noeud) {
@@ -175,11 +174,14 @@ public class Graph {
 	 *            le point d'arriver
 	 */
 	public void calculCheminCourt(Noeud depart, Noeud destination) {
+		
 		Noeud courantTempo = depart;
 		Noeud tempoVisite = null;
 
 		depart.setLongueurChemin(0); // la distance du noeud de depart = 0
 		depart.setStatu(true); // son statu est permanent
+		
+		//for(int i = 0; i < 100; i++) {// Enlever apres le test 
 
 		/**
 		 * On arrete l'algorithme si tout les noeuds du graphe sont a permanent ou si
@@ -191,32 +193,31 @@ public class Graph {
 			 */
 			if (arretAlgo1() || arretAlgo2())
 				break;
-
+			
+			System.out.println("Le noeud courant est : " + courantTempo.toString() + " et ses liens avec les noeud voisin sont : ");
+			System.out.println("Le predecesseur du noeud courant est : " + courantTempo.getPredecesseur());
+			System.out.println(cpt++ + "eme fois");
 			/**
 			 * Visiter tout les noeud adjacent au noeud courant et change leur labels s'il
 			 * le faut
 			 */
+			
 			for (Lien lien : courantTempo.getVoisins()) {
+				System.out.println(lien.toString());
 				try {
 
 					if (lien.getNoeudUn().getNom().equals(courantTempo.getNom())) {
 						if (!lien.getNoeudDeux().isStatu()) {
 							tempoVisite = lien.getNoeudDeux(); // si le 1er noeud de lien = noeud courant on recupere le
 																// 2eme noeud si celui ci a un statu temporaire
-						}
+						}else continue;
 
 					} else {
-						if (!lien.getNoeudUn().isStatu())
+						if (!lien.getNoeudUn().isStatu()) {
 							tempoVisite = lien.getNoeudUn(); // sinon on recupere le 1er noeud si celui ci a un statu
 																// temporaire
+						}else continue;
 					}
-
-					/**
-					 * le premier noeud voisin au noeud courant sera le noeud de reference pour la
-					 * recherche du noeud ayant le plus petit chemin et sera dans l'attribut
-					 * tempoPlusPetit
-					 */
-					tempoPlusPetit = tempoVisite;
 
 					/**
 					 * determiner si le noeud adjacent a une distance plus grand que celle du noeud
@@ -234,18 +235,22 @@ public class Graph {
 				}
 
 			} // ------------------fin du for------------------------------
-
-			// System.out.println(courantTempo.toString());
-
+			
 			/**
 			 * chercher le noeud qui a le plus petit chemin parmi tout les noeuds du graphe
 			 * c'est lui qui devient le noeud courant
 			 */
-			this.noeudCheminCourt();
-			courantTempo = tempoPlusPetit;
+			
+			courantTempo = this.noeudCheminCourt(tempoVisite);
 			courantTempo.setStatu(true);
-
+			
+			/*for(Entry<String, Noeud> noeud : noeuds.entrySet()) {
+				System.out.println(noeud.getValue().toString());
+			}*/
+			
 		} // -------------------------fin du while---------------------------
+			
+		//}//
 
 		/**
 		 * On extrait les noeuds appartenant au chemin le plus court et on les stocke
@@ -259,13 +264,25 @@ public class Graph {
 	 * Methode qui cherche le noeud qui a le plus petit chemin parmis tout les noeud
 	 * du graphe et le stocke dans l'attribut tempoPlusPetit
 	 */
-	private void noeudCheminCourt() { // faire la recherche du plus petit parmi tout les noeuds du graphe
+
+	private Noeud noeudCheminCourt(Noeud tempoDernierVisite) { // faire la recherche du plus petit parmi tout les noeuds du graphe
+		Point point = new Point(0, 0);
+		Noeud tempoPlusPetit;
+		if(tempoDernierVisite.isStatu()) {
+			tempoPlusPetit = new Noeud("", point);
+		}else {
+			tempoPlusPetit = tempoDernierVisite;
+		}
 		for (Entry<String, Noeud> noeud : noeuds.entrySet()) {
 			if (noeud.getValue().getLongueurChemin() < tempoPlusPetit.getLongueurChemin()
 					&& !noeud.getValue().isStatu()) {
 				tempoPlusPetit = noeud.getValue();
 			}
 		}
+		System.out.println("Le noeud qui le plus court chemin : " + tempoPlusPetit.toString());
+		System.out.println();
+		//System.out.println("Le noeud courant temporaire est : " + tempoPlusPetit.toString());
+		return tempoPlusPetit;
 	}
 
 	/**
@@ -279,12 +296,15 @@ public class Graph {
 		int nbrElement = 0;
 		for (Entry<String, Noeud> noeud : noeuds.entrySet()) {
 			if (noeud.getValue().isStatu())
+			{
 				nbrElement++;
-			// System.out.println(noeud.getValue().isStatu());
+			}
+
 		}
-		if (nbrElement == noeuds.size())
+		if (nbrElement == noeuds.size()) {
 			res = true;
-		// System.out.println("finaly : " + res);
+			System.out.println("le nombre d'element dans MapNoueds : " + noeuds.size() + " variable de controle : " + nbrElement);
+		}
 		return res;
 	}
 
@@ -299,11 +319,15 @@ public class Graph {
 		boolean res = false;
 		int nbrElement = 0;
 		for (Entry<String, Noeud> noeud : noeuds.entrySet()) {
-			if (noeud.getValue().getLongueurChemin() == Double.MAX_VALUE && !noeud.getValue().isStatu())
+			if (noeud.getValue().getLongueurChemin() == Double.MAX_VALUE && !noeud.getValue().isStatu()) {
 				nbrElement++;
+			}	
 		}
-		if (nbrElement == noeuds.size())
+		if (nbrElement == noeuds.size()) {
 			res = true;
+			System.out.println("1 le nombre d'element dans MapNoueds : " + noeuds.size() + " 1 variable de controle : " + nbrElement);
+		}
+			
 		return res;
 	}
 

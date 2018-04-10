@@ -1,5 +1,9 @@
-/controleur/
+/arrow.png
+/pointer.png
+/pointeur.png
 /modele/
 /vue/
-/outils/
-/.DS_Store
+/liensCorrecte.csv
+/toutDroit.png
+/tournerDroite.png
+/tournerGauche.png
