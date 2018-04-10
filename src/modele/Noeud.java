@@ -129,8 +129,8 @@ public class Noeud {
 		return this.voisins.get(index);
 	}
 
-	public void addVoisin(Lien e) {
-		this.voisins.add(e);
+	public void addVoisin(Lien l) {
+		this.voisins.add(l);
 	}
 
 	public void removeVoisin(Lien e) {
@@ -139,8 +139,8 @@ public class Noeud {
 
 	public String toString() {
 		String str = "[nom: " + this.nom + ", coordonnees:{x: " + this.getX() + ", y: " + this.getY() + "}]"
-				+ "\n Labels:{Longueur du chemin : " + this.getLongueurChemin() + ", Predecesseur : "
-				+ this.getPredecesseur();
+				+ " Labels:{Longueur du chemin : " + this.getLongueurChemin() + ", Predecesseur : "
+				+ this.getPredecesseur() + " Statu: " + this.statu + "\n";
 		return str;
 	}
 }

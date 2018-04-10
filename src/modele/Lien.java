@@ -8,6 +8,7 @@ public class Lien {
 	private Noeud a,b;
 	private double poid; //distance......deffinir la distance comme un int
 	private Integer index;
+	private Evenement evenement;
 	
 	public Lien(Noeud a, Noeud b){
 		/**Créer un lien et calcule automatiquement la distance (ou poid) selon l'hypotenuse des coordonnées déclarer dans 
@@ -18,6 +19,8 @@ public class Lien {
 		this.b = b;	
 		this.poid = Math.hypot(b.getX()-a.getX(), b.getY()-a.getY()); // calculer le poid en precision int donc b.getCoordonnees().x
 		this.index = (a.getNom().hashCode() + b.getNom().hashCode());
+		evenement = new Evenement();
+		
 	}
 	
 	public Integer getIndex(){
