@@ -11,6 +11,7 @@ public class Graph {
 
 	private HashMap<String, Noeud> noeuds; // indexé par lettres de l'alphabet
 	private HashMap<Integer, Lien> liens;
+	private HashMap<Integer, Evenement> evenements; //Index = id du lien concerne
 	private Point coordonnnePointAjour;
 
 	private ArrayList<Noeud> plusCourtChemin; // contient les noeuds se trouvant dans le chemin
@@ -21,6 +22,19 @@ public class Graph {
 	private ArrayList<Noeud> noeudCheminPlusCourt; // tableau qui contient les noeuds du chemin le plus court
 	
 	private int cpt = 1;
+	
+	/**
+	 * constructeur de class
+	 */
+	public Graph() {
+		this.noeuds = new HashMap<String, Noeud>();
+		this.liens = new HashMap<Integer, Lien>();
+		this.plusCourtChemin = new ArrayList<Noeud>();
+		this.noeudCheminPlusCourt = new ArrayList<Noeud>();
+		this.setNoeuds(new CSV("res/Coordonnees.csv"));
+		this.setLiens(new CSV("res/liensCorrecte.csv"));
+		this.evenements = new HashMap<Integer, Evenement>();
+	}
 
 	/**
 	 * Methodes accesseurs
@@ -62,7 +76,15 @@ public class Graph {
 	public HashMap<String, Noeud> getNoeuds() {
 		return noeuds;
 	}
-
+	/**
+	 * @return the liens
+	 */
+	public HashMap<Integer, Lien> getLiens() {
+		return liens;
+	}
+	public HashMap<Integer, Evenement> getEvenements(){
+		return this.evenements;
+	}
 	/**
 	 * @return the coordonnnePointAjour
 	 */
@@ -85,14 +107,6 @@ public class Graph {
 	public void setNoeuds(HashMap<String, Noeud> noeuds) {
 		this.noeuds = noeuds;
 	}
-
-	/**
-	 * @return the liens
-	 */
-	public HashMap<Integer, Lien> getLiens() {
-		return liens;
-	}
-
 	/**
 	 * @param liens
 	 *            the liens to set
@@ -101,24 +115,15 @@ public class Graph {
 		this.liens = liens;
 	}
 
-	/**
-	 * constructeur de class
-	 */
-	public Graph() {
-		this.noeuds = new HashMap<String, Noeud>();
-		this.liens = new HashMap<Integer, Lien>();
-		this.plusCourtChemin = new ArrayList<Noeud>();
-		this.noeudCheminPlusCourt = new ArrayList<Noeud>();
-		this.setNoeuds(new CSV("res/Coordonnees.csv"));
-		this.setLiens(new CSV("res/liensCorrecte.csv"));
-	}
-
 	public Noeud getNoeud(String nom) {
 		return this.noeuds.get(nom);
 	}
 
 	public Lien getLien(int index) {
 		return this.liens.get(index);
+	}
+	public Evenement getEvenement(int index){
+		return this.evenements.get(index);
 	}
 
 	public void addLien(Noeud un, Noeud deux) {
@@ -130,6 +135,10 @@ public class Graph {
 
 	public void addNoeud(Noeud noeud) {
 		this.noeuds.put(noeud.getNom(), noeud);
+	}
+	
+	public void addEvenement(Lien lien, Evenement evenement){
+		evenements.put(lien.getIndex(), evenement);
 	}
 
 	public void setLiens(CSV source) {
