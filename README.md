@@ -1,17 +1,21 @@
 # Système Guidage Routier
-
+REMISE : Vendredi 20 avril
 ## Notes
 
 Je met une section comprennant diverses notes à partager avec l'équipe. Ajouter vos initiales après vos ajouts
 
-# TODO:
-- Changement dynamique du temps: HIGH
-- Implémenter les évènements : HIGH
+## TODO:
+- Changement dynamique du temps: HIGH : FAIT
+- Implémenter les évènements : HIGH : 50%
 	- Traffic
 	- Accidents
-- Affichage Direction MEDIUM
-- Affichage temps trajet LOW
-- Affichage des évènements MEDIUM
+- Affichage Direction MEDIUM : Credo 0%
+- Affichage temps trajet LOW : Sam/Credo 0%
+- Affichage des évènements MEDIUM : Sam 0%
+- Affichage indicateur congestion LOW : Credo 0%
+- Améliorer la robustesse (gestion des évènements) : LOW
+- Commenter le code : LOW
+- Rapport : 75%
 
 
 ### Instructions pour importer dans eclipse
