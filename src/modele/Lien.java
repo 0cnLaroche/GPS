@@ -1,10 +1,15 @@
 package modele;
 
+import java.time.*;
+import java.lang.Math;
+
+
 public class Lien {
 	
 	private Noeud a,b;
 	private double poid; //distance......deffinir la distance comme un int
 	private Integer index;
+	private Evenement evenement;
 	
 	public Lien(Noeud a, Noeud b){
 		/**Créer un lien et calcule automatiquement la distance (ou poid) selon l'hypotenuse des coordonnées déclarer dans 
@@ -20,11 +25,45 @@ public class Lien {
 	public Integer getIndex(){
 		return this.index;
 	}
+	public void addEvenement(Evenement e){
+		this.evenement = e;
+	}
+	public Evenement getEvenement(){
+		return this.evenement;
+	}
 	public void setPoid(Double poid){
 		this.poid = poid;
 	}
-	public Double getPoid(){
-		return this.poid;
+
+	public Double getPoid() {
+		/**
+		 * La méthode ajuste le poid à la hausse si l'heure courante s'approche
+		 * des heures de pointes. Les heures de haute densité sont 8h et 17h. La
+		 * densité suit un fonction cosinus entre 4h et 21h, la densité est
+		 * constante à l'exterieur de ces heures. Plus on s'approche de 8h et
+		 * 17h, plus le poid (temps) retourné est élevé. Lors des pointes, le
+		 * facteur maximum est 3x le poid normal.
+		 * 
+		 * Si un évènement (traffic ou accident) affecte la circulation, le poid
+		 * est haussé.
+		 * 
+		 * @author Samuel
+		 */
+		double poid;
+		double time = (double) LocalTime.now().getHour() + (double) LocalTime.now().getMinute() / 60;
+		;
+		if (3.94 < time && time < 20.905) {
+			// poid = poid départ (distance) * facteur heures de pointes *
+			// facteur evenement
+			poid = this.poid * (Math.cos(time / 1.35 + 0.7 / Math.PI) + 2);
+		} else {
+			poid = this.poid;
+		}
+		if (evenement == null) {
+			return poid;
+		} else {
+			return poid * evenement.getCongestion();
+		}
 	}
 	public Double comparePoid(Lien autre){
 		return this.poid - autre.getPoid();
