@@ -39,6 +39,12 @@ public class Lien {
 			throw new Exception("Le point ne fait pas partie de ce liens Lien");
 		}
 	}
+	public boolean contiens(Noeud n){
+		if (n.getNom() == a.getNom() || n.getNom() == b.getNom()){
+			return true;
+		} else 
+			return false;
+	}
 	public Noeud getNoeudUn(){
 		return this.a;
 	}

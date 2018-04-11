@@ -115,7 +115,14 @@ public class Noeud {
 	public Lien getVoisin(int index) {
 		return this.voisins.get(index);
 	}
-
+	public Lien getLien(Noeud voisin){
+		for(Lien l:voisin.getVoisins()){
+			if (l.contiens(voisin)){
+				return l;
+			}
+		}
+		return null;
+	}
 	public void addVoisin(Lien e) {
 		this.voisins.add(e);
 	}

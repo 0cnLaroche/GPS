@@ -123,8 +123,11 @@ public class Voiture {
 		for (int i = cheminCourt.size() - 1; i > 0; i--) {
 			depart = cheminCourt.get(i).getCoordonnees();
 			arriver = cheminCourt.get(i - 1).getCoordonnees();
-
-			temps = Math.hypot((arriver.x - depart.x), (arriver.y - depart.y)); //represente le poids du lien entre deux noueds
+			
+			//retrouver le lien ici pour avoir le poid
+			Lien lien = cheminCourt.get(i).getLien(cheminCourt.get(i-1));
+			
+			temps = lien.getPoid();
 
 			dx = arriver.getX() - depart.getX();
 			dy = arriver.getY() - depart.getY();
@@ -145,6 +148,7 @@ public class Voiture {
 				/**
 				 * code Sam
 				 */
+				//TODO: Réinitialiser au prochain point du trajet et non le point actuel pour éliminer les déviations
 				positionVoiture.setLocation(x, y);// point representant la position de la voiture a l'instant t
 				if (x < (depart.getX() + dx) && y < (depart.getY() + dy)) {
 					x += stepx;
@@ -167,7 +171,9 @@ public class Voiture {
 
 				positionVoiture.setLocation(x, y);//point representant la position
 				}
+			//positionVoiture.setLocation(cheminCourt.get(i+1).getCoordonnees());//àTester
 		}
+		
 		cheminVoiture.add(positionVoiture.getLocation());
 		return cheminVoiture;
 	}
