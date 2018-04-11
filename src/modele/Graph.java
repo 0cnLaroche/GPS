@@ -139,6 +139,8 @@ public class Graph {
 	
 	public void addEvenement(Lien lien, Evenement evenement){
 		evenements.put(lien.getIndex(), evenement);
+		//lien.addEvenement
+		
 	}
 
 	public void setLiens(CSV source) {
@@ -203,16 +205,16 @@ public class Graph {
 			if (arretAlgo1() || arretAlgo2())
 				break;
 			
-			System.out.println("Le noeud courant est : " + courantTempo.toString() + " et ses liens avec les noeud voisin sont : ");
-			System.out.println("Le predecesseur du noeud courant est : " + courantTempo.getPredecesseur());
-			System.out.println(cpt++ + "eme fois");
+			//System.out.println("Le noeud courant est : " + courantTempo.toString() + " et ses liens avec les noeud voisin sont : ");
+			//System.out.println("Le predecesseur du noeud courant est : " + courantTempo.getPredecesseur());
+			//System.out.println(cpt++ + "eme fois");
 			/**
 			 * Visiter tout les noeud adjacent au noeud courant et change leur labels s'il
 			 * le faut
 			 */
 			
 			for (Lien lien : courantTempo.getVoisins()) {
-				System.out.println(lien.toString());
+				//System.out.println(lien.toString());
 				try {
 
 					if (lien.getNoeudUn().getNom().equals(courantTempo.getNom())) {
@@ -288,8 +290,8 @@ public class Graph {
 				tempoPlusPetit = noeud.getValue();
 			}
 		}
-		System.out.println("Le noeud qui le plus court chemin : " + tempoPlusPetit.toString());
-		System.out.println();
+		//System.out.println("Le noeud qui le plus court chemin : " + tempoPlusPetit.toString());
+		//System.out.println();
 		//System.out.println("Le noeud courant temporaire est : " + tempoPlusPetit.toString());
 		return tempoPlusPetit;
 	}

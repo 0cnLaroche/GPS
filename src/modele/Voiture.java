@@ -121,13 +121,21 @@ public class Voiture {
 		 * stockee du dernier au premier
 		 */
 		for (int i = cheminCourt.size() - 1; i > 0; i--) {
+			
+			Noeud nDepart = cheminCourt.get(i);
+			Noeud nArriver = cheminCourt.get(i-1);
+			
 			depart = cheminCourt.get(i).getCoordonnees();
 			arriver = cheminCourt.get(i - 1).getCoordonnees();
 			
 			//retrouver le lien ici pour avoir le poid
-			Lien lien = cheminCourt.get(i).getLien(cheminCourt.get(i-1));
+			Lien lien = nDepart.getLien(nArriver);
+			//System.out.println(lien.toString());
+			System.out.println(cheminCourt.get(i).getNom());
+			System.out.println(cheminCourt.get(i-1).getNom());
 			
-			temps = lien.getPoid();
+			//temps = lien.getPoid(); Fonctionne pas pour certains segments pour une raison inconnu
+			temps = Math.hypot(cheminCourt.get(i-1).getX()-cheminCourt.get(i).getX(), cheminCourt.get(i-1).getY()-cheminCourt.get(i).getY());
 
 			dx = arriver.getX() - depart.getX();
 			dy = arriver.getY() - depart.getY();
