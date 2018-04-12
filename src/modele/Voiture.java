@@ -7,34 +7,13 @@ import vue.PanelUtilisateur;
 
 public class Voiture {
 
-	/**
-	 * Represente la position de la voiture a un instant t
-	 */
-	private Point positionVoiture;
-
-	/**
-	 * Tableau des point representant le chemin de la voiture
-	 */
-	private ArrayList<Point> cheminVoiture;
-
-	/**
-	 * attribut contenant les points de depart et d'arriver temporaire
-	 */
-	private Point depart;
-
-	private Point arriver;
-
-	private double dx, dy, temps, frames, stepx, stepy;
-
-	/**
-	 * varialbes de l'equation
-	 */
+	private Point positionVoiture; //Represente la position de la voiture a un instant t
+	private ArrayList<Point> cheminVoiture; //Tableau des point representant le chemin de la voiture
+	private Point depart, arriver;//attribut contenant les points de depart et d'arriver temporaire
+	private double dx, dy, temps, frames, stepx, stepy; //varialbes de l'equation
 	private double y = 0, x; // variables de l'equation
 
-	/**
-	 * constructeur de la classe
-	 */
-	public Voiture() {
+	public Voiture() { //constructeur de la classe
 		super();
 		this.positionVoiture = new Point(0, 0);
 		this.depart = new Point(0, 0);
@@ -130,13 +109,15 @@ public class Voiture {
 			
 			//retrouver le lien ici pour avoir le poid
 			Lien lien = nDepart.getLien(nArriver);
-			//System.out.println(lien.toString());
-			System.out.println(cheminCourt.get(i).getNom());
-			System.out.println(cheminCourt.get(i-1).getNom());
-			
-			//temps = lien.getPoid(); Fonctionne pas pour certains segments pour une raison inconnu
-			temps = Math.hypot(cheminCourt.get(i-1).getX()-cheminCourt.get(i).getX(), cheminCourt.get(i-1).getY()-cheminCourt.get(i).getY());
 
+			System.out.println(nDepart.getNom());
+
+			System.out.println(nArriver.getNom());
+			System.out.println(lien.toString());
+			
+			temps = lien.getPoid() * lien.getCongestion();
+			//temps = Math.hypot(nArriver.getX()-nDepart.getX(), nArriver.getY()-nDepart.getY());
+			System.out.println(lien.getCongestion());
 			dx = arriver.getX() - depart.getX();
 			dy = arriver.getY() - depart.getY();
 
