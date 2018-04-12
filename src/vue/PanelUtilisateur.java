@@ -46,7 +46,7 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 
 	int i = 0; // indice du tableau pointCheminCourt
 
-	private BufferedImage image;
+	private Image image;
 
 	private Image imgToutDroit;
 
@@ -71,7 +71,9 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 		delaisTimer = t.getDelay();
 
 		try {
+			//J'ai mis une autre image sans background mais on peut la changer
 			this.image = ImageIO.read(getClass().getResourceAsStream("/pointeur.png"));
+			image = image.getScaledInstance(40, 40, image.SCALE_DEFAULT);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -240,7 +242,8 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 						 */
 
 		g.drawImage(image, ActionEvenement.getPointCheminVoiture().get(i).x,
-				ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight() - 10), null);
+				//ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null) - 10), null);
+				ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null)-40), null);
 
 		// g.fillOval(ActionEvenement.getPointCheminVoiture().get(i).x,
 		// ActionEvenement.getPointCheminVoiture().get(i).y, 15, 15);

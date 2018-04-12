@@ -35,15 +35,16 @@ public class Lien {
 		 * 
 		 * @author Samuel
 		 */
-		double congestion;
+		double congestion = 1; //Pour s'assurer que 1 est retourne si jamais il y a une erreur avec la formule
+		
 		float time = (float) LocalTime.now().getHour() + (float) LocalTime.now().getMinute() / 60;
-		;
-		if (3.94 < time && time < 20.905) {
+		
+		if (7.368 < time && time < 8.625) {
 			// poid = poid départ (distance) * facteur heures de pointes *
 			// facteur evenement
-			congestion = (Math.cos(time / 1.35 + 0.7 / Math.PI) + 2);
-		} else {
-			congestion = 1;
+			congestion = (Math.cos(time / 0.2 + 4) + 2);
+		} else if (15.536 < time && time < 18.05){
+			congestion = (Math.cos(time / 0.4 + 2) + 2);
 		}
 		if (evenement == null) {
 			return congestion;
