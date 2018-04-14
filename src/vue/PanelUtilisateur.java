@@ -241,9 +241,9 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 						 * }
 						 */
 
-		g.drawImage(image, ActionEvenement.getPointCheminVoiture().get(i).x,
+		g.drawImage(image, ActionEvenement.getPointCheminVoiture().get(i).x-10,
 				//ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null) - 10), null);
-				ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null)-40), null);
+				ActionEvenement.getPointCheminVoiture().get(i).y - 10, null);
 
 		// g.fillOval(ActionEvenement.getPointCheminVoiture().get(i).x,
 		// ActionEvenement.getPointCheminVoiture().get(i).y, 15, 15);
