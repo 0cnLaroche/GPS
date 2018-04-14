@@ -9,10 +9,11 @@ Je met une section comprennant diverses notes à partager avec l'équipe. Ajoute
 - Implémenter les évènements : HIGH : 50%
 	- Traffic
 	- Accidents
-- Affichage Direction MEDIUM : Credo 0%
-- Affichage temps trajet LOW : Sam/Credo 0%
+- Affichage Direction MEDIUM : Credo 50%
+- Affichage temps trajet LOW : Credo 0%
+- Input heure de départ LOW : Sam 0%
 - Affichage des évènements MEDIUM : Sam 0%
-- Affichage indicateur congestion LOW : Credo 0%
+- Affichage indicateur congestion LOW : Credo 80%
 - Améliorer la robustesse (gestion des évènements) : LOW
 - Commenter le code : LOW
 - Rapport : 75%
