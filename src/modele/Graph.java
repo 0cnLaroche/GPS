@@ -235,7 +235,7 @@ public class Graph {
 					 * courant + le poid du lien et si il est temporaire. Si oui, change les labels
 					 * du noeud adjacent.
 					 */
-					if (courantTempo.getLongueurChemin() + lien.getPoid() < tempoVisite.getLongueurChemin()
+					if (courantTempo.getLongueurChemin() + lien.getPoid() * lien.getCongestion() < tempoVisite.getLongueurChemin()
 							&& !tempoVisite.isStatu()) {
 						tempoVisite.setLongueurChemin(courantTempo.getLongueurChemin() + lien.getPoid());
 						tempoVisite.setPredecesseur(courantTempo.getNom());
