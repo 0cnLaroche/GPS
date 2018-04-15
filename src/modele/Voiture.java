@@ -166,23 +166,72 @@ public class Voiture {
 		cheminVoiture.add(positionVoiture.getLocation());
 		return cheminVoiture;
 	}
+	
+	/**
+	 * Methode qui calcule la duree du trajet
+	 */
+	public double dureeDuTrajet(ArrayList<Noeud> cheminCourt) {
+		double tempParcourt = 0;
+		for(Noeud noeud : cheminCourt) {
+			//tempParcourt += noeud.get
+		}
+		return tempParcourt;
+		
+	}
+	
+	/**
+	 * Methode qui permet de definir les directions a prendre a partir des noeud du
+	 * chemin le plus court
+	 */
+	public ArrayList<String> directionAPrendreDansCheminPlusCourt(ArrayList<Noeud> cheminCourt) {
+		ArrayList<String> nomIconDirectionAPrendre = new ArrayList<>();
 
-	/*	*//**
-			 * Methode qui permet d'ecrire les coordonnes d'un point dans un fichier, code a enlever a la fin
-			 * 
-			 * @param coordonne
-			 *//*
-				 * public void ecrireFichier(Point coordonne) { File x = new
-				 * File("Coordonees.txt"); FileWriter y; BufferedWriter z; PrintWriter fichier =
-				 * null; try { y = new FileWriter(x, true); z = new BufferedWriter(y); fichier =
-				 * new PrintWriter(z); fichier.print(" X : " + String.valueOf(coordonne.getX())
-				 * + "  Y : " + String.valueOf(coordonne.getY()) + "\n"); } catch (IOException
-				 * e) { e.printStackTrace(); } fichier.close(); } public void ecrireCSV(Point
-				 * coordonne) { File x = new File("Coordonees.csv"); FileWriter y;
-				 * BufferedWriter z; PrintWriter fichier = null; try { y = new FileWriter(x,
-				 * true); z = new BufferedWriter(y); fichier = new PrintWriter(z);
-				 * fichier.println(String.valueOf(coordonne.getX()) + "," +
-				 * String.valueOf(coordonne.getY())); } catch (IOException e) {
-				 * e.printStackTrace(); } fichier.close(); }
+		for (int i = cheminCourt.size() - 1; i > 0; i--) {
+			if (cheminCourt.get(i).getX() < cheminCourt.get(0).getX()) {
+				/**
+				 * On compare les positions des noeuds appartenant au chemin le plus court
+				 * et dependament du resultat on stocke le nom de l'icone de direction correspondante 
+				 * 
+				 * Ici le sens de depalcement est de la gauche de l'ecran vers la droite
 				 */
+				if (cheminCourt.get(i).getY() < cheminCourt.get(i - 1).getY()
+						|| cheminCourt.get(i).getX() > cheminCourt.get(i - 1).getX()) {
+					/**
+					 * La voiture se deplace dans le sens inverse a celui des tests de comparaison
+					 * des noeuds
+					 */
+					nomIconDirectionAPrendre.add("tournerDroite");
+
+				} else if (cheminCourt.get(i).getY() > cheminCourt.get(i - 1).getY()
+						|| cheminCourt.get(i).getX() < cheminCourt.get(i - 1).getX()) {
+
+					nomIconDirectionAPrendre.add("tournerGauche");
+				} else {
+
+					nomIconDirectionAPrendre.add("toutDroit");
+				}
+			}else {
+				/**
+				 * On fait la meme chose mais dans l'autre sens (de la droite de l'ecran vers la gauche)
+				 */
+				if (cheminCourt.get(i).getY() > cheminCourt.get(i - 1).getY()
+						|| cheminCourt.get(i).getX() < cheminCourt.get(i - 1).getX()) {
+					/**
+					 * La voiture se deplace dans le sens inverse a celui des tests de comparaison
+					 * des noeuds
+					 */
+					nomIconDirectionAPrendre.add("tournerDroite");
+
+				} else if (cheminCourt.get(i).getY() < cheminCourt.get(i - 1).getY()
+						|| cheminCourt.get(i).getX() > cheminCourt.get(i - 1).getX()) {
+
+					nomIconDirectionAPrendre.add("tournerGauche");
+				} else {
+
+					nomIconDirectionAPrendre.add("toutDroit");
+				}
+			}
+		}
+		return nomIconDirectionAPrendre;
+	}
 }

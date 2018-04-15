@@ -22,6 +22,7 @@ public class Evenement {
 		this.setCongestion(NULL); //Par défault la congestion est nulle
 		this.time = LocalDateTime.now();
 	}
+	
 	public Evenement(String type, double congestion){
 		this.type = type;
 		this.setCongestion(congestion);

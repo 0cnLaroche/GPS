@@ -18,50 +18,19 @@ public class FrmPanelUtilisateur extends JFrame {
 
 	private PanelUtilisateur panelUtilisateur;
 
-	private JPanel informationUtilisateur;
+	private static JPanel informationUtilisateur;
 
-	private JLabel avertissementEvenement;
+	private static JLabel avertissementEvenement;
 
 	private static JLabel directionAPrendre;
 
-	private JLabel tempParcours;
+	private static JLabel tempParcours;
+	
+	private static JLabel etatTraffic;
 
 	private Graph graphe;
-
 	
-	
-
-	public JLabel getTempParcours() {
-		return tempParcours;
-	}
-
-	public void setTempParcours(JLabel tempParcours) {
-		this.tempParcours = tempParcours;
-	}
-
-	public JPanel getInformationUtilisateur() {
-		return informationUtilisateur;
-	}
-
-	public void setInformationUtilisateur(JPanel informationUtilisateur) {
-		this.informationUtilisateur = informationUtilisateur;
-	}
-
-	public JLabel getAvertissementEvenement() {
-		return avertissementEvenement;
-	}
-
-	public void setAvertissementEvenement(JLabel avertissementEvenement) {
-		this.avertissementEvenement = avertissementEvenement;
-	}
-
-	public static JLabel getDirectionAPrendre() {
-		return directionAPrendre;
-	}
-
-	public static void setDirectionAPrendre(JLabel directionAPrendre) {
-		FrmPanelUtilisateur.directionAPrendre = directionAPrendre;
-	}
+	//private ActionEvenement controleur;
 
 	/**
 	 * constructeur de la classe
@@ -72,6 +41,114 @@ public class FrmPanelUtilisateur extends JFrame {
 		graphe = new Graph();
 		fenetreUtilisateur();
 	}
+	
+	/**
+	 * Methode accesseur
+	 */
+	
+	
+
+	/**
+	 * @return the panelUtilisateur
+	 */
+	public PanelUtilisateur getPanelUtilisateur() {
+		return panelUtilisateur;
+	}
+
+	/**
+	 * @return the etatTraffic
+	 */
+	public static JLabel getEtatTraffic() {
+		return etatTraffic;
+	}
+
+	/**
+	 * @param etatTraffic the etatTraffic to set
+	 */
+	public static void setEtatTraffic(JLabel etatTraffic) {
+		FrmPanelUtilisateur.etatTraffic = etatTraffic;
+	}
+
+	/**
+	 * @param panelUtilisateur the panelUtilisateur to set
+	 */
+	public void setPanelUtilisateur(PanelUtilisateur panelUtilisateur) {
+		this.panelUtilisateur = panelUtilisateur;
+	}
+
+
+
+	/**
+	 * @return the informationUtilisateur
+	 */
+	public static JPanel getInformationUtilisateur() {
+		return FrmPanelUtilisateur.informationUtilisateur;
+	}
+
+
+
+	/**
+	 * @param informationUtilisateur the informationUtilisateur to set
+	 */
+	public static void setInformationUtilisateur(JPanel informationUtilisateur) {
+		FrmPanelUtilisateur.informationUtilisateur = informationUtilisateur;
+	}
+
+
+
+	/**
+	 * @return the avertissementEvenement
+	 */
+	public static JLabel getAvertissementEvenement() {
+		return FrmPanelUtilisateur.avertissementEvenement;
+	}
+
+
+
+	/**
+	 * @param avertissementEvenement the avertissementEvenement to set
+	 */
+	public static void setAvertissementEvenement(JLabel avertissementEvenement) {
+		FrmPanelUtilisateur.avertissementEvenement = avertissementEvenement;
+	}
+
+
+
+	/**
+	 * @return the directionAPrendre
+	 */
+	public static JLabel getDirectionAPrendre() {
+		return FrmPanelUtilisateur.directionAPrendre;
+	}
+
+
+
+	/**
+	 * @param directionAPrendre the directionAPrendre to set
+	 */
+	public static void setDirectionAPrendre(JLabel directionAPrendre) {
+		FrmPanelUtilisateur.directionAPrendre = directionAPrendre;
+	}
+
+
+
+	/**
+	 * @return the tempParcours
+	 */
+	public static JLabel getTempParcours() {
+		return FrmPanelUtilisateur.tempParcours;
+	}
+
+
+
+	/**
+	 * @param tempParcours the tempParcours to set
+	 */
+	public static void setTempParcours(JLabel tempParcours) {
+		FrmPanelUtilisateur.tempParcours = tempParcours;
+	}
+
+
 
 	/**
 	 * Methode qui contient les proprietes du JFrame (fenetre) FrmPanelUtilisateur
@@ -82,14 +159,6 @@ public class FrmPanelUtilisateur extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(false);
-		
-		/**
-		 * Ajout du panel qui contient les labels d'affichage des messages utilisateurs
-		 * sur le JFrame
-		 */
-		informationUtilisateur = new JPanel(new GridBagLayout());
-		informationUtilisateur.setBackground(Color.BLACK);
-		this.add(informationUtilisateur, BorderLayout.NORTH);
 
 		/**
 		 * Creation et ajout du JPanel qui contient le dessin (graphe) du reseau routier sur le
@@ -98,18 +167,33 @@ public class FrmPanelUtilisateur extends JFrame {
 		panelUtilisateur = new PanelUtilisateur(graphe);
 		this.add(panelUtilisateur);
 
-		avertissementEvenement = new JLabel("Messages d'avertissements des evenements");
+		/**
+		 * Ajout du panel qui contient les labels d'affichage des messages utilisateurs
+		 * sur le JFrame
+		 */
+		informationUtilisateur = new JPanel(new GridBagLayout());
+		informationUtilisateur.setBackground(Color.BLACK);
+		this.add(informationUtilisateur, BorderLayout.NORTH);
+
+		avertissementEvenement = new JLabel("Avertissements des evenements");
 		avertissementEvenement.setFont(new Font("Serif", Font.BOLD, 19));
 		avertissementEvenement.setForeground(Color.GREEN);
 
-		directionAPrendre = new JLabel("Affichage des directions a prendre");
+		directionAPrendre = new JLabel("Directions a prendre");
 		directionAPrendre.setFont(new Font("Serif", Font.BOLD, 19));
 		directionAPrendre.setForeground(Color.GREEN);
 
-		tempParcours = new JLabel("Affichage du temps de parcours");
+		tempParcours = new JLabel("Temps de parcours");
 		tempParcours.setFont(new Font("Serif", Font.BOLD, 19));
 		tempParcours.setForeground(Color.GREEN);
+		
+		etatTraffic = new JLabel("Etat du traffic");
+		etatTraffic.setFont(new Font("Serif", Font.BOLD, 19));
+		etatTraffic.setForeground(Color.GREEN);
 
+		/**
+		 * contrainte de mise en forme des composantes du JPanel informationUtilisateur
+		 */
 		GridBagConstraints panelInformationUtilisateur = new GridBagConstraints();
 
 		panelInformationUtilisateur.insets = new Insets(40, 20, 40, 20);
@@ -137,6 +221,13 @@ public class FrmPanelUtilisateur extends JFrame {
 		panelInformationUtilisateur.gridx = 3;
 		panelInformationUtilisateur.gridy = 0;
 		informationUtilisateur.add(tempParcours, panelInformationUtilisateur);
+		
+		/**
+		 * Placer le label qui signal l'etat du traffic
+		 */
+		panelInformationUtilisateur.gridx = 4;
+		panelInformationUtilisateur.gridy = 0;
+		informationUtilisateur.add(etatTraffic, panelInformationUtilisateur);
 
 	}
 

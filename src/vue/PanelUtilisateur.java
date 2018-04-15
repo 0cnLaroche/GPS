@@ -53,12 +53,18 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 	private Image imgTourneDroite;
 
 	private Image imgTourneGauche;
+	
+	private Image imgpointRouge;
+	
+	private Image imgpointVert;
+	
+	private double tempDeParcour = 0;
 
 	/**
 	 * declaration d'un attribut qui a le type de la classe qui contient les actions
 	 * correspondant aux evenements
 	 */
-	// private actionEvenement actionEvenement = new actionEvenement(this);
+	private ActionEvenement actionEvenement = new ActionEvenement();
 
 	int cpt = 0; // temporaire pour le test
 
@@ -81,6 +87,8 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 		this.imgToutDroit = new ImageIcon(this.getClass().getResource("/toutDroit.png")).getImage();
 		this.imgTourneDroite = new ImageIcon(this.getClass().getResource("/tournerDroite.png")).getImage();
 		this.imgTourneGauche = new ImageIcon(this.getClass().getResource("/tournerGauche.png")).getImage();
+		this.imgpointRouge = new ImageIcon(this.getClass().getResource("/pointRouge.png")).getImage();
+		this.imgpointVert = new ImageIcon(this.getClass().getResource("/pointVert.png")).getImage();
 	}
 
 	/**
@@ -198,18 +206,14 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 			}
 
 		}
-
 		g.setColor(Color.GREEN);
 		g2.setStroke(new BasicStroke(5));
 
 		/**
 		 * Desinner le trajet
 		 */
-		for (int j = 0; j < ActionEvenement.getPointCheminVoiture().size() - 1; j++) {
-
-			// g2.draw(new Line2D.Double(ActionEvenement.getPointCheminVoiture().get(j),
-			// ActionEvenement.getPointCheminVoiture().get(j + 1)));
-
+		for (int j = 0; j < ActionEvenement.getPointCheminVoiture().size() - 1; j++) { 
+			
 			g2.drawLine(ActionEvenement.getPointCheminVoiture().get(j).x + 10,
 					ActionEvenement.getPointCheminVoiture().get(j).y + 10,
 					ActionEvenement.getPointCheminVoiture().get(j + 1).x + 10,
@@ -217,29 +221,40 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 
 		}
 
-		/*		*//**
-					 * Affichage des direction a prendre avec les icones
-					 *//*
-						 * if(i < ActionEvenement.getPointCheminVoiture().size() - 1) {
-						 * 
-						 * if(ActionEvenement.getPointCheminVoiture().get(i).y <
-						 * ActionEvenement.getPointCheminVoiture().get(i + 1).y) {
-						 * 
-						 * FrmPanelUtilisateur.getDirectionAPrendre().setIcon(new
-						 * ImageIcon(imgTourneDroite));
-						 * FrmPanelUtilisateur.getDirectionAPrendre().setText("Tournez a droite");
-						 * 
-						 * }else if(ActionEvenement.getPointCheminVoiture().get(i).y >
-						 * ActionEvenement.getPointCheminVoiture().get(i + 1).y) {
-						 * FrmPanelUtilisateur.getDirectionAPrendre().setIcon(new
-						 * ImageIcon(imgTourneGauche));
-						 * FrmPanelUtilisateur.getDirectionAPrendre().setText("Tournez a gauche"); }else
-						 * { FrmPanelUtilisateur.getDirectionAPrendre().setIcon(new
-						 * ImageIcon(imgToutDroit));
-						 * FrmPanelUtilisateur.getDirectionAPrendre().setText("Continuez tout droit"); }
-						 * 
-						 * }
-						 */
+		/**
+		 * Affichage des direction a prendre
+		 */
+		if (i < ActionEvenement.getIconesDirection().size()) {
+			if (ActionEvenement.getIconesDirection().get(i).equals("toutDroit")) {
+				FrmPanelUtilisateur.getDirectionAPrendre().setIcon(new ImageIcon(imgToutDroit));
+				FrmPanelUtilisateur.getDirectionAPrendre().setText("Continuez tout droit");
+				FrmPanelUtilisateur.getEtatTraffic().setIcon(new ImageIcon(imgpointVert));
+				FrmPanelUtilisateur.getEtatTraffic().setText("Traffic fluide");
+				System.out.println(i + "tout droit");
+
+			} else if (ActionEvenement.getIconesDirection().get(i).equals("tournerDroite")) {
+				FrmPanelUtilisateur.getDirectionAPrendre().setIcon(new ImageIcon(imgTourneDroite));
+				FrmPanelUtilisateur.getDirectionAPrendre().setText("Tournez a droite");
+				FrmPanelUtilisateur.getEtatTraffic().setIcon(new ImageIcon(imgpointVert));
+				FrmPanelUtilisateur.getEtatTraffic().setText("Traffic fluide");
+				System.out.println(i + "droite");
+				
+			} else if (ActionEvenement.getIconesDirection().get(i).equals("tournerGauche")) {
+				FrmPanelUtilisateur.getDirectionAPrendre().setIcon(new ImageIcon(imgTourneGauche));
+				FrmPanelUtilisateur.getDirectionAPrendre().setText("Tournez a gauche");
+				FrmPanelUtilisateur.getEtatTraffic().setIcon(new ImageIcon(imgpointVert));
+				FrmPanelUtilisateur.getEtatTraffic().setText("Traffic fluide");
+				System.out.println(i + "gauche");
+			}
+		}
+		
+		/**
+		 * Indication de la congestion
+		 */
+		if(ActionEvenement.getIndicationCongestion().equals("imgpointRouge")) {
+			FrmPanelUtilisateur.getEtatTraffic().setIcon(new ImageIcon(imgpointRouge));
+			FrmPanelUtilisateur.getEtatTraffic().setText("Congestion!!!");
+		}
 
 		g.drawImage(image, ActionEvenement.getPointCheminVoiture().get(i).x-10,
 				//ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null) - 10), null);

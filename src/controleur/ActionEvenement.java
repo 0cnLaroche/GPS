@@ -12,6 +12,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import modele.Evenement;
 import modele.Graph;
 import modele.Voiture;
 import vue.FrmPanelSimulation;
@@ -25,10 +26,14 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	private PanelUtilisateur panelUtilisateur;
 
 	private FrmPanelSimulation panelSimulation;
+	
+	private Evenement evenement;
 
 	private Voiture voiture;
 
 	private static ArrayList<Point> pointCheminVoiture;
+	
+	private static ArrayList<String> iconesDirection;
 
 	// private Evenements Event;
 
@@ -37,6 +42,8 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	private static String pointDepart; // contient le nom du noeud de depart
 
 	private static String pointArriver;// contient le nom du noeud d'arriver
+	
+	private static String indicationCongestion = "";
 
 	/**
 	 * liste qui contient les coordonnes des points (intersections des routes) du
@@ -82,12 +89,42 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	/**
 	 * Methodes accesseurs et modificateurs
 	 */
+	
+	
 
 	/**
 	 * @return the pointCheminVoiture
 	 */
 	public static List<Point> getPointCheminVoiture() {
 		return ActionEvenement.pointCheminVoiture;
+	}
+	
+	/**
+	 * @return the indicationCongestion
+	 */
+	public static String getIndicationCongestion() {
+		return indicationCongestion;
+	}
+
+	/**
+	 * @param indicationCongestion the indicationCongestion to set
+	 */
+	public static void setIndicationCongestion(String indicationCongestion) {
+		ActionEvenement.indicationCongestion = indicationCongestion;
+	}
+
+	/**
+	 * @return the iconesDirection
+	 */
+	public static ArrayList<String> getIconesDirection() {
+		return iconesDirection;
+	}
+
+	/**
+	 * @param iconesDirection the iconesDirection to set
+	 */
+	public static void setIconesDirection(ArrayList<String> iconesDirection) {
+		ActionEvenement.iconesDirection = iconesDirection;
 	}
 
 	/**
@@ -193,14 +230,37 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		 * Recupere les routes de depart et d'arriver saisi et les afficher dans les Label correspondant
 		 */
 		Object src = e.getSource();
+		
 		if (src == FrmPanelSimulation.getRouteDepSaisi()) {
 			pointDepart = FrmPanelSimulation.getRouteDepSaisi().getText();
 			System.out.println("Depart : " + pointDepart);
 			FrmPanelSimulation.getInfoRouteDepart().setText("Depart : " + pointDepart);
+			
 		} else if (src == FrmPanelSimulation.getRouteArrSaisi()) {
 			pointArriver = FrmPanelSimulation.getRouteArrSaisi().getText();
 			System.out.println("Destination : " + pointArriver);
 			FrmPanelSimulation.getInfoRouteArriver().setText("Destination : " + pointArriver);
+		}
+		
+			/**
+			 * Recuperer la saisi du Jtextfield PremierNoeudRouteAccident pour generer l'evenement de 
+			 * type accident et relancer le calcul du chemin le plus court
+			 */
+		else if(src == FrmPanelSimulation.getPremierNoeudRouteAccident()) {
+			System.out.println("La router accidenter est : " + FrmPanelSimulation.getPremierNoeudRouteAccident().getText());
+			indicationCongestion = "imgpointRouge";
+			FrmPanelUtilisateur.getAvertissementEvenement().setText("Attention!!! ACCIDENT SUR : " + FrmPanelSimulation.getPremierNoeudRouteAccident().getText());
+			
+		}
+		
+		/**
+		 * Resuperer la saisi du Jtextfield PremierNoeudRouteTraffic pour generer l'evenement 
+		 * de type traffic et relancer le calcul du chemin le plus court
+		 */
+		else if(src == FrmPanelSimulation.getPremierNoeudRouteTraffic()) {
+			System.out.println("La router qui a le traffic est : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
+			indicationCongestion = "imgpointRouge";
+			FrmPanelUtilisateur.getAvertissementEvenement().setText("Attention!!! TRAFFIC SUR : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
 		}
 
 		String nomButtonClique = e.getActionCommand(); // on recupere le nom du button cliquer
@@ -266,6 +326,8 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 																											// chemin le
 																											// plus
 																											// court
+			
+			ActionEvenement.iconesDirection = voiture.directionAPrendreDansCheminPlusCourt(graphe.getNoeudCheminPlusCourt());
 			
 			for (Point point : pointCheminVoiture) {
 				//System.out.println(point.toString());
