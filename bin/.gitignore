@@ -1,6 +1,13 @@
-/modele/
-/pointeur.png
-/vue/
+/Coordonees.txt
+/Coordonnees.csv
 /controleur/
-/img_521963.png
+/liens.csv
+/liensCorrecte.csv
+/modele/
+/outils/
+/pointeur.png
 /pointeurVieu.png
+/tournerDroite.png
+/tournerGauche.png
+/toutDroit.png
+/vue/
