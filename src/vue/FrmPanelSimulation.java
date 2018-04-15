@@ -39,9 +39,29 @@ public class FrmPanelSimulation extends JFrame {
 	
 	private static JTextField routeArrSaisi;
 	private static JTextField routeDepSaisi;
+	private static JTextField premierNoeudRouteAccident;
+	private static JTextField premierNoeudRouteTraffic;
 	
 
 	private ActionEvenement actionEvenement;
+
+	
+	
+	public static JTextField getPremierNoeudRouteAccident() {
+		return premierNoeudRouteAccident;
+	}
+
+	public static void setPremierNoeudRouteAccident(JTextField premierNoeudRouteAccident) {
+		FrmPanelSimulation.premierNoeudRouteAccident = premierNoeudRouteAccident;
+	}
+
+	public static JTextField getPremierNoeudRouteTraffic() {
+		return premierNoeudRouteTraffic;
+	}
+
+	public static void setPremierNoeudRouteTraffic(JTextField premierNoeudRouteTraffic) {
+		FrmPanelSimulation.premierNoeudRouteTraffic = premierNoeudRouteTraffic;
+	}
 
 	/**
 	 * @return the panelUtilisateur
@@ -277,6 +297,16 @@ public class FrmPanelSimulation extends JFrame {
 		contrainte.gridx = 0;
 		contrainte.gridy = 1;
 		panelSimulation.add(routeDepart, contrainte);
+		
+		genereAccident = new JButton("Generer un accident");
+		genereAccident.setFont(new Font("Serif", Font.BOLD, 19));
+		genereAccident.setToolTipText("cliquer pour generer un accident");
+		genereAccident.addActionListener(new ActionEvenement());// ajout d'un ecouteur sur le boutton
+		contrainte.fill = GridBagConstraints.HORIZONTAL;
+		contrainte.fill = GridBagConstraints.VERTICAL;
+		contrainte.gridx = 0;
+		contrainte.gridy = 2;
+		panelSimulation.add(genereAccident, contrainte);
 
 		/**
 		 * Composantes de la deuxieme colonne du GridBagLayout
@@ -293,9 +323,6 @@ public class FrmPanelSimulation extends JFrame {
 		contrainte.gridy = 0;
 		panelSimulation.add(infoRouteDepart, contrainte);
 		
-		/**
-		 * ajouter une fonction qui genere aleatoirement le accident
-		 */
 		routeDepSaisi = new JTextField("Entre votre point de depart");
 		routeDepSaisi.addActionListener(new ActionEvenement());// ajout d'un ecouteur
 		contrainte.anchor = GridBagConstraints.LINE_START;
@@ -305,15 +332,15 @@ public class FrmPanelSimulation extends JFrame {
 		contrainte.gridy = 1;
 		panelSimulation.add(routeDepSaisi, contrainte);
 		
-		genereAccident = new JButton("Generer un accident");
-		genereAccident.setFont(new Font("Serif", Font.BOLD, 19));
-		genereAccident.setToolTipText("cliquer pour generer un accident");
-		genereAccident.addActionListener(new ActionEvenement());// ajout d'un ecouteur sur le boutton
+		premierNoeudRouteAccident = new JTextField("1er Noeud route accidentee");
+		premierNoeudRouteAccident.setToolTipText("Entrez le premier noeud du lien (route) accidentee");
+		premierNoeudRouteAccident.addActionListener(new ActionEvenement());// ajout d'un ecouteur
+		contrainte.anchor = GridBagConstraints.LINE_START;
 		contrainte.fill = GridBagConstraints.HORIZONTAL;
 		contrainte.fill = GridBagConstraints.VERTICAL;
 		contrainte.gridx = 1;
 		contrainte.gridy = 2;
-		panelSimulation.add(genereAccident, contrainte);
+		panelSimulation.add(premierNoeudRouteAccident, contrainte);
 
 		/**
 		 * Composantes de la troisieme colonne du GridBagLayout
@@ -371,5 +398,15 @@ public class FrmPanelSimulation extends JFrame {
 		contrainte.gridx = 3;
 		contrainte.gridy = 1;
 		panelSimulation.add(routeArrSaisi, contrainte);
+		
+		premierNoeudRouteTraffic = new JTextField("1er Noeud route qui a un traffic");
+		premierNoeudRouteTraffic.setToolTipText("Entrez le premier noeud du lien (route) qui a un traffic");
+		premierNoeudRouteTraffic.addActionListener(new ActionEvenement());// ajout d'un ecouteur
+		contrainte.anchor = GridBagConstraints.LINE_START;
+		contrainte.fill = GridBagConstraints.HORIZONTAL;
+		contrainte.fill = GridBagConstraints.VERTICAL;
+		contrainte.gridx = 3;
+		contrainte.gridy = 2;
+		panelSimulation.add(premierNoeudRouteTraffic, contrainte);
 	}
 }
