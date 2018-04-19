@@ -293,11 +293,31 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 			String nomRouteEvenement = FrmPanelSimulation.getNoeudAccident();// on recupere le nom de la route ou l'evennement sera généré
 			System.out.println("Click sur Generer un accident sur Noeud : " + nomRouteEvenement);
 			//
-			Evenement evenement = new Evenement("Accident",Evenement.HIGH);
-			graphe.addEvenement(voiture.getRouteCourante(), evenement);
+			Evenement evenement = new Evenement("Accident",Evenement.FULL);
+			
+			if (trajet.getListeNoeuds().contains(graphe.getNoeud(nomRouteEvenement))){
+				Noeud noeudSuivant;
+				for (int i = 0; i < trajet.getListeNoeuds().size(); i++){
+					Noeud n = trajet.getListeNoeuds().get(i);
+					if (n.equals(graphe.getNoeud(nomRouteEvenement))){
+						if (n.equals(trajet.getListeNoeuds().get(Math.abs(i-1)))){
+							noeudSuivant = trajet.getListeNoeuds().get(Math.abs(i-1));
+						} else {
+							noeudSuivant = trajet.getListeNoeuds().get(Math.abs(i+1));
+						}
+						graphe.addEvenement(trajet.getLien(graphe.getNoeud(nomRouteEvenement).getNom().hashCode() 
+								+ noeudSuivant.getNom().hashCode()), evenement);
+						break;
+					}
+				}
+				
+			}
+			
+			System.out.println(graphe.getEvenements().toString());
 			
 			//On recalcule un nouveau chemin
-			graphe.calculCheminCourt(voiture.getNoeudProchain(), graphe.getNoeud(pointArriver));//On continura le chemin courant 
+			System.out.println("Noeud prochain" + voiture.getNoeudProchain());
+			graphe.calculCheminCourt(graphe.getNoeud(pointDepart), graphe.getNoeud(pointArriver));//On continura le chemin courant 
 																						//et recalcule à partir du prochain noeud
 			System.out.println(graphe.getTrajet().getListeNoeuds().toString());
 			Trajet trajet = graphe.getTrajet();
