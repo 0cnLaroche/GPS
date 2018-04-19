@@ -40,7 +40,7 @@ public class FrmPanelUtilisateur extends JFrame {
 	public FrmPanelUtilisateur(ActionEvenement controller) {
 		super("Systemes de transports intelligents");
 		this.actionEvenement = controller; //ajouter pour le test
-		//graphe = new Graph();
+
 		fenetreUtilisateur();
 	}
 	

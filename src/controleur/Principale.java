@@ -1,6 +1,7 @@
 package controleur;
 
 import vue.FrmPanelSimulation;
+import vue.FrmPanelUtilisateur;
 import modele.Graph;
 import outils.*;
 
@@ -16,7 +17,9 @@ public class Principale {
 		
 		ActionEvenement action = new ActionEvenement(graphe);
 		
+		FrmPanelUtilisateur frmUtil = new FrmPanelUtilisateur(action);
+		frmUtil.setVisible(true);
 		FrmPanelSimulation frmSimu = new FrmPanelSimulation(action);
-		frmSimu.setVisible(true);	
+		frmSimu.setVisible(true);
 	}
 }

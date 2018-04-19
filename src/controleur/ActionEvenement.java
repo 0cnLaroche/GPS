@@ -282,7 +282,9 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 			/**
 			 * generer de maniere aleatoire la route de l'evenement
 			 */
-			String nomRouteEvenement = panelSimulation.getNoeudAccident();// on recupere le nom de la route ou l'evennement sera généré
+			String nomRouteEvenement = FrmPanelSimulation.getNoeudAccident();// on recupere le nom de la route ou l'evennement sera généré
+			System.out.println("Click sur Generer un accident sur Noeud : " + nomRouteEvenement);
+			//
 			Evenement evenement = new Evenement("Accident",Evenement.HIGH);
 			graphe.addEvenement(voiture.getRouteCourante(), evenement);
 			
@@ -319,8 +321,8 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 			/**
 			 * Creer un Panel utilisateur a l'appuis sur demarrer
 			 */
-			frmPanelUtilisateur = new FrmPanelUtilisateur(this);
-			frmPanelUtilisateur.setVisible(true);
+			//frmPanelUtilisateur = new FrmPanelUtilisateur(this);
+			//frmPanelUtilisateur.setVisible(true);
 			
 
 			

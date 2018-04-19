@@ -191,19 +191,23 @@ public class Graph {
 		}
 	}
 	public Trajet getTrajet(){
-		Trajet trajet = new Trajet();
-		ArrayList<Noeud> noeudsEnOrdre = new ArrayList<Noeud>();
-		for (int i=noeudCheminPlusCourt.size()-1;i>0;i-- ){
-			Noeud depart = noeudCheminPlusCourt.get(i);
-			Noeud arrive = noeudCheminPlusCourt.get(i-1);
-			trajet.addNoeud(depart);
-			trajet.addNoeud(arrive);
-			trajet.addLien(depart, arrive);
-			noeudsEnOrdre.add(noeudCheminPlusCourt.get(i));
+		if (noeudCheminPlusCourt != null && !noeudCheminPlusCourt.isEmpty()){
+			Trajet trajet = new Trajet();
+			ArrayList<Noeud> noeudsEnOrdre = new ArrayList<Noeud>();
+			for (int i=noeudCheminPlusCourt.size()-1;i>0;i-- ){
+				Noeud depart = noeudCheminPlusCourt.get(i);
+				Noeud arrive = noeudCheminPlusCourt.get(i-1);
+				trajet.addNoeud(depart);
+				trajet.addNoeud(arrive);
+				trajet.addLien(depart, arrive);
+				noeudsEnOrdre.add(noeudCheminPlusCourt.get(i));
+			}
+			noeudsEnOrdre.add(noeudCheminPlusCourt.get(0));
+			trajet.setListeNoeuds(noeudsEnOrdre);
+			return trajet;
 		}
-		noeudsEnOrdre.add(noeudCheminPlusCourt.get(0));
-		trajet.setListeNoeuds(noeudsEnOrdre);
-		return trajet;
+		return null;
+
 	}
 
 	/**
@@ -247,7 +251,6 @@ public class Graph {
 			 */
 			
 			for (Lien lien : courantTempo.getVoisins()) {
-				//System.out.println(lien.toString());
 				try {
 
 					if (lien.getNoeudUn().getNom().equals(courantTempo.getNom())) {
