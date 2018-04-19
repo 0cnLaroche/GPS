@@ -13,7 +13,6 @@ public class Principale {
 		Graph graphe =  new Graph();
 		graphe.setNoeuds(new CSV("res/Coordonnees.csv"));
 		graphe.setLiens(new CSV("res/liensCorrecte.csv"));
-		System.out.println(graphe.getLiens().toString());
 		
 		ActionEvenement action = new ActionEvenement(graphe);
 		

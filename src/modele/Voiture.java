@@ -8,6 +8,8 @@ import vue.PanelUtilisateur;
 public class Voiture {
 
 	private Point positionVoiture; //Represente la position de la voiture a un instant t
+	private Lien route; //Represente le lien emprunté à l'instant t
+	private Noeud nProchain,nPrecedant;
 	private ArrayList<Point> cheminVoiture; //Tableau des point representant le chemin de la voiture
 	private Point depart, arriver;//attribut contenant les points de depart et d'arriver temporaire
 	private double dx, dy, temps, frames, stepx, stepy; //varialbes de l'equation
@@ -19,6 +21,25 @@ public class Voiture {
 		this.depart = new Point(0, 0);
 		this.arriver = new Point(0, 0);
 		this.cheminVoiture = new ArrayList<Point>();
+	}
+	/**Pour obtenir l'objet lien représentant la route présentement emprunté
+	 * @author Samuel
+	 * @return		Lien présentement emprunter dans le trajet
+	 */
+	public Lien getRouteCourante(){
+		return this.route;
+	}
+	/** @author Samuel
+	 * @return		Le dernier noeud emprunté. Celui de départ sinon
+	 */
+	public Noeud getNoeudPrecedant(){
+		return this.nPrecedant;
+	}
+	/**@author Samuel
+	 * @return 		Le prochain noeud sur le trajet. Destination finale sinon.
+	 */
+	public Noeud getNoeudProchain(){
+		return this.nProchain;
 	}
 
 	/**
@@ -103,12 +124,15 @@ public class Voiture {
 			
 			Noeud nDepart = cheminCourt.get(i);
 			Noeud nArriver = cheminCourt.get(i+1);
+			nProchain = nArriver;
+			nPrecedant = nDepart;
 			
 			depart = cheminCourt.get(i).getCoordonnees();
 			arriver = cheminCourt.get(i + 1).getCoordonnees();
 			
 			//retrouver le lien ici pour avoir le poid
 			Lien lien = nDepart.getLien(nArriver);
+			this.route = lien; //lien à l'instant t
 
 			System.out.println(nDepart.getNom());
 			System.out.println(nArriver.getNom());

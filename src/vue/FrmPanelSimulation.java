@@ -47,8 +47,8 @@ public class FrmPanelSimulation extends JFrame {
 
 	private ActionEvenement actionEvenement;
 	
-	public String getNoeudAccident() {
-		return this.premierNoeudRouteAccident.getText();
+	public static String getNoeudAccident() {
+		return premierNoeudRouteAccident.getText();
 	}
 
 	public static void setPremierNoeudRouteAccident(JTextField premierNoeudRouteAccident) {

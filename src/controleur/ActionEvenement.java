@@ -253,14 +253,14 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 			 * Recuperer la saisi du Jtextfield PremierNoeudRouteAccident pour generer l'evenement de 
 			 * type accident et relancer le calcul du chemin le plus court
 			 */
-		/*else if(src == FrmPanelSimulation.getPremierNoeudRouteAccident()) {
-			System.out.println("La router accidenter est : " + FrmPanelSimulation.getPremierNoeudRouteAccident().getText());
+		else if(src == FrmPanelSimulation.getPremierNoeudRouteTraffic()) {
+			System.out.println("La router accidenter est : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
 			indicationCongestion = "imgpointRouge";
-			FrmPanelUtilisateur.getAvertissementEvenement().setText("Attention!!! ACCIDENT SUR : " + FrmPanelSimulation.getPremierNoeudRouteAccident().getText());
+			FrmPanelUtilisateur.getAvertissementEvenement().setText("Attention!!! ACCIDENT SUR : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
 			
-		}*/
+		}
 		
-		/**
+		/*
 		 * Resuperer la saisi du Jtextfield PremierNoeudRouteTraffic pour generer l'evenement 
 		 * de type traffic et relancer le calcul du chemin le plus court
 		 */
@@ -271,7 +271,7 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		}
 
 		String nomButtonClique = e.getActionCommand(); // on recupere le nom du button cliquer
-		/**
+		/*
 		 * la classe Evennements recoit ce qui est saisi dans le Jtextfield
 		 * "Localisation de l'accident" donc le nom de la route ou l'evennement doit
 		 * etre generer et et le nom du button cliquer pour savoir le type d'evennement
@@ -282,11 +282,17 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 			/**
 			 * generer de maniere aleatoire la route de l'evenement
 			 */
-			String nomRouteEvenement = panelSimulation.getNoeudAccident();// on
-			// recupere le nom de la route ou
-			// l'evennement sera genere
-			// On doit récuperé le prochain lien du trajet
-			//new Evenement(nomRouteEvenement, nomButtonClique);
+			String nomRouteEvenement = panelSimulation.getNoeudAccident();// on recupere le nom de la route ou l'evennement sera généré
+			Evenement evenement = new Evenement("Accident",Evenement.HIGH);
+			graphe.addEvenement(voiture.getRouteCourante(), evenement);
+			
+			//On recalcule un nouveau chemin
+			graphe.calculCheminCourt(voiture.getNoeudProchain(), graphe.getNoeud(pointArriver));//On continura le chemin courant 
+																						//et recalcule à partir du prochain noeud
+			System.out.println(graphe.getTrajet().getListeNoeuds().toString());
+			Trajet trajet = graphe.getTrajet();
+			
+			ActionEvenement.pointCheminVoiture = voiture.deplacerPoint(trajet.getListeNoeuds());
 
 		} else if (nomButtonClique.equals("Generer un traffic")) {
 			System.out.println("Click sur Generer un traffic");
