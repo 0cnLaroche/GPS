@@ -3,6 +3,8 @@ package modele;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import outils.CSV;
@@ -31,8 +33,6 @@ public class Graph {
 		this.liens = new HashMap<Integer, Lien>();
 		this.plusCourtChemin = new ArrayList<Noeud>();
 		this.noeudCheminPlusCourt = new ArrayList<Noeud>();
-		this.setNoeuds(new CSV("res/Coordonnees.csv"));
-		this.setLiens(new CSV("res/liensCorrecte.csv"));
 		this.evenements = new HashMap<Integer, Evenement>();
 	}
 
@@ -81,6 +81,24 @@ public class Graph {
 	 */
 	public HashMap<Integer, Lien> getLiens() {
 		return liens;
+	}
+	public ArrayList<Lien> getListeLiens(){
+		Iterator it = liens.entrySet().iterator();
+		ArrayList<Lien> list = new ArrayList<Lien>();
+		while(it.hasNext()){
+			Map.Entry pair = (Entry) it.next();
+			list.add((Lien) pair.getValue());
+		}
+		return list;		
+	}
+	public ArrayList<Noeud> getListeNoeuds(){
+		Iterator it = noeuds.entrySet().iterator();
+		ArrayList<Noeud> list = new ArrayList<Noeud>();
+		while(it.hasNext()){
+			Map.Entry pair = (Entry) it.next();
+			list.add((Noeud) pair.getValue());
+		}
+		return list;		
 	}
 	public HashMap<Integer, Evenement> getEvenements(){
 		return this.evenements;
@@ -171,6 +189,21 @@ public class Graph {
 			Noeud n = new Noeud(nom, new Point(x, y));
 			this.addNoeud(n);
 		}
+	}
+	public Trajet getTrajet(){
+		Trajet trajet = new Trajet();
+		ArrayList<Noeud> noeudsEnOrdre = new ArrayList<Noeud>();
+		for (int i=noeudCheminPlusCourt.size()-1;i>0;i-- ){
+			Noeud depart = noeudCheminPlusCourt.get(i);
+			Noeud arrive = noeudCheminPlusCourt.get(i-1);
+			trajet.addNoeud(depart);
+			trajet.addNoeud(arrive);
+			trajet.addLien(depart, arrive);
+			noeudsEnOrdre.add(noeudCheminPlusCourt.get(i));
+		}
+		noeudsEnOrdre.add(noeudCheminPlusCourt.get(0));
+		trajet.setListeNoeuds(noeudsEnOrdre);
+		return trajet;
 	}
 
 	/**

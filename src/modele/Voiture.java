@@ -90,8 +90,8 @@ public class Voiture {
 	public ArrayList<Point> deplacerPoint(ArrayList<Noeud> cheminCourt) {
 		ArrayList<Point> cheminVoiture = new ArrayList<Point>();
 
-		x = cheminCourt.get(cheminCourt.size() - 1).getCoordonnees().x;
-		y = cheminCourt.get(cheminCourt.size() - 1).getCoordonnees().y;
+		x = cheminCourt.get(0).getCoordonnees().x;
+		y = cheminCourt.get(0).getCoordonnees().y;
 
 		positionVoiture.setLocation( x, y);
 		
@@ -99,25 +99,24 @@ public class Voiture {
 		 * on parcours le tableau a l'envers car les noeuds du chemin le plus court sont
 		 * stockee du dernier au premier
 		 */
-		for (int i = cheminCourt.size() - 1; i > 0; i--) {
+		for (int i = 0; i < cheminCourt.size()-1; i++) {
 			
 			Noeud nDepart = cheminCourt.get(i);
-			Noeud nArriver = cheminCourt.get(i-1);
+			Noeud nArriver = cheminCourt.get(i+1);
 			
 			depart = cheminCourt.get(i).getCoordonnees();
-			arriver = cheminCourt.get(i - 1).getCoordonnees();
+			arriver = cheminCourt.get(i + 1).getCoordonnees();
 			
 			//retrouver le lien ici pour avoir le poid
 			Lien lien = nDepart.getLien(nArriver);
 
 			System.out.println(nDepart.getNom());
-
 			System.out.println(nArriver.getNom());
 			System.out.println(lien.toString());
 			
 			temps = lien.getPoid() * lien.getCongestion();
 			//temps = Math.hypot(nArriver.getX()-nDepart.getX(), nArriver.getY()-nDepart.getY());
-			System.out.println(lien.getCongestion());
+			System.out.println("facteur congestion : " + lien.getCongestion());
 			dx = arriver.getX() - depart.getX();
 			dy = arriver.getY() - depart.getY();
 
@@ -186,24 +185,24 @@ public class Voiture {
 	public ArrayList<String> directionAPrendreDansCheminPlusCourt(ArrayList<Noeud> cheminCourt) {
 		ArrayList<String> nomIconDirectionAPrendre = new ArrayList<>();
 
-		for (int i = cheminCourt.size() - 1; i > 0; i--) {
-			if (cheminCourt.get(i).getX() < cheminCourt.get(0).getX()) {
+		for (int i = 0; i < cheminCourt.size()-1; i++) {
+			if (cheminCourt.get(i).getX() < cheminCourt.get(i+1).getX()) {
 				/**
 				 * On compare les positions des noeuds appartenant au chemin le plus court
 				 * et dependament du resultat on stocke le nom de l'icone de direction correspondante 
 				 * 
 				 * Ici le sens de depalcement est de la gauche de l'ecran vers la droite
 				 */
-				if (cheminCourt.get(i).getY() < cheminCourt.get(i - 1).getY()
-						|| cheminCourt.get(i).getX() > cheminCourt.get(i - 1).getX()) {
+				if (cheminCourt.get(i).getY() < cheminCourt.get(i + 1).getY()
+						|| cheminCourt.get(i).getX() > cheminCourt.get(i + 1).getX()) {
 					/**
 					 * La voiture se deplace dans le sens inverse a celui des tests de comparaison
 					 * des noeuds
 					 */
 					nomIconDirectionAPrendre.add("tournerDroite");
 
-				} else if (cheminCourt.get(i).getY() > cheminCourt.get(i - 1).getY()
-						|| cheminCourt.get(i).getX() < cheminCourt.get(i - 1).getX()) {
+				} else if (cheminCourt.get(i).getY() > cheminCourt.get(i + 1).getY()
+						|| cheminCourt.get(i).getX() < cheminCourt.get(i + 1).getX()) {
 
 					nomIconDirectionAPrendre.add("tournerGauche");
 				} else {
@@ -214,16 +213,16 @@ public class Voiture {
 				/**
 				 * On fait la meme chose mais dans l'autre sens (de la droite de l'ecran vers la gauche)
 				 */
-				if (cheminCourt.get(i).getY() > cheminCourt.get(i - 1).getY()
-						|| cheminCourt.get(i).getX() < cheminCourt.get(i - 1).getX()) {
+				if (cheminCourt.get(i).getY() > cheminCourt.get(i + 1).getY()
+						|| cheminCourt.get(i).getX() < cheminCourt.get(i + 1).getX()) {
 					/**
 					 * La voiture se deplace dans le sens inverse a celui des tests de comparaison
 					 * des noeuds
 					 */
 					nomIconDirectionAPrendre.add("tournerDroite");
 
-				} else if (cheminCourt.get(i).getY() < cheminCourt.get(i - 1).getY()
-						|| cheminCourt.get(i).getX() > cheminCourt.get(i - 1).getX()) {
+				} else if (cheminCourt.get(i).getY() < cheminCourt.get(i + 1).getY()
+						|| cheminCourt.get(i).getX() > cheminCourt.get(i + 1).getX()) {
 
 					nomIconDirectionAPrendre.add("tournerGauche");
 				} else {

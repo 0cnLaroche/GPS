@@ -14,6 +14,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.awt.geom.*;
 
@@ -59,20 +60,22 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 	private Image imgpointVert;
 	
 	private double tempDeParcour = 0;
+	
+	private ActionEvenement actionEvenement;
 
 	/**
 	 * declaration d'un attribut qui a le type de la classe qui contient les actions
 	 * correspondant aux evenements
 	 */
-	private ActionEvenement actionEvenement = new ActionEvenement();
+	
 
 	int cpt = 0; // temporaire pour le test
 
-	public PanelUtilisateur(Graph graphe) {
+	public PanelUtilisateur(ActionEvenement controller) {
+		
+		this.actionEvenement = controller;
 		super.setBackground(new Color(220,220,220));
-		// graphe.setNoeuds(new CSV("SystemGuidageRoutier/res/Coordonnees.csv"));
-		// graphe.setLiens(new CSV("SystemGuidageRoutier/res/liens.csv"));
-		this.graphe = graphe;
+		this.graphe = controller.getGraphe();
 		t.start();
 		delaisTimer = t.getDelay();
 
@@ -124,9 +127,9 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 		/**
 		 * Dessiner les noeud et les liens entre les noeuds sur le Panel
 		 */
-		for (Entry<Integer, Lien> entry : graphe.getLiens().entrySet()) {
+		for (Lien l : graphe.getListeLiens()) {
 			// Integer cle = entry.getKey();
-			valeur = entry.getValue();
+			valeur = l;
 
 			/*
 			 * x1 = valeur.getNoeudUn().getCoordonnees().x; y1 =
@@ -208,17 +211,20 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 		}
 		g.setColor(Color.GREEN);
 		g2.setStroke(new BasicStroke(5));
-
+	
 		/**
 		 * Desinner le trajet
 		 */
-		for (int j = 0; j < ActionEvenement.getPointCheminVoiture().size() - 1; j++) { 
-			
-			g2.drawLine(ActionEvenement.getPointCheminVoiture().get(j).x + 10,
+		for (int j = 0; j < actionEvenement.getTrajet().size() - 1; j++) { 
+			ArrayList<Noeud> list = actionEvenement.getTrajet().getListeNoeuds();
+			/*g2.drawLine(ActionEvenement.get(i).x + 10,
 					ActionEvenement.getPointCheminVoiture().get(j).y + 10,
 					ActionEvenement.getPointCheminVoiture().get(j + 1).x + 10,
-					ActionEvenement.getPointCheminVoiture().get(j + 1).y + 10);
-
+					ActionEvenement.getPointCheminVoiture().get(j + 1).y + 10);*/
+			g2.drawLine(list.get(j).getCoordonnees().x + 10, 
+					(list.get(j).getCoordonnees().y + 10), 
+					list.get(j + 1).getCoordonnees().x + 10,
+					list.get(j + 1).getCoordonnees().y + 10);
 		}
 
 		/**
@@ -256,9 +262,9 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 			FrmPanelUtilisateur.getEtatTraffic().setText("Congestion!!!");
 		}
 
-		g.drawImage(image, ActionEvenement.getPointCheminVoiture().get(i).x-10,
+		g.drawImage(image,actionEvenement.getTrajet().getListeNoeuds().get(i).getCoordonnees().x -10,
 				//ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null) - 10), null);
-				ActionEvenement.getPointCheminVoiture().get(i).y - 10, null);
+				actionEvenement.getTrajet().getListeNoeuds().get(i).getCoordonnees().y - 10, null);
 
 		// g.fillOval(ActionEvenement.getPointCheminVoiture().get(i).x,
 		// ActionEvenement.getPointCheminVoiture().get(i).y, 15, 15);
@@ -276,7 +282,7 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 		 * code pour test
 		 */
 
-		if (i < ActionEvenement.getPointCheminVoiture().size() - 1) {
+		if (i < actionEvenement.getTrajet().size()- 1) {
 
 			i++;
 		}

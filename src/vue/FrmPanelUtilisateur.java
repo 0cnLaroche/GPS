@@ -30,15 +30,17 @@ public class FrmPanelUtilisateur extends JFrame {
 
 	private Graph graphe;
 	
+	private ActionEvenement actionEvenement;
+	
 	//private ActionEvenement controleur;
 
 	/**
 	 * constructeur de la classe
 	 */
-	public FrmPanelUtilisateur() {
+	public FrmPanelUtilisateur(ActionEvenement controller) {
 		super("Systemes de transports intelligents");
-		//controleur = new ActionEvenement();//ajouter pour le test
-		graphe = new Graph();
+		this.actionEvenement = controller; //ajouter pour le test
+		//graphe = new Graph();
 		fenetreUtilisateur();
 	}
 	
@@ -164,7 +166,7 @@ public class FrmPanelUtilisateur extends JFrame {
 		 * Creation et ajout du JPanel qui contient le dessin (graphe) du reseau routier sur le
 		 * JFrame
 		 */
-		panelUtilisateur = new PanelUtilisateur(graphe);
+		panelUtilisateur = new PanelUtilisateur(actionEvenement);
 		this.add(panelUtilisateur);
 
 		/**
