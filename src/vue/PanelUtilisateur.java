@@ -218,6 +218,7 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 			 * Desinner le trajet
 			 */
 			for (int j = 0; j < actionEvenement.getTrajet().size() - 1; j++) { 
+				
 				ArrayList<Noeud> list = actionEvenement.getTrajet().getListeNoeuds();
 
 				g2.drawLine(list.get(j).getCoordonnees().x + 10, 
@@ -260,9 +261,9 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 				FrmPanelUtilisateur.getEtatTraffic().setText("Congestion!!!");
 			}
 
-			g.drawImage(image,actionEvenement.getTrajet().getListeNoeuds().get(i).getCoordonnees().x -10,
+			g.drawImage(image,ActionEvenement.getPointCheminVoiture().get(i).x -10,
 					//ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null) - 10), null);
-					actionEvenement.getTrajet().getListeNoeuds().get(i).getCoordonnees().y - 10, null);
+					ActionEvenement.getPointCheminVoiture().get(i).y - 10, null);
 
 			// g.fillOval(ActionEvenement.getPointCheminVoiture().get(i).x,
 			// ActionEvenement.getPointCheminVoiture().get(i).y, 15, 15);
@@ -285,8 +286,8 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 		 * code pour test
 		 */
 
-		if (actionEvenement.getTrajet() != null){
-			if(i < actionEvenement.getTrajet().size()- 1) {
+		if (ActionEvenement.getPointCheminVoiture() != null){
+			if(i < ActionEvenement.getPointCheminVoiture().size() - 1 ) {
 				i++;
 		}
 

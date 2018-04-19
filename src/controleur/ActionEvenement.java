@@ -102,6 +102,14 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	public Trajet getTrajet() {
 		return graphe.getTrajet();
 	}
+	public static ArrayList<Point> getPointCheminVoiture() {
+		return pointCheminVoiture;
+	}
+
+	public static void setPointCheminVoiture(ArrayList<Point> pointCheminVoiture) {
+		ActionEvenement.pointCheminVoiture = pointCheminVoiture;
+	}
+
 	public Graph getGraphe(){
 		return this.graphe;
 	}
