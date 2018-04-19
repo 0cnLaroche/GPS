@@ -116,7 +116,7 @@ public class Voiture {
 			
 			temps = lien.getPoid() * lien.getCongestion();
 			//temps = Math.hypot(nArriver.getX()-nDepart.getX(), nArriver.getY()-nDepart.getY());
-			System.out.println("facteur congestion : " + lien.getCongestion());
+			
 			dx = arriver.getX() - depart.getX();
 			dy = arriver.getY() - depart.getY();
 
@@ -124,6 +124,9 @@ public class Voiture {
 																		// classe PanelUtilisateur
 			stepx = dx / frames;
 			stepy = dy / frames;
+			
+			System.out.println("facteur congestion : " + lien.getCongestion() + ", dx: " + stepx + ", dy: "+ stepy);
+			
 
 			while (positionVoiture.x < arriver.x || positionVoiture.x > arriver.x) {
 				
