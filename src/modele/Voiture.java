@@ -107,23 +107,31 @@ public class Voiture {
 	 * 
 	 * @param cheminCourt
 	 *            Tableau contenant les noeuds du chemin le plus court
+	 * @return Tableau contenant les points representant le parcour de la voiture sur le chemin le plus court
 	 */
 	public ArrayList<Point> deplacerPoint(ArrayList<Noeud> cheminCourt) {
 		ArrayList<Point> cheminVoiture = new ArrayList<Point>();
-
+		
 		x = cheminCourt.get(0).getCoordonnees().x;
 		y = cheminCourt.get(0).getCoordonnees().y;
-
-		positionVoiture.setLocation( x, y);
 		
+		positionVoiture.setLocation( x, y);
+		cheminVoiture.add(positionVoiture.getLocation());
 		/**
-		 * on parcours le tableau a l'envers car les noeuds du chemin le plus court sont
-		 * stockee du dernier au premier
+		 * Parcourir le tableau contenant les noeud du chemin le plus court et 
+		 * deplacer la voiture sur ce chemin 
 		 */
 		for (int i = 0; i < cheminCourt.size()-1; i++) {
+
+			x = cheminCourt.get(i).getCoordonnees().x;
+			y = cheminCourt.get(i).getCoordonnees().y;
+
+			//positionVoiture.setLocation( x, y);
+			//cheminVoiture.add(positionVoiture.getLocation());
 			
 			Noeud nDepart = cheminCourt.get(i);
 			Noeud nArriver = cheminCourt.get(i+1);
+			
 			nProchain = nArriver;
 			nPrecedant = nDepart;
 			
@@ -134,18 +142,16 @@ public class Voiture {
 			Lien lien = nDepart.getLien(nArriver);
 			this.route = lien; //lien à l'instant t
 
-			System.out.println(nDepart.getNom());
+/*			System.out.println(nDepart.getNom());
 			System.out.println(nArriver.getNom());
-			System.out.println(lien.toString());
+			System.out.println(lien.toString());*/
 			
 			temps = lien.getPoid() * lien.getCongestion();
-			//temps = Math.hypot(nArriver.getX()-nDepart.getX(), nArriver.getY()-nDepart.getY());
 			
 			dx = arriver.getX() - depart.getX();
 			dy = arriver.getY() - depart.getY();
 
-			frames = (temps * 50) / PanelUtilisateur.getDelaisTimer(); //utilisation d'une variable static pour avoir le delay du timer de la 
-																		// classe PanelUtilisateur
+			frames = (temps * 50) / PanelUtilisateur.getDelaisTimer(); 
 			stepx = dx / frames;
 			stepy = dy / frames;
 			
@@ -155,16 +161,13 @@ public class Voiture {
 			while (positionVoiture.x < arriver.x || positionVoiture.x > arriver.x) {
 				
 				cheminVoiture.add(positionVoiture.getLocation());
-				
-			/*	System.out.println("La position de la voiture est : " + positionVoiture.x);
-				System.out.println("Le prochain point d'arriver est : " + arriver.x);
-				System.out.println("le poid vaut : " + temps);
-				System.out.println("Le delais du timer vaut : " + PanelUtilisateur.getDelaisTimer());*/
+
 				/**
 				 * code Sam
 				 */
 				//TODO: Réinitialiser au prochain point du trajet et non le point actuel pour éliminer les déviations
 				positionVoiture.setLocation(x, y);// point representant la position de la voiture a l'instant t
+				
 				if (x < (depart.getX() + dx) && y < (depart.getY() + dy)) {
 					x += stepx;
 					y += stepy;
@@ -180,13 +183,14 @@ public class Voiture {
 						x += stepx;
 						y += stepy;
 					}
-				}//-------------------fin code Sam-----------------------------
+				}
 				
 				//System.out.println("La position de la voiture est : " + positionVoiture.toString());//a enlever a la fin
 
 				positionVoiture.setLocation(x, y);//point representant la position
 				}
 			//positionVoiture.setLocation(cheminCourt.get(i+1).getCoordonnees());//àTester
+
 		}
 		
 		cheminVoiture.add(positionVoiture.getLocation());
@@ -199,7 +203,7 @@ public class Voiture {
 	public double dureeDuTrajet(ArrayList<Noeud> cheminCourt) {
 		double tempParcourt = 0;
 		for(Noeud noeud : cheminCourt) {
-			//tempParcourt += noeud.get
+			tempParcourt += noeud.getLongueurChemin();
 		}
 		return tempParcourt;
 		
@@ -208,6 +212,10 @@ public class Voiture {
 	/**
 	 * Methode qui permet de definir les directions a prendre a partir des noeud du
 	 * chemin le plus court
+	 * @param cheminCourt 
+	 * 					Tableaux contenant les noeuds du chemin le plus court 
+	 * @return Tableau contenant les noms des directions a prendre par rapport au
+	 * 			chemin le plus court
 	 */
 	public ArrayList<String> directionAPrendreDansCheminPlusCourt(ArrayList<Noeud> cheminCourt) {
 		ArrayList<String> nomIconDirectionAPrendre = new ArrayList<>();

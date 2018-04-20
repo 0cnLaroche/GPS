@@ -35,7 +35,7 @@ public class FrmPanelSimulation extends JFrame {
 	 * Champs de saisi pour entre l'endroit ou on veut generer un evenement
 	 */
 	private JLabel routeArriver;
-	private JLabel routeDepart;
+	private static JLabel routeDepart;
 	private static JLabel infoRouteDepart;
 	private static JLabel infoRouteArriver;
 	
@@ -51,17 +51,43 @@ public class FrmPanelSimulation extends JFrame {
 		return premierNoeudRouteAccident.getText();
 	}
 
+	
+
+	/**
+	 * @return the premierNoeudRouteAccident
+	 */
+	public static JTextField getPremierNoeudRouteAccident() {
+		return premierNoeudRouteAccident;
+	}
+
+
+
+	/**
+	 * @param premierNoeudRouteAccident the premierNoeudRouteAccident to set
+	 */
 	public static void setPremierNoeudRouteAccident(JTextField premierNoeudRouteAccident) {
 		FrmPanelSimulation.premierNoeudRouteAccident = premierNoeudRouteAccident;
 	}
 
+
+
+	/**
+	 * @return the premierNoeudRouteTraffic
+	 */
 	public static JTextField getPremierNoeudRouteTraffic() {
 		return premierNoeudRouteTraffic;
 	}
 
+
+
+	/**
+	 * @param premierNoeudRouteTraffic the premierNoeudRouteTraffic to set
+	 */
 	public static void setPremierNoeudRouteTraffic(JTextField premierNoeudRouteTraffic) {
 		FrmPanelSimulation.premierNoeudRouteTraffic = premierNoeudRouteTraffic;
 	}
+
+
 
 	/**
 	 * @return the panelUtilisateur
@@ -156,7 +182,7 @@ public class FrmPanelSimulation extends JFrame {
 	/**
 	 * @return the routeTraffic
 	 */
-	public JLabel getRouteDepart() {
+	public static JLabel getRouteDepart() {
 		return routeDepart;
 	}
 
@@ -324,8 +350,8 @@ public class FrmPanelSimulation extends JFrame {
 		contrainte.anchor = GridBagConstraints.LINE_END;
 		contrainte.fill = GridBagConstraints.HORIZONTAL;
 		contrainte.fill = GridBagConstraints.VERTICAL;
-		contrainte.gridx = 1;
-		contrainte.gridy = 0;
+		contrainte.gridx = 0;
+		contrainte.gridy = 1;
 		panelSimulation.add(infoRouteDepart, contrainte);
 		
 		routeDepSaisi = new JTextField(); //Point de départ
@@ -358,7 +384,7 @@ public class FrmPanelSimulation extends JFrame {
 		 * ajouter une fonction qui genere aleatoirement le traffic
 		 */
 		genereTraffic = new JButton("Generer un traffic");
-		genereTraffic.setEnabled(false);
+		genereTraffic.setEnabled(true);
 		genereTraffic.setFont(new Font("Serif", Font.BOLD, 19));
 		genereTraffic.setToolTipText("cliquer pour generer un traffic");
 		genereTraffic.addActionListener(actionEvenement);// ajout d'un ecouteur sur le boutton

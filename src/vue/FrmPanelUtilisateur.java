@@ -48,8 +48,6 @@ public class FrmPanelUtilisateur extends JFrame {
 	 * Methode accesseur
 	 */
 	
-	
-
 	/**
 	 * @return the panelUtilisateur
 	 */

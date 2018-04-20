@@ -10,7 +10,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+
+import com.sun.corba.se.impl.io.TypeMismatchException;
 
 import modele.Evenement;
 import modele.Graph;
@@ -21,23 +24,25 @@ import vue.FrmPanelSimulation;
 import vue.FrmPanelUtilisateur;
 import vue.PanelUtilisateur;
 
-public class ActionEvenement implements ActionListener, MouseListener, WindowListener {
+public class ActionEvenement implements ActionListener {
 
 	private FrmPanelUtilisateur frmPanelUtilisateur;
 
 	private PanelUtilisateur panelUtilisateur;
 
 	private FrmPanelSimulation panelSimulation;
-	
+
 	private Evenement evenement;
 
 	private Voiture voiture;
 
 	private static Trajet trajet;
-	
-	private static ArrayList<Point>pointCheminVoiture;
-	
+
+	private static ArrayList<Point> pointCheminVoiture;
+
 	private static ArrayList<String> iconesDirection;
+	
+	private double tempParcours;
 
 	// private Evenements Event;
 
@@ -46,7 +51,7 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	private static String pointDepart; // contient le nom du noeud de depart
 
 	private static String pointArriver;// contient le nom du noeud d'arriver
-	
+
 	private static String indicationCongestion = "";
 
 	/**
@@ -78,6 +83,7 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		super();
 		this.voiture = new Voiture();
 		this.graphe = graphe;
+		//this.trajet = new Trajet();
 		// ActionEvenement.pointCheminVoiture = new ArrayList<Point>();
 	}
 
@@ -94,14 +100,27 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	 * Methodes accesseurs et modificateurs
 	 */
 	
-	
-
 	/**
 	 * @return the pointCheminVoiture
 	 */
 	public Trajet getTrajet() {
 		return graphe.getTrajet();
 	}
+
+	/**
+	 * @return the tempParcours
+	 */
+	public double getTempParcours() {
+		return tempParcours;
+	}
+
+	/**
+	 * @param tempParcours the tempParcours to set
+	 */
+	public void setTempParcours(double tempParcours) {
+		this.tempParcours = tempParcours;
+	}
+
 	public static ArrayList<Point> getPointCheminVoiture() {
 		return pointCheminVoiture;
 	}
@@ -110,10 +129,10 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		ActionEvenement.pointCheminVoiture = pointCheminVoiture;
 	}
 
-	public Graph getGraphe(){
+	public Graph getGraphe() {
 		return this.graphe;
 	}
-	
+
 	/**
 	 * @return the indicationCongestion
 	 */
@@ -122,7 +141,8 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	}
 
 	/**
-	 * @param indicationCongestion the indicationCongestion to set
+	 * @param indicationCongestion
+	 *            the indicationCongestion to set
 	 */
 	public static void setIndicationCongestion(String indicationCongestion) {
 		ActionEvenement.indicationCongestion = indicationCongestion;
@@ -136,7 +156,8 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 	}
 
 	/**
-	 * @param iconesDirection the iconesDirection to set
+	 * @param iconesDirection
+	 *            the iconesDirection to set
 	 */
 	public static void setIconesDirection(ArrayList<String> iconesDirection) {
 		ActionEvenement.iconesDirection = iconesDirection;
@@ -150,135 +171,55 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		ActionEvenement.trajet = trajet;
 	}
 
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		cpt++;
-		g = panelUtilisateur.getGraphics();
-		// Graphics2D g2 = (Graphics2D) g;
-		debut = e.getPoint();
-		coordonnnePoint.add(debut);
-		// voiture.ecrireFichier(debut); // ecriture des coordonnes du point dans le
-		// fichier
-		g.setColor(Color.RED);
-		g.fillOval(debut.x, debut.y, 10, 10);
-		System.out.println("Element a la " + (cpt - 1) + " position");
-		System.out
-				.println("X : " + coordonnnePoint.get(cpt - 1).getX() + "  Y : " + coordonnnePoint.get(cpt - 1).getY());
-
-		if (cpt == 2) {
-			// pointGraphe.deplacerPoint(fin, debut);
-		}
-		fin = debut;
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 	// @SuppressWarnings("unlikely-arg-type")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		/**
-		 * Recupere les routes de depart et d'arriver saisi et les afficher dans les Label correspondant
+		 * Recupere les routes de depart et d'arriver saisi et les afficher dans les
+		 * Label correspondant
 		 */
 		Object src = e.getSource();
-		
+
 		if (src == FrmPanelSimulation.getRouteDepSaisi()) {
-			pointDepart = FrmPanelSimulation.getRouteDepSaisi().getText();
-			System.out.println("Depart : " + pointDepart);
-			FrmPanelSimulation.getInfoRouteDepart().setText("Depart : " + pointDepart);
-			
+
+				pointDepart = FrmPanelSimulation.getRouteDepSaisi().getText();
+				System.out.println("Depart : " + pointDepart);
+				FrmPanelSimulation.getRouteDepart().setText("Depart : " + pointDepart);
+
 		} else if (src == FrmPanelSimulation.getRouteArrSaisi()) {
-			pointArriver = FrmPanelSimulation.getRouteArrSaisi().getText();
-			System.out.println("Destination : " + pointArriver);
-			FrmPanelSimulation.getInfoRouteArriver().setText("Destination : " + pointArriver);
+				pointArriver = FrmPanelSimulation.getRouteArrSaisi().getText();
+				System.out.println("Destination : " + pointArriver);
+				FrmPanelSimulation.getInfoRouteArriver().setText("Destination : " + pointArriver);
 		}
-		
-			/**
-			 * Recuperer la saisi du Jtextfield PremierNoeudRouteAccident pour generer l'evenement de 
-			 * type accident et relancer le calcul du chemin le plus court
-			 */
-		else if(src == FrmPanelSimulation.getPremierNoeudRouteTraffic()) {
-			System.out.println("La router accidenter est : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
-			indicationCongestion = "imgpointRouge";
-			FrmPanelUtilisateur.getAvertissementEvenement().setText("Attention!!! ACCIDENT SUR : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
-			
-		}
-		
-		/*
-		 * Resuperer la saisi du Jtextfield PremierNoeudRouteTraffic pour generer l'evenement 
-		 * de type traffic et relancer le calcul du chemin le plus court
+
+		/**
+		 * Recuperer la saisi du Jtextfield PremierNoeudRouteAccident pour generer
+		 * l'evenement de type accident et relancer le calcul du chemin le plus court
 		 */
-		else if(src == FrmPanelSimulation.getPremierNoeudRouteTraffic()) {
-			System.out.println("La router qui a le traffic est : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
+		else if (src == FrmPanelSimulation.getPremierNoeudRouteAccident()) {
 			indicationCongestion = "imgpointRouge";
-			FrmPanelUtilisateur.getAvertissementEvenement().setText("Attention!!! TRAFFIC SUR : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
+			FrmPanelUtilisateur.getAvertissementEvenement().setText(
+					"Attention!!! ACCIDENT SUR : " + FrmPanelSimulation.getPremierNoeudRouteAccident().getText());
+
+		}
+
+		/*
+		 * Resuperer la saisi du Jtextfield PremierNoeudRouteTraffic pour generer
+		 * l'evenement de type traffic et relancer le calcul du chemin le plus court
+		 */
+		else if (src == FrmPanelSimulation.getPremierNoeudRouteTraffic()) {
+			System.out.println(
+					"La router qui a le traffic est : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
+			indicationCongestion = "imgpointRouge";
+			FrmPanelUtilisateur.getAvertissementEvenement().setText(
+					"Attention!!! TRAFFIC SUR : " + FrmPanelSimulation.getPremierNoeudRouteTraffic().getText());
 		}
 
 		String nomButtonClique = e.getActionCommand(); // on recupere le nom du button cliquer
+		
 		/*
 		 * la classe Evennements recoit ce qui est saisi dans le Jtextfield
 		 * "Localisation de l'accident" donc le nom de la route ou l'evennement doit
@@ -287,41 +228,47 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 		 */
 		if (nomButtonClique.equals("Generer un accident")) {
 			System.out.println("Click sur Generer un accident");
-			/**
-			 * generer de maniere aleatoire la route de l'evenement
-			 */
-			String nomRouteEvenement = FrmPanelSimulation.getNoeudAccident();// on recupere le nom de la route ou l'evennement sera généré
-			System.out.println("Click sur Generer un accident sur Noeud : " + nomRouteEvenement);
-			//
-			Evenement evenement = new Evenement("Accident",Evenement.FULL);
 			
-			if (trajet.getListeNoeuds().contains(graphe.getNoeud(nomRouteEvenement))){
+			trajet = graphe.getTrajet();
+			
+			System.out.println("La taille de listeNoeud est : " + trajet.getListeNoeuds().size());
+			
+			String nomRouteEvenement = FrmPanelSimulation.getNoeudAccident();// on recupere le nom de la route ou
+																				// l'evennement sera généré
+
+			System.out.println("Click sur Generer un accident sur Noeud : " + nomRouteEvenement);
+			
+			Evenement evenement = new Evenement("Accident", Evenement.FULL);
+			
+			if (trajet.getListeNoeuds().contains(graphe.getNoeud(nomRouteEvenement))) {
 				Noeud noeudSuivant;
-				for (int i = 0; i < trajet.getListeNoeuds().size(); i++){
+				for (int i = 0; i < trajet.getListeNoeuds().size(); i++) {
 					Noeud n = trajet.getListeNoeuds().get(i);
-					if (n.equals(graphe.getNoeud(nomRouteEvenement))){
-						if (n.equals(trajet.getListeNoeuds().get(Math.abs(i-1)))){
-							noeudSuivant = trajet.getListeNoeuds().get(Math.abs(i-1));
+					if (n.equals(graphe.getNoeud(nomRouteEvenement))) {
+						if (n.equals(trajet.getListeNoeuds().get(Math.abs(i - 1)))) {
+							noeudSuivant = trajet.getListeNoeuds().get(Math.abs(i - 1));
 						} else {
-							noeudSuivant = trajet.getListeNoeuds().get(Math.abs(i+1));
+							noeudSuivant = trajet.getListeNoeuds().get(Math.abs(i + 1));
 						}
-						graphe.addEvenement(trajet.getLien(graphe.getNoeud(nomRouteEvenement).getNom().hashCode() 
+						graphe.addEvenement(trajet.getLien(graphe.getNoeud(nomRouteEvenement).getNom().hashCode()
 								+ noeudSuivant.getNom().hashCode()), evenement);
 						break;
 					}
 				}
-				
+
 			}
-			
+
 			System.out.println(graphe.getEvenements().toString());
+
+			// On recalcule un nouveau chemin
+			System.out.println("Noeud prochain est : " + voiture.getNoeudProchain());
 			
-			//On recalcule un nouveau chemin
-			System.out.println("Noeud prochain" + voiture.getNoeudProchain());
-			graphe.calculCheminCourt(graphe.getNoeud(pointDepart), graphe.getNoeud(pointArriver));//On continura le chemin courant 
-																						//et recalcule à partir du prochain noeud
+			graphe.calculCheminCourt(graphe.getNoeud(pointDepart), graphe.getNoeud(pointArriver));// On continura le
+																									// chemin courant
+			// et recalcule à partir du prochain noeud
 			System.out.println(graphe.getTrajet().getListeNoeuds().toString());
-			Trajet trajet = graphe.getTrajet();
-			
+			//trajet1 = graphe.getTrajet();
+
 			ActionEvenement.pointCheminVoiture = voiture.deplacerPoint(trajet.getListeNoeuds());
 
 		} else if (nomButtonClique.equals("Generer un traffic")) {
@@ -333,29 +280,27 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 			// recupere le nom de la route ou
 			// l'evennement sera generer
 			Evenement accident = new Evenement(nomRouteEvenement, Evenement.MEDIUM);
-			//graphe.addEvenement(nomRouteEvenement, accident);
+			// graphe.addEvenement(nomRouteEvenement, accident);
 
-		} else if (nomButtonClique.equals("Démarrer") && !nbrClick) {
+		} else if (nomButtonClique.equals("Démarrer")  && !nbrClick) {
 
 			System.out.println("Click sur Demarrer");
-			
-			nbrClick = true;// on empeche le reaffichage du panel en cas d'un second appuis
-			
+
+			nbrClick = true;// Empeche le reaffichage du panel en cas d'un second appuis
+
 			/**
 			 * Instance de la class Voiture, rpresente la voiture qui va se deplacer
 			 */
 			voiture = new Voiture();
-			
+
 			/**
 			 * Creer un Panel utilisateur a l'appuis sur demarrer
 			 */
-			//frmPanelUtilisateur = new FrmPanelUtilisateur(this);
-			//frmPanelUtilisateur.setVisible(true);
-			
+			// frmPanelUtilisateur = new FrmPanelUtilisateur(this);
+			// frmPanelUtilisateur.setVisible(true);
 
-			
 			if (pointDepart != null && pointArriver != null) {
-				
+
 				/*
 				 * Calculer le chemin le plus court entre le noeud de depart et le noeud
 				 * d'arrive grace a la methode calculCheminCourt de la classe graphe qui utilise
@@ -363,26 +308,33 @@ public class ActionEvenement implements ActionListener, MouseListener, WindowLis
 				 * chemin le plus court dans l'attribut NoeudCheminPlusCourt (ArrayList) de sa
 				 * classe
 				 */
-				graphe.calculCheminCourt(graphe.getNoeud(pointDepart), graphe.getNoeud(pointArriver));// calcul du chemin le
-																									// plus court
-				System.out.println(graphe.getTrajet().getListeNoeuds().toString());
-				Trajet trajet = graphe.getTrajet();
+				graphe.calculCheminCourt(graphe.getNoeud(pointDepart), graphe.getNoeud(pointArriver));// calcul du
+																										// chemin le
+																										// plus court
+				//System.out.println(graphe.getTrajet().getListeNoeuds().toString());
+				
+				trajet = graphe.getTrajet();
+				System.out.println("La taille de listeNoeud est : " + trajet.getListeNoeuds().size());
 				/*
 				 * Stocker les points correspondant au chemin le plus court calculer dans la
 				 * classe voiture dans l'ArrayList pointCheminVoiture
 				 */
-				
+
 				ActionEvenement.pointCheminVoiture = voiture.deplacerPoint(trajet.getListeNoeuds());// deplacement
-																										// sur le
-																												// chemin le
-																												// plus
-																												// court
+																									// sur le
+																									// chemin le
+																									// plus
+																									// court
+				
+				tempParcours = voiture.dureeDuTrajet(trajet.getListeNoeuds());
+				
+				System.out.println("Le temps du parcours est : " + tempParcours);
 				
 				ActionEvenement.iconesDirection = voiture.directionAPrendreDansCheminPlusCourt(trajet.getListeNoeuds());
 				
 			}
 
-		} 
+		}
 	}
 
 }

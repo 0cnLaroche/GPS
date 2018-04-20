@@ -45,7 +45,7 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 
 	private static int delaisTimer;
 
-	int i = 0; // indice du tableau pointCheminCourt
+	private int i = 0, j = 0; // indice du tableau pointCheminCourt
 
 	private Image image;
 
@@ -97,6 +97,8 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 	/**
 	 * Methode accesseur
 	 */
+	
+	
 
 	/**
 	 * @return the delaisTimer
@@ -264,10 +266,12 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 			g.drawImage(image,ActionEvenement.getPointCheminVoiture().get(i).x -10,
 					//ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null) - 10), null);
 					ActionEvenement.getPointCheminVoiture().get(i).y - 10, null);
+			
 
 			// g.fillOval(ActionEvenement.getPointCheminVoiture().get(i).x,
 			// ActionEvenement.getPointCheminVoiture().get(i).y, 15, 15);
-
+			
+			FrmPanelUtilisateur.getTempParcours().setText(String.valueOf("Durée du parcour : " + (int)actionEvenement.getTempParcours()));
 			
 		}
 
@@ -290,9 +294,12 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 			if(i < ActionEvenement.getPointCheminVoiture().size() - 1 ) {
 				i++;
 		}
-
-	
-		}
+/*			if(ActionEvenement.getPointCheminVoiture() != null ) {
+				if(j < ActionEvenement.getPointCheminVoiture().size() - 1) {
+					j++;
+				}
+			}*/
+	}
 
 		repaint();
 

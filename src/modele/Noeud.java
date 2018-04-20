@@ -28,6 +28,7 @@ public class Noeud {
 	}
 
 	/**
+	 * Permet d'obtenir le statu du noeud (temporaire ou permanent)
 	 * @return the statu
 	 */
 	public boolean isStatu() {
@@ -43,6 +44,7 @@ public class Noeud {
 	}
 
 	/**
+	 * Permet d'obtenir la longueur du chemin pour arriver a ce noeud
 	 * @return the longueurChemin
 	 */
 	public double getLongueurChemin() {
@@ -58,6 +60,7 @@ public class Noeud {
 	}
 
 	/**
+	 * Permet d'obtenir le noeud predescesseur du noeud courant
 	 * @return the predecesseur
 	 */
 	public String getPredecesseur() {
