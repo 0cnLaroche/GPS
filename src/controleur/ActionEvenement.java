@@ -267,7 +267,6 @@ public class ActionEvenement implements ActionListener {
 																									// chemin courant
 			// et recalcule à partir du prochain noeud
 			System.out.println(graphe.getTrajet().getListeNoeuds().toString());
-			//trajet1 = graphe.getTrajet();
 
 			ActionEvenement.pointCheminVoiture = voiture.deplacerPoint(trajet.getListeNoeuds());
 
@@ -280,7 +279,6 @@ public class ActionEvenement implements ActionListener {
 			// recupere le nom de la route ou
 			// l'evennement sera generer
 			Evenement accident = new Evenement(nomRouteEvenement, Evenement.MEDIUM);
-			// graphe.addEvenement(nomRouteEvenement, accident);
 
 		} else if (nomButtonClique.equals("Démarrer")  && !nbrClick) {
 
@@ -296,9 +294,6 @@ public class ActionEvenement implements ActionListener {
 			/**
 			 * Creer un Panel utilisateur a l'appuis sur demarrer
 			 */
-			// frmPanelUtilisateur = new FrmPanelUtilisateur(this);
-			// frmPanelUtilisateur.setVisible(true);
-
 			if (pointDepart != null && pointArriver != null) {
 
 				/*
@@ -311,10 +306,8 @@ public class ActionEvenement implements ActionListener {
 				graphe.calculCheminCourt(graphe.getNoeud(pointDepart), graphe.getNoeud(pointArriver));// calcul du
 																										// chemin le
 																										// plus court
-				//System.out.println(graphe.getTrajet().getListeNoeuds().toString());
 				
 				trajet = graphe.getTrajet();
-				System.out.println("La taille de listeNoeud est : " + trajet.getListeNoeuds().size());
 				/*
 				 * Stocker les points correspondant au chemin le plus court calculer dans la
 				 * classe voiture dans l'ArrayList pointCheminVoiture

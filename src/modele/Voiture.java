@@ -126,8 +126,8 @@ public class Voiture {
 			x = cheminCourt.get(i).getCoordonnees().x;
 			y = cheminCourt.get(i).getCoordonnees().y;
 
-			//positionVoiture.setLocation( x, y);
-			//cheminVoiture.add(positionVoiture.getLocation());
+		/*	positionVoiture.setLocation( x, y);
+			cheminVoiture.add(positionVoiture.getLocation());*/
 			
 			Noeud nDepart = cheminCourt.get(i);
 			Noeud nArriver = cheminCourt.get(i+1);

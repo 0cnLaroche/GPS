@@ -125,25 +125,12 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		double x1, y1, x2, y2 = 0;
-		// int x1, y1, x2, y2 = 0;
 		/**
 		 * Dessiner les noeud et les liens entre les noeuds sur le Panel
 		 */
 		for (Lien l : graphe.getListeLiens()) {
 			// Integer cle = entry.getKey();
 			valeur = l;
-
-			/*
-			 * x1 = valeur.getNoeudUn().getCoordonnees().x; y1 =
-			 * valeur.getNoeudUn().getCoordonnees().y;
-			 * 
-			 * x2 = valeur.getNoeudDeux().getCoordonnees().x; y2 =
-			 * valeur.getNoeudDeux().getCoordonnees().y; g.setColor(Color.RED);
-			 * 
-			 * g.fillOval(x1, y1, 15, 15); g.drawString(valeur.getNoeudUn().getNom(), x1,
-			 * y1); g.fillOval(x2, y2, 15, 15); g.drawString(valeur.getNoeudDeux().getNom(),
-			 * x2, y2);
-			 */
 
 			/**
 			 * Dessin utilisant la classe Graphics2D
@@ -198,12 +185,6 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 			try {
 
 				g.setColor(Color.BLACK);
-
-				/**
-				 * iterer sur la liste contenant les noeuds voisins au noeud courant et dessiner
-				 * a chaque fois les liens vers ses voisins
-				 */
-				// g.drawLine(x1 + 10, y1 + 10, x2 + 10, y2 + 10);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -264,12 +245,7 @@ public class PanelUtilisateur extends JPanel implements ActionListener {
 			}
 
 			g.drawImage(image,ActionEvenement.getPointCheminVoiture().get(i).x -10,
-					//ActionEvenement.getPointCheminVoiture().get(i).y - (image.getHeight(null) - 10), null);
 					ActionEvenement.getPointCheminVoiture().get(i).y - 10, null);
-			
-
-			// g.fillOval(ActionEvenement.getPointCheminVoiture().get(i).x,
-			// ActionEvenement.getPointCheminVoiture().get(i).y, 15, 15);
 			
 			FrmPanelUtilisateur.getTempParcours().setText(String.valueOf("Durée du parcour : " + (int)actionEvenement.getTempParcours()));
 			
