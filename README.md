@@ -1,10 +1,23 @@
 # Système Guidage Routier
-REMISE : Vendredi 20 avril
-## Notes
+
+Démonstrations vidéo ici :
+
+https://youtu.be/j96BcTlexs8
+
+https://youtu.be/a92mxe7NRo4
+
+## Membres de l'équipe
+
+ - Johanna Nemy
+ - Samuel Laroche
+ - Nduhura Credo
+ - Ulrich Kenmoe
+
+### Notes
 
 Je met une section comprennant diverses notes à partager avec l'équipe. Ajouter vos initiales après vos ajouts
 
-## TODO:
+### TODO:
 - Changement dynamique du temps: HIGH : FAIT
 - Implémenter les évènements : HIGH : 50%
 	- Traffic
@@ -16,7 +29,7 @@ Je met une section comprennant diverses notes à partager avec l'équipe. Ajoute
 - Affichage indicateur congestion LOW : Credo 80%
 - Améliorer la robustesse (gestion des évènements) : LOW
 - Commenter le code : LOW
-- Rapport : 75%
+- Rapport : FAIT
 
 
 ### Instructions pour importer dans eclipse
